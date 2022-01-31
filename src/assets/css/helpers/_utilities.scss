@@ -33,6 +33,7 @@ $utilities: map-merge(
         25: .25,
         50: .5,
         75: .75,
+        90: .90,
         100: 1,
       )
     ),
@@ -623,8 +624,40 @@ $utilities: map-merge(
         visible: visible,
         invisible: hidden,
       )
-    )
+    ),
     // scss-docs-end utils-visibility
+    // custom
+    "cursor": (
+      property: curser,
+      class: cursor,
+      values: (
+        pointer: pointer,
+      )
+    ),
+    "object-fit": (
+      property: object-fit,
+      class: object,
+      values: (
+        cover: cover,
+      )
+    ),
+    "z-index": (
+      property: z-index,
+      class: z,
+      values: (
+        1: 1,
+        2: 10,
+        3: 100,
+        4: 1000,
+      )
+    ),
+    "rotate": (
+      property: transform,
+      class: rotate,
+      values: (
+        180: rotate(180deg),
+      )
+    )
   ),
   $utilities
 );

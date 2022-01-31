@@ -1,0 +1,38 @@
+.scrollMore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(13vw);
+  position: absolute;
+  bottom: 0;
+  transform: translateY(50%);
+  cursor: pointer;
+  z-index: 1;
+  & .scrollMore__icon {
+    opacity: 1;
+    z-index: 2;
+    fill: $info;
+    transform: translateY(-70%);
+    &.scrollMore__icon--bounce {
+      &:hover {
+        animation: bounce 2s infinite;
+        @keyframes bounce {
+          0%, 100% {
+            transform: translateY(-70%);
+          }
+          50% {
+            transform: translateY(-50%);
+          }
+        }
+      }
+    }
+  }
+  & .scrollMore__circle {
+    position: absolute;
+    border-radius: 100%;
+    border: 10px double $info;
+    width: calc(13vw);
+    height: calc(13vw);
+  }
+}
