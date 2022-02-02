@@ -67,7 +67,8 @@ I still need more practice to get used to Vue. Besides, there are still room to 
 ### Useful resources
 
 - [What does 'playsinline' mean in web video](https://css-tricks.com/what-does-playsinline-mean-in-web-video/) - A simple and clear article explains how 'playsinline' attribute works in the video tag.
-- [Create a Website With Video Background](https://www.youtube.com/watch?v=8MgpE2DTTKA&ab_channel=TraversyMedia) - Create a beautiful, custom landing page for a Travel website using HTML, CSS and a little JavaScript
+- [Create a Website With Video Background](https://www.youtube.com/watch?v=8MgpE2DTTKA&ab_channel=TraversyMedia) - Create a beautiful, custom landing page for a Travel website using HTML, CSS and a little JavaScript.
+- [Minimal animated pure css menu icon](https://codepen.io/fromwireframes/pen/arMrYp) - Animated menu icon demo code.
 
 
 ## Author

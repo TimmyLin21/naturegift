@@ -1,5 +1,5 @@
 <template>
-  <nav class="z-1 c-navbar h-150">
+  <nav class="z-1 c-navbar h-150 fixed-top">
     <div class="container d-flex justify-content-between align-items-center">
       <a href="#" class="c-navbar__brand">
         <img src="@/assets/images/logo__transparent.png" alt="Nature Gift" class="w-150 h-150">

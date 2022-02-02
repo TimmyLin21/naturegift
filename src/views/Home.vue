@@ -20,15 +20,18 @@
       <div class="scrollMore__circle"></div>
     </div>
   </div>
+  <CategoryList></CategoryList>
 </template>
 
 <script>
 import CustomHeader from '@/components/CustomHeader.vue';
+import CategoryList from '@/components/CategoryList.vue';
 
 export default {
   name: 'Home',
   components: {
     CustomHeader,
+    CategoryList,
   },
 };
 </script>
