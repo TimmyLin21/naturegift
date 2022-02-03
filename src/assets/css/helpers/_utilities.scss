@@ -656,6 +656,7 @@ $utilities: map-merge(
       property: transform,
       class: rotate,
       values: (
+        n20: rotate(-20deg),
         180: rotate(180deg),
       )
     )
