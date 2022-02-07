@@ -58,6 +58,14 @@ Playsinline attribute in <video> tag allows the mobile browser play the video ri
   <source src="../assets/video/fresh-and-delicious.mp4" type="video/mp4">
 </video>
 ```
+Add the horizontal lines besides header with flexbox. 
+```html
+<h2 class="mb-4 text-secondary d-flex justify-content-between align-items-center">
+  <b class="d-block h-2 bg-primary flex-grow-1"></b>
+  <span class="mx-4">See why customers love our products</span>
+  <b class="d-block h-2 bg-primary flex-grow-1"></b>
+</h2>
+```
 
 
 ### Continued development

@@ -22,12 +22,14 @@
   </div>
   <CategoryList></CategoryList>
   <OurStory></OurStory>
+  <Reviews></Reviews>
 </template>
 
 <script>
 import CustomHeader from '@/components/CustomHeader.vue';
 import CategoryList from '@/components/CategoryList.vue';
 import OurStory from '@/components/OurStory.vue';
+import Reviews from '@/components/Reviews.vue';
 
 export default {
   name: 'Home',
@@ -35,14 +37,12 @@ export default {
     CustomHeader,
     CategoryList,
     OurStory,
+    Reviews,
   },
 };
 </script>
 
 <style lang="scss">
-  // .top-20 {
-  //   top: 20%;
-  // }
   .top-35 {
     top: 35%;
   }
