@@ -68,8 +68,8 @@ $colors: (
 
 // scss-docs-start theme-color-variables
 $primary:       #D9E2D5; // custom
-$secondary:     #3E6765; // custom
-$success:       $green !default;
+$secondary:     #3e6765; // custom
+$success:       rgb(61, 102, 100, 80%); // custom
 $info:          #B37A4C; // custom
 $warning:       $yellow !default;
 $danger:        $red !default;
@@ -533,6 +533,7 @@ $border-color:                $gray-300 !default;
 $border-radius:               .25rem !default;
 $border-radius-sm:            .2rem !default;
 $border-radius-lg:            .3rem !default;
+$border-radius-xl:            4rem ; // custom
 $border-radius-pill:          50rem !default;
 // scss-docs-end border-radius-variables
 

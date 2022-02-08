@@ -23,6 +23,7 @@
   <CategoryList></CategoryList>
   <OurStory></OurStory>
   <Reviews></Reviews>
+  <Footer></Footer>
 </template>
 
 <script>
@@ -30,6 +31,7 @@ import CustomHeader from '@/components/CustomHeader.vue';
 import CategoryList from '@/components/CategoryList.vue';
 import OurStory from '@/components/OurStory.vue';
 import Reviews from '@/components/Reviews.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
   name: 'Home',
@@ -38,6 +40,7 @@ export default {
     CategoryList,
     OurStory,
     Reviews,
+    Footer,
   },
 };
 </script>

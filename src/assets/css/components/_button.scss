@@ -1,0 +1,24 @@
+.c-btn {
+  border-radius: $border-radius-xl;
+  background-color: $secondary;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  & .c-btn__text {
+    display: block;
+    background: $primary;
+    padding: 0 20px;
+    border: 1px solid $dark;
+    border-radius: $border-radius-xl;
+    transform: translate(-4px,-4px);
+    transition: transform .3s cubic-bezier(.7,0,.2,1);
+    line-height: $line-height-lg;
+    min-width: 100%;
+    letter-spacing: 2px;
+    color: $secondary;
+  }
+  &:hover .c-btn__text {
+    transform: translate(-8px, -8px);
+    background: $gray-100;
+  }
+}

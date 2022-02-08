@@ -6,7 +6,7 @@
       </figure>
       <div class="py-5 text-primary w-50 text-start">
         <h2 class="mb-5">Our Story</h2>
-        <p class="mb-4">Launched in 2021, Nature Gift is a superfoods and spices supplier.
+        <p class="mb-4">Launched in 2022, Nature Gift is a superfoods and spices supplier.
          We searched the world to bring you nature's finest foods with exceptionally high
          nutritional profiles.</p>
         <p class="mb-5">Nature Gift sources 100% Fairtrade products. We believe farmers and workers
