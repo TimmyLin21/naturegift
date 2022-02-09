@@ -3,9 +3,18 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </div> -->
-  <router-view/>
+  <CustomHeader></CustomHeader>
+  <router-view class="mt-150" />
+  <Footer></Footer>
 </template>
+<script>
+import CustomHeader from '@/components/CustomHeader.vue';
+import Footer from '@/components/Footer.vue';
 
+export default {
+  components: { CustomHeader, Footer },
+};
+</script>
 <style lang="scss">
 @import './assets/css/all';
 
@@ -28,5 +37,8 @@
       color: #42b983;
     }
   }
+}
+.mt-150 {
+  margin-top: 150px;
 }
 </style>

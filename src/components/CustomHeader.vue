@@ -1,5 +1,5 @@
 <template>
-  <nav class="z-1 c-navbar h-150 fixed-top">
+  <nav class="z-1 c-navbar h-150 fixed-top bg-success">
     <div class="container d-flex justify-content-between align-items-center">
       <a href="#" class="c-navbar__brand">
         <img src="@/assets/images/logo__transparent.png" alt="Nature Gift" class="w-150 h-150">
@@ -24,9 +24,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/login" class="nav-link">
               <BIconPersonCircle width="24px" height="24px"></BIconPersonCircle>
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
