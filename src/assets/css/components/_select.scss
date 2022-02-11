@@ -1,0 +1,43 @@
+.c-select {
+  position: relative;
+  width: 180px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.c-select__selected {
+  background-color: $white;
+  padding: .5rem 3rem .5rem 1rem;
+  margin-top: .5rem;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  &::after {
+    position: absolute;
+    content: '';
+    border-width: 0px 3px 3px 0px;
+    padding: 3px;
+    rotate: 45deg;
+    border-color: $secondary;
+    border-style: solid;
+    right: 1.25rem;
+    top: 1rem;
+  }
+  &.select__arrow-active {
+    &::after {
+      rotate: -135deg;
+    }
+  }
+}
+.c-select__items {
+  position: absolute;
+  border-radius: $border-radius-lg;
+  // box-shadow: $box-shadow;
+  width: 180px;
+  & div {
+    background: $white;
+    padding: 0.5rem 1.5rem;
+    &:hover {
+      background-color: $primary;
+    }
+  }
+}

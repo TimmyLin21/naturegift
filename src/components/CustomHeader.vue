@@ -13,9 +13,15 @@
       </div>
       <div class="c-navbar__collapse" id="navbarCollapse">
         <ul class="c-navbar__nav text-primary">
-          <li class="nav-item"><a href="#" class="nav-link fw-bold">Shop</a></li>
-          <li class="nav-item"><a href="#" class="nav-link fw-bold">About us</a></li>
-          <li class="nav-item"><a href="#" class="nav-link fw-bold">Blog</a></li>
+          <li class="nav-item">
+            <router-link to="/shop" class="nav-link fw-bold">Shop</router-link>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link fw-bold">About us</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link fw-bold">Blog</a>
+          </li>
         </ul>
         <ul class="nav">
           <li class="nav-item">

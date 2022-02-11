@@ -659,7 +659,21 @@ $utilities: map-merge(
         n20: rotate(-20deg),
         180: rotate(180deg),
       )
-    )
+    ),
+    "list-style": (
+      property: list-style,
+      class: list-style,
+      values: (
+        none: none,
+      )
+    ),
+    "transition": (
+      property: transition,
+      class: trans,
+      values: (
+        ease-in-out: all .3s ease-in-out,
+      )
+    ),
   ),
   $utilities
 );
