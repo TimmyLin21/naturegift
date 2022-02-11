@@ -1,0 +1,42 @@
+.steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: .5rem auto;
+  width: 80%;
+  &::after {
+    content: '';
+    position: absolute;
+    top:50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: $secondary;
+  }
+}
+.steps__circle {
+  height: 5rem;
+  width: 5rem;
+  border: 5px double $white;
+  border-radius: 5rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $gray-200;
+  position: relative;
+  color: $gray-400;
+  &.steps__circle-done {
+    background-color: $secondary;
+    color: $primary;
+  }
+  &.steps__circle-active {
+    background-color: $primary;
+    color: $success;
+  }
+}
+.steps__text {
+  position: absolute;
+  bottom: -70%;
+  color: $success;
+}

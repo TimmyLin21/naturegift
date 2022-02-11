@@ -66,6 +66,12 @@ Add the horizontal lines besides header with flexbox.
   <b class="d-block h-2 bg-primary flex-grow-1"></b>
 </h2>
 ```
+Set input with 100% width in order to make sure input won't expands outside the td.
+```html
+<td width="10%">
+  <input type="number" min="0" value="1" class="w-100">
+</td>
+```
 
 
 ### Continued development

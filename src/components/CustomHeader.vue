@@ -25,9 +25,9 @@
         </ul>
         <ul class="nav">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/checkout" class="nav-link">
               <BIconBag width="24px" height="24px"></BIconBag>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/login" class="nav-link">
