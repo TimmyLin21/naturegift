@@ -15,7 +15,7 @@
             <li class="nav-item">
               <router-link to="/admin/product" class="nav-link">Product</router-link>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link to="/admin/coupon" class="nav-link">Coupon</router-link>
             </li>
             <li class="nav-item">
@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item">
               <router-link to="/admin/article" class="nav-link">Article</router-link>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>

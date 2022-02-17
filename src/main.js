@@ -4,11 +4,18 @@ import { BootstrapIconsPlugin } from 'bootstrap-icons-vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBalanceScale, faMedal, faLeaf } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import Loading from '@/components/Loading.vue';
+import BsAlert from '@/components/Alert.vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 import App from './App.vue';
 import router from './router';
 
 library.add(faBalanceScale, faMedal, faLeaf);
 const app = createApp(App);
 app.use(BootstrapIconsPlugin);
+app.use(VueAxios, axios);
 app.component('font-awesome-icon', FontAwesomeIcon);
+app.component('Loading', Loading);
+app.component('BsAlert', BsAlert);
 app.use(router).mount('#app');

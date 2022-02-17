@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import CategoryList from '@/components/CategoryList.vue';
-import OurStory from '@/components/OurStory.vue';
-import Reviews from '@/components/Reviews.vue';
+import CategoryList from '@/components/front/CategoryList.vue';
+import OurStory from '@/components/front/OurStory.vue';
+import Reviews from '@/components/front/Reviews.vue';
 
 export default {
   name: 'Home',

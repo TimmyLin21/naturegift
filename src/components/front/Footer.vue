@@ -11,9 +11,9 @@
           <div class="row align-items-center">
             <div class="col-md-11 mb-3 mb-md-0">
               <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput"
+                <input type="email" class="form-control" id="sub-email"
                 placeholder="Your Email">
-                <label for="floatingInput">Your Email</label>
+                <label for="sub-email">Your Email</label>
               </div>
             </div>
             <div class="col-md-1">

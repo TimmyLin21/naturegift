@@ -175,6 +175,26 @@ aria-labelledby="productModalLabel" aria-hidden="true">
 </template>
 <script>
 export default {
+  data() {
+    return {
+      products: '',
+      apiInfo: {
+        baseUrl: 'https://vue3-course-api.hexschool.io',
+        path: 'timtest',
+      },
+    };
+  },
+  methods: {
+    getProducts() {
+      this.$http.get(`${this.apiInfo.baseUrl}/v2/api/${this.apiInfo.path}/admin/products`)
+        .then((res) => {
+          this.products = res.data.products;
+        });
+    },
+  },
+  created() {
+    this.getProducts();
+  },
 };
 </script>
 <style lang="">

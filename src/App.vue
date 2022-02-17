@@ -1,4 +1,5 @@
 <template>
+  <Loading />
   <router-view />
 </template>
 <script>

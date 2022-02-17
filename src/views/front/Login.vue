@@ -9,25 +9,68 @@
         <h2 class="mb-0">Welcome Back!</h2>
         <small>Login to continue</small>
         <div class="form-floating my-3">
-          <input type="email" class="form-control" id="floatingInput" placeholder="Email">
-          <label for="floatingInput">Email address</label>
+          <input type="email" class="form-control" id="loginEmail" placeholder="Email"
+          v-model="userData.username">
+          <label for="loginEmail">Email address</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-          <label for="floatingPassword">Password</label>
+          <input type="password" class="form-control" id="loginPassword" placeholder="Password"
+          v-model="userData.password">
+          <label for="loginPassword">Password</label>
         </div>
-        <router-link to='/admin/product' class="c-btn">
+        <a href="#" class="c-btn" @click.prevent="login">
           <span class="c-btn__text">Login</span>
-        </router-link>
+        </a>
       </div>
     </div>
+    <BsAlert ref="alert" :is-success="isSuccess">{{ alertMsg }}</BsAlert>
   </section>
 </template>
 <script>
-export default {
+import { apiUserLogin, apiUserCheck } from '@/scripts/api';
 
+export default {
+  data() {
+    return {
+      userData: {
+        username: '',
+        password: '',
+      },
+      alertMsg: '',
+      isSuccess: false,
+    };
+  },
+  methods: {
+    login() {
+      if (!this.userData.username || !this.userData.password) {
+        this.$refs.alert.open();
+        this.alertMsg = 'Please enter email and password.';
+      } else {
+        apiUserLogin(this.userData)
+          .then((res) => {
+            this.$refs.alert.open();
+            this.alertMsg = 'Login success';
+            this.isSuccess = true;
+            // save token in cookie
+            const { token, expired } = res.data;
+            document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+            setTimeout(() => {
+              this.$router.push('/admin/product');
+            }, 1000);
+          })
+          .catch(() => {
+            this.$refs.alert.open();
+            this.alertMsg = 'Please check your email and password';
+            this.isSuccess = false;
+          });
+      }
+    },
+  },
+  mounted() {
+    apiUserCheck()
+      .then(() => {
+        this.$router.push('/admin/product');
+      });
+  },
 };
 </script>
-<style lang="">
-
-</style>

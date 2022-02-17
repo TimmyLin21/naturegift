@@ -4,8 +4,8 @@
   <Footer></Footer>
 </template>
 <script>
-import CustomHeader from '@/components/CustomHeader.vue';
-import Footer from '@/components/Footer.vue';
+import CustomHeader from '@/components/front/CustomHeader.vue';
+import Footer from '@/components/front/Footer.vue';
 
 export default {
   components: { CustomHeader, Footer },
