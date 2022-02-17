@@ -16,9 +16,9 @@
           <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
           <label for="floatingPassword">Password</label>
         </div>
-        <a href="#" class="c-btn">
+        <router-link to='/admin/product' class="c-btn">
           <span class="c-btn__text">Login</span>
-        </a>
+        </router-link>
       </div>
     </div>
   </section>

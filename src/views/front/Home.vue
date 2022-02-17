@@ -10,7 +10,7 @@
     </h1> -->
     <video class="position-absolute top-0 start-0 w-100 h-100 object-cover opacity-90 z-n1"
     autoplay loop muted playsinline>
-      <source src="../assets/video/fresh-and-delicious.mp4" type="video/mp4">
+      <source src="@/assets/video/fresh-and-delicious.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <div class="scrollMore">

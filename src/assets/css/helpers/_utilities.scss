@@ -114,6 +114,7 @@ $utilities: map-merge(
       )
     ),
     "border-end": (
+      responsive: true,
       property: border-right,
       class: border-end,
       values: (
@@ -122,6 +123,7 @@ $utilities: map-merge(
       )
     ),
     "border-bottom": (
+      responsive: true,
       property: border-bottom,
       values: (
         null: $border-width solid $border-color,
@@ -153,7 +155,9 @@ $utilities: map-merge(
       property: width,
       class: w,
       values: (
+        10: 10%,
         25: 25%,
+        33: 33.33%,
         50: 50%,
         75: 75%,
         100: 100%,
@@ -192,6 +196,7 @@ $utilities: map-merge(
       values: (100: 100%)
     ),
     "viewport-height": (
+      responsive: true,
       property: height,
       class: vh,
       values: (100: 100vh)
