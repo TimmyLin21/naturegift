@@ -46,8 +46,10 @@ export default {
         this.$refs.alert.open();
         this.alertMsg = 'Please enter email and password.';
       } else {
+        this.sendLoadingState(true);
         apiUserLogin(this.userData)
           .then((res) => {
+            this.sendLoadingState(false);
             this.$refs.alert.open();
             this.alertMsg = 'Login success';
             this.isSuccess = true;
@@ -59,11 +61,15 @@ export default {
             }, 1000);
           })
           .catch(() => {
+            this.sendLoadingState(false);
             this.$refs.alert.open();
             this.alertMsg = 'Please check your email and password';
             this.isSuccess = false;
           });
       }
+    },
+    sendLoadingState(state) {
+      this.$emitter.emit('loading-state', state);
     },
   },
   mounted() {
