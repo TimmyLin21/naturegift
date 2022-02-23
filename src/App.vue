@@ -8,7 +8,11 @@ export default {
   watch: {
     $route(to) {
       const nowTitle = to.meta.title || '';
-      document.title = `Nature Gift - ${nowTitle}`;
+      if (nowTitle) {
+        document.title = `Nature Gift - ${nowTitle}`;
+      } else {
+        document.title = 'Nature Gift';
+      }
     },
   },
 };

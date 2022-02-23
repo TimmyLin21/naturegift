@@ -85,6 +85,29 @@ this.$emitter.on('loading-state', (state) => {
   }
 });
 ```
+Most common way to monitor the height of the viewport is adding an event listener on window. You can also use watch to catch the height, but remember to apply $nextTick() method otherwise the height which you recieve will be the same.
+```js
+export default {
+  data() {
+    return {
+      isTop: true,
+    };
+  },
+  methods: {
+    scrollHeight() {
+      const scrollPosition = document.documentElement.scrollTop;
+      if (scrollPosition <= 150) {
+        this.isTop = true;
+      } else {
+        this.isTop = false;
+      }
+    },
+  },
+  mounted() {
+    document.addEventListener('scroll', this.scrollHeight);
+  },
+};
+```
 
 
 ### Continued development
