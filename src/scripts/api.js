@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'https://vue3-course-api.hexschool.io';
-// const path = 'timtest';
+const baseUrl = process.env.VUE_APP_API;
+// const path = process.env.VUE_APP_PATH;
 
 // Login
 export const apiUserLogin = (data) => axios.post(`${baseUrl}/v2/admin/signin`, data);

@@ -72,6 +72,19 @@ Set input with 100% width in order to make sure input won't expands outside the 
   <input type="number" min="0" value="1" class="w-100">
 </td>
 ```
+The class of body should be 100vh and overflow-hidden while loading, otherwise light-box won't be the same height as body.
+```js
+this.$emitter.on('loading-state', (state) => {
+  this.isLoading = state;
+  const body = document.querySelector('body');
+  if (state) {
+    window.scrollTo(0, 0);
+    body.setAttribute('class', 'mh-100vh overflow-hidden');
+  } else {
+    body.setAttribute('class', '');
+  }
+});
+```
 
 
 ### Continued development
