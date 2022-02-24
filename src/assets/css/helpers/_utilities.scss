@@ -181,6 +181,7 @@ $utilities: map-merge(
       values: (100: 100vw)
     ),
     "height": (
+      responsive: true,
       property: height,
       class: h,
       values: (

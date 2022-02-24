@@ -11,11 +11,11 @@
         </button>
         <div class="navbar-collapse collapse align-items-start justify-content-center"
         id="sidebarCollapse">
-          <ul class="navbar-nav flex-lg-column">
+          <ul class="navbar-nav flex-lg-column justify-content-lg-center h-lg-100">
             <li class="nav-item">
               <router-link to="/admin/product" class="nav-link">Product</router-link>
             </li>
-            <!-- <li class="nav-item">
+            <li class="nav-item">
               <router-link to="/admin/coupon" class="nav-link">Coupon</router-link>
             </li>
             <li class="nav-item">
@@ -23,20 +23,68 @@
             </li>
             <li class="nav-item">
               <router-link to="/admin/article" class="nav-link">Article</router-link>
-            </li> -->
+            </li>
+            <li class="nav-item mt-auto mb-3">
+              <a href="#" class="btn btn-outline-light" @click.prevent="signOut">Sign Out</a>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
-    <router-view></router-view>
+    <BsAlert ref="alert" :is-success="isSuccess">{{ alertMsg }}</BsAlert>
+    <router-view v-if="checkSuccess"></router-view>
   </div>
 </template>
 <script>
+import { apiUserCheck } from '@/scripts/api';
+
 export default {
+  data() {
+    return {
+      checkSuccess: false,
+      alertMsg: '',
+      isSuccess: true, // control alert bg color
+    };
+  },
+  methods: {
+    checkLogin() {
+      this.sendLoadingState(true);
+      apiUserCheck()
+        .then(() => {
+          this.checkSuccess = true;
+          this.sendLoadingState(false);
+          this.isSuccess = true;
+        })
+        .catch(() => {
+          this.isSuccess = false;
+          this.$refs.alert.open();
+          this.alertMsg = 'Please login again :)';
+          this.sendLoadingState(false);
+          setTimeout(() => {
+            this.$router.push('/login');
+          }, 1000);
+        });
+    },
+    sendLoadingState(state) {
+      this.$emitter.emit('loading-state', state);
+    },
+    signOut() {
+      document.cookie = 'hexToken=;expires=;';
+      this.$refs.alert.open();
+      this.alertMsg = 'Sign out success!';
+      setTimeout(() => {
+        this.$router.push('/');
+      }, 1000);
+    },
+  },
+  mounted() {
+    this.checkLogin();
+  },
 };
 </script>
 <style lang="scss">
 .router-link-active {
   color: white !important;
 }
+
 </style>

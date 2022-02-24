@@ -3,16 +3,16 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    name: 'Index',
-    component: () => import('@/views/front/Index.vue'),
+    name: 'Front',
+    component: () => import('@/views/front/Front.vue'),
     children: [
       {
-        path: '/',
+        path: '',
         name: 'Home',
         component: () => import('@/views/front/Home.vue'),
       },
       {
-        path: '/login',
+        path: 'login',
         name: 'Login',
         component: () => import('@/views/front/Login.vue'),
         meta: {
@@ -20,7 +20,7 @@ const routes = [
         },
       },
       {
-        path: '/shop',
+        path: 'shop',
         name: 'Shop',
         component: () => import('@/views/front/Shop.vue'),
         meta: {
@@ -28,7 +28,7 @@ const routes = [
         },
       },
       {
-        path: '/checkout',
+        path: 'checkout',
         name: 'Checkout',
         component: () => import('@/views/front/Checkout.vue'),
         meta: {
@@ -46,11 +46,35 @@ const routes = [
     },
     children: [
       {
-        path: '/admin/product',
+        path: 'product',
         name: 'Product',
         component: () => import('@/views/admin/Product.vue'),
         meta: {
           title: 'Admin Product',
+        },
+      },
+      {
+        path: 'coupon',
+        name: 'Coupon',
+        component: () => import('@/views/admin/Coupon.vue'),
+        meta: {
+          title: 'Admin Coupon',
+        },
+      },
+      {
+        path: 'order',
+        name: 'Order',
+        component: () => import('@/views/admin/Order.vue'),
+        meta: {
+          title: 'Admin Order',
+        },
+      },
+      {
+        path: 'article',
+        name: 'Article',
+        component: () => import('@/views/admin/Article.vue'),
+        meta: {
+          title: 'Admin Article',
         },
       },
     ],

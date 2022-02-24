@@ -23,10 +23,5 @@ export default {
       this.isClose = false;
     },
   },
-  watch: {
-    isSuccess() {
-
-    },
-  },
 };
 </script>
