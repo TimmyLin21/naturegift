@@ -2,9 +2,11 @@
   <main class="bg-light w-100">
     <div class="container py-4">
       <div class="d-flex justify-content-between mb-4">
-        <select class="form-select w-10">
+        <select class="form-select w-10" v-model="selected" @change="getProducts(1,selected)">
           <option selected>All</option>
-          <option value="1">1</option>
+          <option :value="category" v-for="category in categorys" :key="category">
+            {{ category }}
+          </option>
         </select>
         <button class="btn btn-secondary text-white" data-bs-toggle="modal"
         data-bs-target="#productModal">
@@ -21,7 +23,7 @@
               <th scope="col">Price</th>
               <th scope="col">Unit</th>
               <th scope="col">Enabled</th>
-              <th scope="col">Edit</th>
+              <th scope="col" colspan="2">Edit</th>
             </tr>
           </thead>
           <tbody class="border-top-0">
@@ -36,6 +38,9 @@
               <td v-else><BIconXCircle /></td>
               <td><a href="#" class="link-success" @click.prevent="editProduct">
                 <BIconPen />
+              </a></td>
+              <td><a href="#" class="link-danger" @click.prevent="editProduct">
+                <BIconTrash />
               </a></td>
             </tr>
           </tbody>
@@ -177,12 +182,14 @@ export default {
         msg: '',
         state: false,
       },
+      categorys: ['Spices', 'Beans', 'Nuts'],
+      selected: 'All',
     };
   },
   components: { Pagination },
   methods: {
-    getProducts(page) {
-      getAdminProducts(page)
+    getProducts(page, category) {
+      getAdminProducts(page, category)
         .then((res) => {
           this.products = res.data;
         })

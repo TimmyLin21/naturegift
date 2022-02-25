@@ -12,4 +12,9 @@ export const apiUserCheck = () => {
 };
 
 // Admin Products
-export const getAdminProducts = (page = 1) => axios.get(`${baseUrl}/v2/api/${path}/admin/products?page=${page}`);
+export const getAdminProducts = (page = 1, category) => {
+  if (category && category !== 'All') {
+    return axios.get(`${baseUrl}/v2/api/${path}/admin/products?page=${page}&category=${category}`);
+  }
+  return axios.get(`${baseUrl}/v2/api/${path}/admin/products?page=${page}`);
+};
