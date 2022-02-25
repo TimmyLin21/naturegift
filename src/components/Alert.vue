@@ -1,8 +1,8 @@
 <template>
   <div class="alert alert-success position-absolute top-50 start-50
-  translate-middle trans-ease" role="alert"
+  translate-middle trans-ease z-3" role="alert"
   :class="{fade:isClose, 'alert-success':isSuccess, 'alert-danger': !isSuccess}">
-    <slot></slot>
+    {{ msg }}
     <button type="button" class="btn-close ms-2"
     @click="close" aria-label="Close"></button>
   </div>
@@ -12,9 +12,10 @@ export default {
   data() {
     return {
       isClose: true,
+      msg: '',
+      isSuccess: false,
     };
   },
-  props: ['isSuccess'],
   methods: {
     close() {
       this.isClose = true;
@@ -22,6 +23,16 @@ export default {
     open() {
       this.isClose = false;
     },
+  },
+  mounted() {
+    this.$emitter.on('sendMsg', (alert) => {
+      this.msg = alert.msg;
+      this.isSuccess = alert.state;
+      this.open();
+      setTimeout(() => {
+        this.close();
+      }, 500);
+    });
   },
 };
 </script>

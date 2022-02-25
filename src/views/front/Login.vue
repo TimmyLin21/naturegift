@@ -15,7 +15,7 @@
         </div>
         <div class="form-floating mb-3">
           <input type="password" class="form-control" id="loginPassword" placeholder="Password"
-          v-model="userData.password">
+          v-model="userData.password" @keyup.enter="login">
           <label for="loginPassword">Password</label>
         </div>
         <a href="#" class="c-btn" @click.prevent="login">
@@ -23,7 +23,6 @@
         </a>
       </div>
     </div>
-    <BsAlert ref="alert" :is-success="isSuccess">{{ alertMsg }}</BsAlert>
   </section>
 </template>
 <script>
@@ -36,23 +35,26 @@ export default {
         username: '',
         password: '',
       },
-      alertMsg: '',
-      isSuccess: false,
+      alert: {
+        msg: '',
+        state: false,
+      },
     };
   },
   methods: {
     login() {
       if (!this.userData.username || !this.userData.password) {
-        this.$refs.alert.open();
-        this.alertMsg = 'Please enter email and password.';
+        this.alert.msg = 'Please enter email and password.';
+        this.alert.state = false;
+        this.sendMsg();
       } else {
         this.sendLoadingState(true);
         apiUserLogin(this.userData)
           .then((res) => {
             this.sendLoadingState(false);
-            this.$refs.alert.open();
-            this.alertMsg = 'Login success';
-            this.isSuccess = true;
+            this.alert.msg = 'Login success';
+            this.alert.state = true;
+            this.sendMsg();
             // save token in cookie
             const { token, expired } = res.data;
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
@@ -62,14 +64,19 @@ export default {
           })
           .catch(() => {
             this.sendLoadingState(false);
-            this.$refs.alert.open();
-            this.alertMsg = 'Please check your email and password';
-            this.isSuccess = false;
+            this.alert.msg = 'Please check your email and password';
+            this.alert.state = false;
+            this.$nextTick(() => {
+              this.sendMsg();
+            });
           });
       }
     },
     sendLoadingState(state) {
       this.$emitter.emit('loading-state', state);
+    },
+    sendMsg() {
+      this.$emitter.emit('sendMsg', this.alert);
     },
   },
   mounted() {

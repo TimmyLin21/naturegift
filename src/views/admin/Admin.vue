@@ -31,7 +31,6 @@
         </div>
       </div>
     </nav>
-    <BsAlert ref="alert" :is-success="isSuccess">{{ alertMsg }}</BsAlert>
     <router-view v-if="checkSuccess"></router-view>
   </div>
 </template>
@@ -42,8 +41,10 @@ export default {
   data() {
     return {
       checkSuccess: false,
-      alertMsg: '',
-      isSuccess: true, // control alert bg color
+      alert: {
+        msg: '',
+        state: false,
+      },
     };
   },
   methods: {
@@ -53,12 +54,11 @@ export default {
         .then(() => {
           this.checkSuccess = true;
           this.sendLoadingState(false);
-          this.isSuccess = true;
         })
         .catch(() => {
-          this.isSuccess = false;
-          this.$refs.alert.open();
-          this.alertMsg = 'Please login again :)';
+          this.alert.msg = 'Please login again :)';
+          this.alert.state = false;
+          this.sendMsg();
           this.sendLoadingState(false);
           setTimeout(() => {
             this.$router.push('/login');
@@ -68,10 +68,14 @@ export default {
     sendLoadingState(state) {
       this.$emitter.emit('loading-state', state);
     },
+    sendMsg() {
+      this.$emitter.emit('sendMsg', this.alert);
+    },
     signOut() {
       document.cookie = 'hexToken=;expires=;';
-      this.$refs.alert.open();
-      this.alertMsg = 'Sign out success!';
+      this.alert.msg = 'Sign out success!';
+      this.alert.state = true;
+      this.sendMsg();
       setTimeout(() => {
         this.$router.push('/');
       }, 1000);

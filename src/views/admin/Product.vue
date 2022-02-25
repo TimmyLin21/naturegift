@@ -11,45 +11,37 @@
           Add new product
         </button>
       </div>
-      <table class="table">
-        <thead>
-          <tr class="table-secondary text-secondary">
-            <th scope="col">Category</th>
-            <th scope="col">Title</th>
-            <th scope="col">Origin Price</th>
-            <th scope="col">Price</th>
-            <th scope="col">Unit</th>
-            <th scope="col">Enabled</th>
-          </tr>
-        </thead>
-        <tbody class="border-top-0">
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-      <nav>
-        <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+            <tr class="table-secondary text-secondary">
+              <th scope="col">Category</th>
+              <th scope="col" colspan="2">Title</th>
+              <th scope="col" class="text-nowrap">Origin Price</th>
+              <th scope="col">Price</th>
+              <th scope="col">Unit</th>
+              <th scope="col">Enabled</th>
+              <th scope="col">Edit</th>
+            </tr>
+          </thead>
+          <tbody class="border-top-0">
+            <tr v-for="product in products.products" :key="product.id">
+              <td>{{ product.category }}</td>
+              <td><img :src="product.imageUrl" :alt="product.title"></td>
+              <td>{{ product.title }}</td>
+              <td>{{ product.origin_price }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.unit }}</td>
+              <td v-if="product.is_enabled"><BIconCheckCircle /></td>
+              <td v-else><BIconXCircle /></td>
+              <td><a href="#" class="link-success" @click.prevent="editProduct">
+                <BIconPen />
+              </a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <Pagination :pagination="products.pagination" @send-request="getProducts" />
     </div>
   </main>
 <!-- Modal -->
@@ -174,26 +166,44 @@ aria-labelledby="productModalLabel" aria-hidden="true">
 </div>
 </template>
 <script>
+import { getAdminProducts } from '@/scripts/api';
+import Pagination from '@/components/Pagination.vue';
+
 export default {
   data() {
     return {
       products: '',
-      apiInfo: {
-        baseUrl: 'https://vue3-course-api.hexschool.io',
-        path: 'timtest',
+      alert: {
+        msg: '',
+        state: false,
       },
     };
   },
+  components: { Pagination },
   methods: {
-    getProducts() {
-      this.$http.get(`${this.apiInfo.baseUrl}/v2/api/${this.apiInfo.path}/admin/products`)
+    getProducts(page) {
+      getAdminProducts(page)
         .then((res) => {
-          this.products = res.data.products;
+          this.products = res.data;
+        })
+        .catch(() => {
+          this.alert.msg = 'Fail to get the products';
+          this.state = false;
+          this.sendMsg();
         });
+    },
+    sendMsg() {
+      this.$emitter.emit('sendMsg', this.alert);
+    },
+    editProduct() {
+
     },
   },
   created() {
     this.getProducts();
+    this.$emitter.on('send-request', (page) => {
+      this.getProducts(page);
+    });
   },
 };
 </script>
