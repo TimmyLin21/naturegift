@@ -7,7 +7,7 @@ import { BootstrapIconsPlugin } from 'bootstrap-icons-vue';
 import fontawesome from '@fortawesome/fontawesome-free/js/all';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faBalanceScale, faMedal, faLeaf, faKiwiBird,
+  faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -21,7 +21,7 @@ import VueAxios from 'vue-axios';
 import App from './App.vue';
 import router from './router';
 
-library.add(faBalanceScale, faMedal, faLeaf, faKiwiBird);
+library.add(faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes);
 
 const app = createApp(App);
 app.config.globalProperties.$emitter = mitt;

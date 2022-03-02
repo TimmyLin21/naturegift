@@ -108,6 +108,14 @@ export default {
   },
 };
 ```
+Repeated scripts such as modal can be written in mixin and then import to whatever components you want. It helps you organise your code and reduce the time repeating.
+```js
+import modalMixin from '@/mixins/modalMixin';
+
+export default {
+  mixins: [modalMixin],
+};
+```
 
 
 ### Continued development
