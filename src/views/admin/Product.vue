@@ -49,12 +49,13 @@
     </div>
   </main>
   <!-- Modal -->
-  <ProductModal :product="cacheProduct" :is-new = "isNew" ref="productModal" />
+  <ProductModal ref="productModal" />
 </template>
 <script>
 import { getAdminProducts } from '@/scripts/api';
 import Pagination from '@/components/Pagination.vue';
 import ProductModal from '@/components/admin/ProductModal.vue';
+import { computed } from 'vue';
 
 export default {
   data() {
@@ -103,6 +104,12 @@ export default {
         this.$refs.delProductModal.openModal();
       }
     },
+  },
+  provide() {
+    return {
+      product: computed(() => this.cacheProduct),
+      state: computed(() => this.isNew),
+    };
   },
   created() {
     this.getProducts();

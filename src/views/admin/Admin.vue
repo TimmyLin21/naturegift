@@ -36,15 +36,13 @@
 </template>
 <script>
 import { apiUserCheck } from '@/scripts/api';
+import alertMixin from '@/mixins/alertMixin';
+import loadingMixin from '@/mixins/loadingMixin';
 
 export default {
   data() {
     return {
       checkSuccess: false,
-      alert: {
-        msg: '',
-        state: false,
-      },
     };
   },
   methods: {
@@ -65,12 +63,6 @@ export default {
           }, 1000);
         });
     },
-    sendLoadingState(state) {
-      this.$emitter.emit('loading-state', state);
-    },
-    sendMsg() {
-      this.$emitter.emit('sendMsg', this.alert);
-    },
     signOut() {
       document.cookie = 'hexToken=;expires=;';
       this.alert.msg = 'Sign out success!';
@@ -84,6 +76,7 @@ export default {
   mounted() {
     this.checkLogin();
   },
+  mixins: [alertMixin, loadingMixin],
 };
 </script>
 <style lang="scss">

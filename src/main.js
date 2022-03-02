@@ -25,6 +25,8 @@ library.add(faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes);
 
 const app = createApp(App);
 app.config.globalProperties.$emitter = mitt;
+// Make injections reactively
+app.config.unwrapInjectedRef = true;
 
 app.use(BootstrapIconsPlugin);
 app.use(VueAxios, axios);

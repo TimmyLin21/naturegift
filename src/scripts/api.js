@@ -18,3 +18,4 @@ export const getAdminProducts = (page = 1, category) => {
   }
   return axios.get(`${baseUrl}/v2/api/${path}/admin/products?page=${page}`);
 };
+export const addNewProduct = (data) => axios.post(`${baseUrl}/v2/api/${path}/admin/product`, data);

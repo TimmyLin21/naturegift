@@ -27,6 +27,8 @@
 </template>
 <script>
 import { apiUserLogin, apiUserCheck } from '@/scripts/api';
+import alertMixin from '@/mixins/alertMixin';
+import loadingMixin from '@/mixins/loadingMixin';
 
 export default {
   data() {
@@ -34,10 +36,6 @@ export default {
       userData: {
         username: '',
         password: '',
-      },
-      alert: {
-        msg: '',
-        state: false,
       },
     };
   },
@@ -72,12 +70,6 @@ export default {
           });
       }
     },
-    sendLoadingState(state) {
-      this.$emitter.emit('loading-state', state);
-    },
-    sendMsg() {
-      this.$emitter.emit('sendMsg', this.alert);
-    },
   },
   mounted() {
     apiUserCheck()
@@ -85,5 +77,6 @@ export default {
         this.$router.push('/admin/product');
       });
   },
+  mixins: [alertMixin, loadingMixin],
 };
 </script>
