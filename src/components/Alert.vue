@@ -31,7 +31,7 @@ export default {
       this.open();
       setTimeout(() => {
         this.close();
-      }, 500);
+      }, 700);
     });
   },
 };

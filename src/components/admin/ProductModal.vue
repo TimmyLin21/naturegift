@@ -34,8 +34,8 @@
 <script>
 import modalMixin from '@/mixins/modalMixin';
 import alertMixin from '@/mixins/alertMixin';
-import loadingMixin from '@/mixins/loadingMixin';
-import { addNewProduct } from '@/scripts/api';
+import productTab from '@/mixins/productTab';
+import { addNewProduct, editProduct } from '@/scripts/api';
 import InfoTab from '@/components/admin/ProductModalTab/InfoTab.vue';
 import ContentTab from '@/components/admin/ProductModalTab/ContentTab.vue';
 import NutritionTab from '@/components/admin/ProductModalTab/NutritionTab.vue';
@@ -46,8 +46,6 @@ export default {
     return {
       currentTab: 'InfoTab',
       tabs: ['Info', 'Content', 'Nutrition', 'Images'],
-      cacheProduct: '',
-      isNew: true,
     };
   },
   components: {
@@ -56,21 +54,32 @@ export default {
   methods: {
     saveChange() {
       if (this.isNew) {
-        this.sendLoadingState(true);
-        addNewProduct({ data: this.cacheProduct })
+        addNewProduct(this.cacheProduct)
           .then((res) => {
-            this.sendLoadingState(false);
             this.alert.msg = res.data.message;
             this.alert.state = true;
-            this.sendMsg();
             this.closeModal();
+            this.sendMsg();
             this.sendRequest();
           }).catch((err) => {
-            this.sendLoadingState(false);
-            this.alert.msg = err.data.message;
+            [this.alert.msg] = err.response.data.message;
             this.alert.state = false;
-            this.sendMsg();
             this.closeModal();
+            this.sendMsg();
+          });
+      } else {
+        editProduct(this.cacheProduct.id, this.cacheProduct)
+          .then((res) => {
+            this.alert.msg = res.data.message;
+            this.alert.state = true;
+            this.closeModal();
+            this.sendMsg();
+            this.sendRequest();
+          }).catch((err) => {
+            [this.alert.msg] = err.response.data.message;
+            this.alert.state = false;
+            this.closeModal();
+            this.sendMsg();
           });
       }
     },
@@ -78,12 +87,6 @@ export default {
       this.$emit('send-request');
     },
   },
-  mixins: [modalMixin, alertMixin, loadingMixin],
-  inject: ['state'],
-  watch: {
-    state() {
-      this.isNew = this.state;
-    },
-  },
+  mixins: [modalMixin, alertMixin, productTab],
 };
 </script>

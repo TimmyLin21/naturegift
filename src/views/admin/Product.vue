@@ -49,12 +49,14 @@
     </div>
   </main>
   <!-- Modal -->
-  <ProductModal ref="productModal" />
+  <ProductModal ref="productModal" @send-request="getProducts" />
+  <DelModal ref="delModal" @send-request="getProducts" :item="cacheProduct">Product</DelModal>
 </template>
 <script>
 import { getAdminProducts } from '@/scripts/api';
 import Pagination from '@/components/Pagination.vue';
 import ProductModal from '@/components/admin/ProductModal.vue';
+import DelModal from '@/components/admin/DelModal.vue';
 import { computed } from 'vue';
 
 export default {
@@ -73,7 +75,7 @@ export default {
       selected: 'All',
     };
   },
-  components: { Pagination, ProductModal },
+  components: { Pagination, ProductModal, DelModal },
   methods: {
     getProducts(page, category) {
       getAdminProducts(page, category)
@@ -101,7 +103,7 @@ export default {
       } else if (modal === 'del') {
         this.isNew = false;
         this.cacheProduct = JSON.parse(JSON.stringify(item));
-        this.$refs.delProductModal.openModal();
+        this.$refs.delModal.openModal();
       }
     },
   },
