@@ -47,6 +47,7 @@
   </main>
   <!-- Modal -->
   <DelModal ref="delModal" @send-request="getOrders" :item="cacheOrder">Order</DelModal>
+  <OrderModal ref="orderModal" @send-request="getOrders" :order="cacheOrder" />
 </template>
 <script>
 import { getAdminOrders } from '@/scripts/api';
@@ -54,6 +55,7 @@ import alertMixin from '@/mixins/alertMixin';
 import loadingMixin from '@/mixins/loadingMixin';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/admin/DelModal.vue';
+import OrderModal from '@/components/admin/OrderModal.vue';
 
 export default {
   data() {
@@ -64,7 +66,7 @@ export default {
       },
     };
   },
-  components: { Pagination, DelModal },
+  components: { Pagination, DelModal, OrderModal },
   methods: {
     getOrders(page) {
       this.sendLoadingState(true);

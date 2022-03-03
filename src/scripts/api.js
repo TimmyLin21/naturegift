@@ -25,3 +25,4 @@ export const uploadImg = (data) => axios.post(`${baseUrl}/v2/api/${path}/admin/u
 
 // Admin Orders
 export const getAdminOrders = (page = 1) => axios.get(`${baseUrl}/v2/api/${path}/admin/orders?page=${page}`);
+export const editOrder = (id, data) => axios.put(`${baseUrl}/v2/api/${path}/admin/order/${id}`, { data });
