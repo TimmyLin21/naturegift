@@ -28,8 +28,8 @@
           <tbody class="border-top-0">
             <tr v-for="product in products.products" :key="product.id">
               <td>{{ product.category }}</td>
-              <td><img :src="product.imageUrl" :alt="product.title"></td>
-              <td>{{ product.title }}</td>
+              <td><img :src="product.imageUrl" :alt="product.title" class="w-50"></td>
+              <td class="w-25">{{ product.title }}</td>
               <td>{{ product.origin_price }}</td>
               <td>{{ product.price }}</td>
               <td>{{ product.unit }}</td>
@@ -49,7 +49,7 @@
     </div>
   </main>
   <!-- Modal -->
-  <ProductModal ref="productModal" @send-request="getProducts" />
+  <ProductModal ref="productModal" @send-request="getProducts(products.pagination.current_page)" />
   <DelModal ref="delModal" @send-request="getProducts" :item="cacheProduct">Product</DelModal>
 </template>
 <script>

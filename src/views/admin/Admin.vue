@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column flex-lg-row">
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary
-    border-bottom border-bottom-lg-0 border-end-lg vh-lg-100">
+    border-bottom border-bottom-lg-0 border-end-lg vh-lg-100 sticky-top">
       <div class="container-fluid flex-lg-column vh-lg-100 align-items-lg-stretch">
         <router-link to="/" class="navbar-brand h1 my-3 mx-auto">Nature Gift</router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
