@@ -54,6 +54,8 @@
 </template>
 <script>
 import { getAdminProducts } from '@/scripts/api';
+import alertMixin from '@/mixins/alertMixin';
+import loadingMixin from '@/mixins/loadingMixin';
 import Pagination from '@/components/Pagination.vue';
 import ProductModal from '@/components/admin/ProductModal.vue';
 import DelModal from '@/components/admin/DelModal.vue';
@@ -67,10 +69,6 @@ export default {
         imagesUrl: [],
       },
       isNew: true,
-      alert: {
-        msg: '',
-        state: false,
-      },
       categorys: ['Spices', 'Beans', 'Nuts'],
       selected: 'All',
     };
@@ -78,18 +76,18 @@ export default {
   components: { Pagination, ProductModal, DelModal },
   methods: {
     getProducts(page, category) {
+      this.sendLoadingState(true);
       getAdminProducts(page, category)
         .then((res) => {
+          this.sendLoadingState(false);
           this.products = res.data;
         })
         .catch(() => {
+          this.sendLoadingState(false);
           this.alert.msg = 'Fail to get the products';
           this.state = false;
           this.sendMsg();
         });
-    },
-    sendMsg() {
-      this.$emitter.emit('sendMsg', this.alert);
     },
     modalToggle(modal, item) {
       if (modal === 'new') {
@@ -119,5 +117,6 @@ export default {
       this.getProducts(page);
     });
   },
+  mixins: [alertMixin, loadingMixin],
 };
 </script>

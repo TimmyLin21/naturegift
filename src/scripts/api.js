@@ -22,3 +22,6 @@ export const addNewProduct = (data) => axios.post(`${baseUrl}/v2/api/${path}/adm
 export const editProduct = (id, data) => axios.put(`${baseUrl}/v2/api/${path}/admin/product/${id}`, { data });
 export const delProduct = (id) => axios.delete(`${baseUrl}/v2/api/${path}/admin/product/${id}`);
 export const uploadImg = (data) => axios.post(`${baseUrl}/v2/api/${path}/admin/upload`, data);
+
+// Admin Orders
+export const getAdminOrders = (page = 1) => axios.get(`${baseUrl}/v2/api/${path}/admin/orders?page=${page}`);

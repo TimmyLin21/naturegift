@@ -37,7 +37,6 @@
 <script>
 import { apiUserCheck } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';
-import loadingMixin from '@/mixins/loadingMixin';
 
 export default {
   data() {
@@ -47,17 +46,14 @@ export default {
   },
   methods: {
     checkLogin() {
-      this.sendLoadingState(true);
       apiUserCheck()
         .then(() => {
           this.checkSuccess = true;
-          this.sendLoadingState(false);
         })
         .catch(() => {
           this.alert.msg = 'Please login again :)';
           this.alert.state = false;
           this.sendMsg();
-          this.sendLoadingState(false);
           setTimeout(() => {
             this.$router.push('/login');
           }, 1000);
@@ -76,7 +72,7 @@ export default {
   mounted() {
     this.checkLogin();
   },
-  mixins: [alertMixin, loadingMixin],
+  mixins: [alertMixin],
 };
 </script>
 <style lang="scss">

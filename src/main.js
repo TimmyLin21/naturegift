@@ -15,7 +15,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Loading from '@/components/Loading.vue';
 import BsAlert from '@/components/Alert.vue';
 
+// Scripts
 import mitt from '@/scripts/mitt';
+import { date, currency } from '@/scripts/filters';
+
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import App from './App.vue';
@@ -25,6 +28,10 @@ library.add(faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes);
 
 const app = createApp(App);
 app.config.globalProperties.$emitter = mitt;
+app.config.globalProperties.$filters = {
+  date,
+  currency,
+};
 // Make injections reactively
 app.config.unwrapInjectedRef = true;
 
