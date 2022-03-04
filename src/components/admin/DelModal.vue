@@ -14,7 +14,7 @@
           <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-danger text-white" @click="delItem">
+          <button type="button" class="btn btn-danger text-white" @click="del()">
             Confirm
           </button>
         </div>
@@ -25,28 +25,17 @@
 <script>
 import modalMixin from '@/mixins/modalMixin';
 import alertMixin from '@/mixins/alertMixin';
-import { delProduct } from '@/scripts/api';
 
 export default {
   props: ['item'],
+  emits: ['del-item'],
   methods: {
-    delItem() {
-      delProduct(this.item.id)
-        .then((res) => {
-          this.alert.msg = res.data.message;
-          this.alert.state = true;
-          this.closeModal();
-          this.sendMsg();
-          this.sendRequest();
-        }).catch((err) => {
-          [this.alert.msg] = err.response.data.message;
-          this.alert.state = false;
-          this.closeModal();
-          this.sendMsg();
-        });
-    },
-    sendRequest() {
-      this.$emit('send-request');
+    del() {
+      if (!this.item.id) {
+        this.$emit('del-all');
+      } else {
+        this.$emit('del-item');
+      }
     },
   },
   mixins: [modalMixin, alertMixin],

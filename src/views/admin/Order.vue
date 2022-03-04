@@ -2,7 +2,7 @@
   <main class="bg-light w-100">
     <div class="container py-4">
       <div class="d-flex justify-content-end mb-4">
-        <button class="btn btn-danger text-white" @click="delAllOrder">
+        <button class="btn btn-danger text-white" @click.prevent="modalToggle('delAll')">
           Delete all orders
         </button>
       </div>
@@ -46,11 +46,12 @@
     </div>
   </main>
   <!-- Modal -->
-  <DelModal ref="delModal" @send-request="getOrders" :item="cacheOrder">Order</DelModal>
+  <DelModal ref="delModal" @del-item="delOrder" @del-all="delAllOrders"
+  :item="cacheOrder">Order</DelModal>
   <OrderModal ref="orderModal" @send-request="getOrders" :order="cacheOrder" />
 </template>
 <script>
-import { getAdminOrders } from '@/scripts/api';
+import { getAdminOrders, delAllOrders, delOrder } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';
 import loadingMixin from '@/mixins/loadingMixin';
 import Pagination from '@/components/Pagination.vue';
@@ -82,11 +83,42 @@ export default {
           this.sendMsg();
         });
     },
+    delAllOrders() {
+      this.sendLoadingState(true);
+      delAllOrders()
+        .then(() => {
+          this.getOrders();
+        })
+        .catch((err) => {
+          this.sendLoadingState(false);
+          this.alert.msg = err.response.data.message;
+          this.state = false;
+          this.sendMsg();
+        });
+    },
+    delOrder() {
+      delOrder(this.item.id)
+        .then((res) => {
+          this.alert.msg = res.data.message;
+          this.alert.state = true;
+          this.$refs.delModal.closeModal();
+          this.sendMsg();
+        }).catch((err) => {
+          [this.alert.msg] = err.response.data.message;
+          this.alert.state = false;
+          this.$refs.delModal.closeModal();
+          this.sendMsg();
+        });
+    },
     modalToggle(modal, item) {
-      this.cacheOrder = JSON.parse(JSON.stringify(item));
       if (modal === 'edit') {
+        this.cacheOrder = JSON.parse(JSON.stringify(item));
         this.$refs.orderModal.openModal();
       } else if (modal === 'del') {
+        this.cacheOrder = JSON.parse(JSON.stringify(item));
+        this.$refs.delModal.openModal();
+      } else if (modal === 'delAll') {
+        this.cacheOrder = {};
         this.$refs.delModal.openModal();
       }
     },

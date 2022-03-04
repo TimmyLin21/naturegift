@@ -50,10 +50,10 @@
   </main>
   <!-- Modal -->
   <ProductModal ref="productModal" @send-request="getProducts(products.pagination.current_page)" />
-  <DelModal ref="delModal" @send-request="getProducts" :item="cacheProduct">Product</DelModal>
+  <DelModal ref="delModal" :item="cacheProduct" @del-item="delProduct">Product</DelModal>
 </template>
 <script>
-import { getAdminProducts } from '@/scripts/api';
+import { getAdminProducts, delProduct } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';
 import loadingMixin from '@/mixins/loadingMixin';
 import Pagination from '@/components/Pagination.vue';
@@ -103,6 +103,21 @@ export default {
         this.cacheProduct = JSON.parse(JSON.stringify(item));
         this.$refs.delModal.openModal();
       }
+    },
+    delProduct() {
+      delProduct(this.cacheProduct.id)
+        .then((res) => {
+          this.alert.msg = res.data.message;
+          this.alert.state = true;
+          this.$refs.delModal.closeModal();
+          this.sendMsg();
+          this.getProducts();
+        }).catch((err) => {
+          [this.alert.msg] = err.response.data.message;
+          this.alert.state = false;
+          this.$refs.delModal.closeModal();
+          this.sendMsg();
+        });
     },
   },
   provide() {

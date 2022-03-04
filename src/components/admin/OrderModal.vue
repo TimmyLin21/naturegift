@@ -89,11 +89,11 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="d-flex justify-content-end">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value=""
-                  id="flexCheckDefault" v-model="cacheOrder.is_paid" />
-                  <label class="form-check-label" for="flexCheckDefault">
+              <div class="d-flex">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch"
+                  id="isPaidSwitch" v-model="cacheOrder.is_paid" :checked="cacheOrder.is_paid"/>
+                  <label class="form-check-label" for="isPaidSwitch">
                     <span v-if="cacheOrder.is_paid">Paid</span>
                     <span v-else>Unpaid</span>
                   </label>
@@ -130,7 +130,7 @@ export default {
   props: ['order'],
   methods: {
     saveChange() {
-      editOrder(this.cacheProduct.id, this.cacheProduct)
+      editOrder(this.cacheOrder.id, this.cacheOrder)
         .then((res) => {
           this.alert.msg = res.data.message;
           this.alert.state = true;

@@ -26,3 +26,5 @@ export const uploadImg = (data) => axios.post(`${baseUrl}/v2/api/${path}/admin/u
 // Admin Orders
 export const getAdminOrders = (page = 1) => axios.get(`${baseUrl}/v2/api/${path}/admin/orders?page=${page}`);
 export const editOrder = (id, data) => axios.put(`${baseUrl}/v2/api/${path}/admin/order/${id}`, { data });
+export const delOrder = (id) => axios.delete(`${baseUrl}/v2/api/${path}/admin/order/${id}`);
+export const delAllOrders = () => axios.delete(`${baseUrl}/v2/api/${path}/admin/orders/all`);
