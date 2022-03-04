@@ -79,30 +79,35 @@ export default {
         .catch(() => {
           this.sendLoadingState(false);
           this.alert.msg = 'Fail to get the orders';
-          this.state = false;
+          this.alert.state = false;
           this.sendMsg();
         });
     },
     delAllOrders() {
       this.sendLoadingState(true);
       delAllOrders()
-        .then(() => {
-          this.getOrders();
-        })
-        .catch((err) => {
-          this.sendLoadingState(false);
-          this.alert.msg = err.response.data.message;
-          this.state = false;
-          this.sendMsg();
-        });
-    },
-    delOrder() {
-      delOrder(this.item.id)
         .then((res) => {
           this.alert.msg = res.data.message;
           this.alert.state = true;
           this.$refs.delModal.closeModal();
           this.sendMsg();
+          this.getOrders();
+        })
+        .catch((err) => {
+          this.sendLoadingState(false);
+          this.alert.msg = err.response.data.message;
+          this.alert.state = false;
+          this.sendMsg();
+        });
+    },
+    delOrder() {
+      delOrder(this.cacheOrder.id)
+        .then((res) => {
+          this.alert.msg = res.data.message;
+          this.alert.state = true;
+          this.$refs.delModal.closeModal();
+          this.sendMsg();
+          this.getOrders();
         }).catch((err) => {
           [this.alert.msg] = err.response.data.message;
           this.alert.state = false;

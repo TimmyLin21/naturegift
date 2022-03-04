@@ -31,9 +31,10 @@
     <hr class="mb-0">
     <div class="col">
       <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox"
-        id="flexSwitchCheckChecked" :checked="cacheProduct.is_enabled === '1'">
-        <label class="form-check-label" for="flexSwitchCheckChecked">
+        <input class="form-check-input" type="checkbox" v-model="cacheProduct.is_enabled"
+        :true-value="1" :false-value="0" :checked="cacheProduct.is_enabled === '1'"
+        id="productEnabledSwitch">
+        <label class="form-check-label" for="productEnabledSwitch">
           Enable product
         </label>
       </div>

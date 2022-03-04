@@ -91,8 +91,9 @@
               </table>
               <div class="d-flex">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch"
-                  id="isPaidSwitch" v-model="cacheOrder.is_paid" :checked="cacheOrder.is_paid"/>
+                  <input class="form-check-input" type="checkbox" v-model="cacheOrder.is_paid"
+                  :true-value="1" :false-value="0" id="isPaidSwitch" :checked="cacheOrder.is_paid"
+                  role="switch" />
                   <label class="form-check-label" for="isPaidSwitch">
                     <span v-if="cacheOrder.is_paid">Paid</span>
                     <span v-else>Unpaid</span>

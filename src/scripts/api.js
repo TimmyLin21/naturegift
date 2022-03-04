@@ -28,3 +28,9 @@ export const getAdminOrders = (page = 1) => axios.get(`${baseUrl}/v2/api/${path}
 export const editOrder = (id, data) => axios.put(`${baseUrl}/v2/api/${path}/admin/order/${id}`, { data });
 export const delOrder = (id) => axios.delete(`${baseUrl}/v2/api/${path}/admin/order/${id}`);
 export const delAllOrders = () => axios.delete(`${baseUrl}/v2/api/${path}/admin/orders/all`);
+
+// Admin Coupons
+export const getCoupons = (page = 1) => axios.get(`${baseUrl}/v2/api/${path}/admin/coupons?page=${page}`);
+export const addNewCoupon = (data) => axios.post(`${baseUrl}/v2/api/${path}/admin/coupon`, { data });
+export const editCoupon = (id, data) => axios.put(`${baseUrl}/v2/api/${path}/admin/coupon/${id}`, { data });
+export const delCoupon = (id) => axios.delete(`${baseUrl}/v2/api/${path}/admin/coupon/${id}`);

@@ -28,7 +28,7 @@ import alertMixin from '@/mixins/alertMixin';
 
 export default {
   props: ['item'],
-  emits: ['del-item'],
+  emits: ['del-item', 'del-all'],
   methods: {
     del() {
       if (!this.item.id) {
