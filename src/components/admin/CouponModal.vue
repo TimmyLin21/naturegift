@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-primary">
-          <h5 class="modal-title text-secondary" v-if="isNew">Add New Coupon</h5>
+          <h5 class="modal-title text-secondary" v-if="state">Add New Coupon</h5>
           <h5 class="modal-title text-secondary" v-else>Edit Coupon</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
         </div>
@@ -55,21 +55,19 @@
 <script>
 import modalMixin from '@/mixins/modalMixin';
 import alertMixin from '@/mixins/alertMixin';
-import productTab from '@/mixins/productTab';
 import { addNewCoupon, editCoupon } from '@/scripts/api';
 
 export default {
   data() {
     return {
       cacheCoupon: {},
-      isNew: '',
-      due_date: '',
+      due_date: 0,
     };
   },
   props: ['coupon', 'state'],
   methods: {
     saveChange() {
-      if (this.isNew) {
+      if (this.state) {
         addNewCoupon(this.cacheCoupon)
           .then((res) => {
             this.alert.msg = res.data.message;
@@ -112,10 +110,7 @@ export default {
     due_date() {
       this.cacheCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
     },
-    state() {
-      this.isNew = this.state;
-    },
   },
-  mixins: [modalMixin, alertMixin, productTab],
+  mixins: [modalMixin, alertMixin],
 };
 </script>
