@@ -21,6 +21,7 @@ import { date, currency } from '@/scripts/filters';
 
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import App from './App.vue';
 import router from './router';
 
@@ -37,6 +38,7 @@ app.config.unwrapInjectedRef = true;
 
 app.use(BootstrapIconsPlugin);
 app.use(VueAxios, axios);
+app.use(CKEditor);
 app.use(fontawesome);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.component('Loading', Loading);

@@ -101,6 +101,7 @@ export default {
       } else if (modal === 'new') {
         this.cacheCoupon = {
           is_enabled: 1,
+          due_date: 0,
         };
         this.isNew = true;
         this.$refs.couponModal.openModal();

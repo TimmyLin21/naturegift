@@ -116,6 +116,20 @@ export default {
   mixins: [modalMixin],
 };
 ```
+In order to transform the value to the date form (YYYY-MM-DD) in 'date input' from timestamp or vice versa, Date object and its methods are necessary.
+```js
+watch: {
+  coupon() {
+    this.cacheCoupon = this.coupon;
+    // transform to YYYY-MM-DD from timestamp
+    const date = new Date(this.cacheCoupon.due_date * 1000).toISOString().split('T');
+    [this.due_date] = date;
+  },
+  due_date() {
+    this.cacheCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
+  },
+},
+```
 
 
 ### Continued development
