@@ -41,3 +41,12 @@ export const getArticle = (id) => axios.get(`${baseUrl}/v2/api/${path}/admin/art
 export const addNewArticle = (data) => axios.post(`${baseUrl}/v2/api/${path}/admin/article`, { data });
 export const editArticle = (id, data) => axios.put(`${baseUrl}/v2/api/${path}/admin/article/${id}`, { data });
 export const delArticle = (id) => axios.delete(`${baseUrl}/v2/api/${path}/admin/article/${id}`);
+
+// User Products
+export const getAllProducts = () => axios.get(`${baseUrl}/v2/api/${path}/products/all`);
+export const getProducts = (page = 1, category) => {
+  if (category && category !== 'All') {
+    return axios.get(`${baseUrl}/v2/api/${path}/products?page=${page}&category=${category}`);
+  }
+  return axios.get(`${baseUrl}/v2/api/${path}/products?page=${page}`);
+};

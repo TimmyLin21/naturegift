@@ -1,16 +1,17 @@
 .c-select {
   position: relative;
-  width: 180px;
+  width: 200px;
   &:hover {
     cursor: pointer;
   }
 }
 .c-select__selected {
   background-color: $white;
-  padding: .5rem 3rem .5rem 1rem;
+  padding: .5rem 2rem .5rem 2rem;
   margin-top: .5rem;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
+  text-align: center;
   &::after {
     position: absolute;
     content: '';
@@ -19,12 +20,13 @@
     rotate: 45deg;
     border-color: $secondary;
     border-style: solid;
-    right: 1.25rem;
-    top: 1rem;
+    right: 1rem;
+    top: 0.9rem;
   }
   &.select__arrow-active {
     &::after {
       rotate: -135deg;
+      top: 1.1rem;
     }
   }
 }
@@ -32,7 +34,7 @@
   position: absolute;
   border-radius: $border-radius-lg;
   // box-shadow: $box-shadow;
-  width: 180px;
+  width: 200px;
   & div {
     background: $white;
     padding: 0.5rem 1.5rem;

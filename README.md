@@ -130,6 +130,10 @@ watch: {
   },
 },
 ```
+Use String.prototype.localeCompare to sort strings in objects.
+```js
+this.allProducts.sort((x, y) => (x.title).localeCompare(y.title));
+```
 
 
 ### Continued development

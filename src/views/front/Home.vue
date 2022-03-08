@@ -13,10 +13,10 @@
       <source src="@/assets/video/fresh-and-delicious.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div class="scrollMore">
+    <div class="scrollMore" @click="scrollDown">
       <BIconChevronDoubleDown class="scrollMore__icon scrollMore__icon--bounce"
-       width="3vw" height="3vw"></BIconChevronDoubleDown>
-      <div class="scrollMore__circle"></div>
+       width="3vw" height="3vw" />
+      <div class="scrollMore__circle" />
     </div>
   </div>
   <CategoryList></CategoryList>
@@ -35,6 +35,11 @@ export default {
     CategoryList,
     OurStory,
     Reviews,
+  },
+  methods: {
+    scrollDown() {
+      window.scrollTo(0, 614);
+    },
   },
 };
 </script>
