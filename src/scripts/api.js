@@ -50,3 +50,7 @@ export const getProducts = (page = 1, category) => {
   }
   return axios.get(`${baseUrl}/v2/api/${path}/products?page=${page}`);
 };
+export const getProduct = (id) => axios.get(`${baseUrl}/v2/api/${path}/product/${id}`);
+
+// User Cart
+export const addToCart = (data) => axios.post(`${baseUrl}/v2/api/${path}/cart`, { data });

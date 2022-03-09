@@ -73,7 +73,7 @@ $success:       rgb(61, 102, 100, 80%); // custom
 $info:          #B37A4C; // custom
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
+$light:         #f9faee !default;
 $dark:          #121212; // custom
 // scss-docs-end theme-color-variables
 
@@ -1535,8 +1535,8 @@ $breadcrumb-padding-x:              0 !default;
 $breadcrumb-item-padding-x:         .5rem !default;
 $breadcrumb-margin-bottom:          1rem !default;
 $breadcrumb-bg:                     null !default;
-$breadcrumb-divider-color:          $gray-600 !default;
-$breadcrumb-active-color:           $gray-600 !default;
+$breadcrumb-divider-color:          $gray-600;
+$breadcrumb-active-color:           $secondary;
 $breadcrumb-divider:                quote("/") !default;
 $breadcrumb-divider-flipped:        $breadcrumb-divider !default;
 $breadcrumb-border-radius:          null !default;

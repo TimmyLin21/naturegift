@@ -65,7 +65,7 @@ export default {
   transition: all .45s cubic-bezier(.05,.2,.1,1);
     &:hover {
       transform: translateY(-10px);
-      color: #f8f9fa!important;
+      color: #f9faee!important;
     }
   }
 </style>

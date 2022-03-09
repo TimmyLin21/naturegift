@@ -20,12 +20,17 @@ const routes = [
         },
       },
       {
-        path: 'shop',
-        name: 'Shop',
-        component: () => import('@/views/front/Shop.vue'),
+        path: 'products',
+        name: 'Products',
+        component: () => import('@/views/front/Products.vue'),
         meta: {
-          title: 'Shop',
+          title: 'Products',
         },
+      },
+      {
+        path: 'product/:id',
+        name: 'Product',
+        component: () => import('@/views/front/Product.vue'),
       },
       {
         path: 'checkout',
@@ -47,7 +52,6 @@ const routes = [
     children: [
       {
         path: 'product',
-        name: 'Product',
         component: () => import('@/views/admin/Product.vue'),
         meta: {
           title: 'Admin Product',
@@ -55,7 +59,6 @@ const routes = [
       },
       {
         path: 'coupon',
-        name: 'Coupon',
         component: () => import('@/views/admin/Coupon.vue'),
         meta: {
           title: 'Admin Coupon',
@@ -63,7 +66,6 @@ const routes = [
       },
       {
         path: 'order',
-        name: 'Order',
         component: () => import('@/views/admin/Order.vue'),
         meta: {
           title: 'Admin Order',
@@ -71,7 +73,6 @@ const routes = [
       },
       {
         path: 'article',
-        name: 'Article',
         component: () => import('@/views/admin/Article.vue'),
         meta: {
           title: 'Admin Article',

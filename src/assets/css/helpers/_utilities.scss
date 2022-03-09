@@ -189,7 +189,9 @@ $utilities: map-merge(
         50: 50%,
         75: 75%,
         100: 100%,
+        100px: 100px,
         150: 150px,
+        250px: 250px,
         auto: auto
       )
     ),
@@ -636,7 +638,7 @@ $utilities: map-merge(
     // scss-docs-end utils-visibility
     // custom
     "cursor": (
-      property: curser,
+      property: cursor,
       class: cursor,
       values: (
         pointer: pointer,
@@ -647,6 +649,13 @@ $utilities: map-merge(
       class: object,
       values: (
         cover: cover,
+      )
+    ),
+    "object-position": (
+      property: object-position,
+      class: object-position,
+      values: (
+        center: center,
       )
     ),
     "z-index": (

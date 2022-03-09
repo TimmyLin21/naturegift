@@ -29,8 +29,9 @@ export default {
       this.msg = alert.msg;
       this.isSuccess = alert.state;
       this.open();
+      window.scrollTo(0, 0);
       setTimeout(() => {
-        this.close();
+        // this.close();
       }, 700);
     });
   },

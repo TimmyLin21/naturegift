@@ -32,7 +32,7 @@
     </div>
     <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none">
       <li class="col mb-4" v-for="product in products" :key="product.id">
-        <div class="mb-3 product__img" role="button">
+        <div class="mb-3 product__img" role="button" @click="getDetail(product.id)">
           <img :src="product.imageUrl" :alt="product.title" class="img-fluid rounded">
           <div class="bg-dark product__img__lightbox"></div>
           <div class="product__img__text mb-3">
@@ -41,7 +41,7 @@
         </div>
         <p class="mb-1">{{ product.title }}</p>
         <p class="text-muted">${{product.price}} NTD / {{product.unit}}</p>
-        <a href="" class="c-btn">
+        <a href="" class="c-btn" @click.prevent="addToCart(product.id)">
           <span class="c-btn__text">Add to cart</span>
         </a>
       </li>
@@ -50,7 +50,7 @@
   </main>
 </template>
 <script>
-import { getAllProducts } from '@/scripts/api';
+import { getAllProducts, addToCart } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';
 import loadingMixin from '@/mixins/loadingMixin';
 import Pagination from '@/components/Pagination.vue';
@@ -73,6 +73,10 @@ export default {
       pagination: [],
       allProducts: [],
       cacheProducts: [],
+      data: {
+        product_id: '',
+        qty: 1,
+      },
     };
   },
   components: { Pagination },
@@ -92,12 +96,16 @@ export default {
         .then((res) => {
           this.sendLoadingState(false);
           this.allProducts = res.data.products;
-          this.getProducts();
+          if (Object.keys(this.$route.query).length !== 0) {
+            this.chooseCategory(this.$route.query.category);
+          } else {
+            this.getProducts();
+          }
         })
         .catch(() => {
           this.sendLoadingState(false);
           this.alert.msg = 'Fail to get the products';
-          this.state = false;
+          this.alert.state = false;
           this.sendMsg();
         });
     },
@@ -128,6 +136,22 @@ export default {
         };
         this.sendLoadingState(false);
       }, 1000);
+    },
+    getDetail(id) {
+      this.$router.replace(`/product/${id}`);
+    },
+    addToCart(id) {
+      this.data.product_id = id;
+      addToCart(this.data)
+        .then(() => {
+          this.alert.msg = 'Product added to cart successfully!';
+          this.alert.state = true;
+          this.sendMsg();
+        }).catch((err) => {
+          [this.alert.msg] = err.response.data.message;
+          this.alert.state = false;
+          this.sendMsg();
+        });
     },
   },
   created() {

@@ -15,7 +15,7 @@
       <div class="c-navbar__collapse">
         <ul class="c-navbar__nav text-primary d-md-flex trans-ease" :class="{'d-none': !isShow}">
           <li class="nav-item">
-            <router-link to="/shop" class="nav-link fw-bold">Shop</router-link>
+            <router-link to="/products" class="nav-link fw-bold">Products</router-link>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link fw-bold">About us</a>
