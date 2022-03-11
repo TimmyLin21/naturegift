@@ -147,6 +147,7 @@ export default {
           this.alert.msg = 'Product added to cart successfully!';
           this.alert.state = true;
           this.sendMsg();
+          this.$emitter.emit('renewCart');
         }).catch((err) => {
           [this.alert.msg] = err.response.data.message;
           this.alert.state = false;

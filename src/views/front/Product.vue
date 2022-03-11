@@ -157,6 +157,7 @@ export default {
             this.alert.state = true;
             this.sendMsg();
             this.qty = 1;
+            this.$emitter.emit('renewCart');
           }).catch((err) => {
             [this.alert.msg] = err.response.data.message;
             this.alert.state = false;
@@ -189,22 +190,6 @@ export default {
       display: flex;
       justify-content: space-between;
       border-bottom: 1px dashed lightgray;
-    }
-  }
-  .qty {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    & input {
-      width: 2rem;
-      margin: 0 1rem;
-      &::-webkit-inner-spin-button,&::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-    }
-    & span {
-      cursor: pointer;
     }
   }
 </style>

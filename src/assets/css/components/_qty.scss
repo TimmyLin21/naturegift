@@ -1,0 +1,16 @@
+.qty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & input {
+    width: 2rem;
+    margin: 0 1rem;
+    &::-webkit-inner-spin-button,&::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+  & span {
+    cursor: pointer;
+  }
+}

@@ -26,28 +26,38 @@
         </ul>
         <ul class="nav d-md-flex" :class="{'d-none': !isShow}">
           <li class="nav-item">
-            <router-link to="/checkout" class="nav-link">
-              <BIconBag width="24px" height="24px"></BIconBag>
+            <router-link to="/login" class="nav-link">
+              <BIconPersonCircle width="24px" height="24px" />
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/login" class="nav-link">
-              <BIconPersonCircle width="24px" height="24px"></BIconPersonCircle>
-            </router-link>
+            <a href="#" class="nav-link position-relative"
+            data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+              <BIconBag width="24px" height="24px" />
+              <span class="position-absolute top-20 start-75
+              translate-middle badge rounded-pill bg-danger">
+                {{quantity}}
+              </span>
+            </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  <OffcanvasCart @getQuantity="getQuantity"/>
 </template>
 <script>
+import OffcanvasCart from '@/components/front/OffcanvasCart.vue';
+
 export default {
   data() {
     return {
       isTrans: false,
       isShow: false,
+      quantity: 0,
     };
   },
+  components: { OffcanvasCart },
   methods: {
     scrollHeight() {
       const scrollPosition = document.documentElement.scrollTop;
@@ -59,6 +69,9 @@ export default {
     },
     toggleMenu() {
       this.isShow = !this.isShow;
+    },
+    getQuantity(quantity) {
+      this.quantity = quantity;
     },
   },
   mounted() {

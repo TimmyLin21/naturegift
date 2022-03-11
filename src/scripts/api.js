@@ -54,3 +54,18 @@ export const getProduct = (id) => axios.get(`${baseUrl}/v2/api/${path}/product/$
 
 // User Cart
 export const addToCart = (data) => axios.post(`${baseUrl}/v2/api/${path}/cart`, { data });
+export const getCart = () => axios.get(`${baseUrl}/v2/api/${path}/cart`);
+export const editCart = (id, qty) => axios.put(`${baseUrl}/v2/api/${path}/cart/${id}`, {
+  data: {
+    product_id: id,
+    qty,
+  },
+});
+export const delCartItem = (id) => axios.delete(`${baseUrl}/v2/api/${path}/cart/${id}`);
+
+// User Coupon
+export const applyCoupon = (code) => axios.post(`${baseUrl}/v2/api/${path}/coupon`, {
+  data: {
+    code,
+  },
+});

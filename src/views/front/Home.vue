@@ -37,6 +37,7 @@ export default {
     Reviews,
   },
   methods: {
+    // FIXME: height will change depend on browser screen
     scrollDown() {
       window.scrollTo(0, 614);
     },
