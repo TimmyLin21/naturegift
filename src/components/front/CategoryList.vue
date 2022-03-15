@@ -1,12 +1,13 @@
-<template lang="">
-  <section class="py-7 position-relative overflow-hidden">
+<template>
+  <section class="py-7 position-relative overflow-hidden" id="CategoryList">
     <div class="py-5 bg-primary shadow-lg">
       <div class="container">
         <h2 class="mb-5 align-start text-secondary text-start">Shop by Category</h2>
-        <ul class="nav flex-nowrap justify-content-between">
+        <ul class="nav justify-content-between flex-md-nowrap">
           <!-- FIXED: Shadow Effect -->
-          <li class="c-card text-white" v-for="(category,i) in category" :key="category.title"
-          :class="{'mx-5': i === 1}">
+          <li class="c-card text-white w-75 w-md-auto mx-auto mx-md-0 mb-3 mb-md-0"
+          v-for="(category,i) in category" :key="category.title"
+          :class="{'mx-md-5': i === 1}">
             <figure class="c-card__img">
               <img :src="category.url" :alt="category.title">
             </figure>

@@ -1,6 +1,6 @@
 <template>
   <CustomHeader></CustomHeader>
-  <router-view class="mt-150" />
+  <router-view />
   <Footer></Footer>
 </template>
 <script>

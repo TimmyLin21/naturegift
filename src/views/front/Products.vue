@@ -1,5 +1,5 @@
 <template>
-  <main class="container py-6">
+  <main class="container py-6 mt-150px">
     <div class="d-flex justify-content-between align-items-center mb-5">
       <div>
         <p class="text-start">FILTER BY</p>

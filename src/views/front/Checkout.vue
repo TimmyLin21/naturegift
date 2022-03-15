@@ -1,13 +1,13 @@
 <template>
-  <main class="container py-5">
+  <main class="container py-5 mt-150px">
     <div class="steps mb-7">
-      <div class="steps__circle steps__circle-done">
+      <div class="steps__circle steps__circle-active">
         <BIconCart width="2rem" height="2rem"></BIconCart>
         <div class="steps__text">
           <p>Checkout</p>
         </div>
       </div>
-      <div class="steps__circle steps__circle-active">
+      <div class="steps__circle">
         <BIconCreditCard width="2rem" height="2rem"></BIconCreditCard>
         <div class="steps__text">
           <p>Payment</p>
@@ -92,40 +92,14 @@
           @click="applyCoupon">Apply</button>
         </div>
       </section>
-      <section class="col-12 col-md-5">
-        <h2 class="mb-4">Contact Info</h2>
-        <form class="row g-3 text-start mb-4">
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" class="form-control">
-          </div>
-          <div class="col-md-6">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name">
-          </div>
-          <div class="col-md-6">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone">
-          </div>
-          <div class="col-12">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" id="address">
-          </div>
-          <div class="col-12">
-            <label for="notes" class="form-label">Notes</label>
-            <textarea class="form-control" id="notes" />
-          </div>
-        </form>
-        <a href="#" class="c-btn">
-          <span class="c-btn__text">Checkout</span>
-        </a>
-      </section>
+      <ContactInfo />
     </div>
   </main>
 </template>
 <script>
 import cartMixin from '@/mixins/cartMixin';
 import { applyCoupon } from '@/scripts/api';
+import ContactInfo from '@/components/front/ContactInfo.vue';
 
 export default {
   data() {
@@ -133,6 +107,7 @@ export default {
       couponCode: '',
     };
   },
+  components: { ContactInfo },
   methods: {
     applyCoupon() {
       applyCoupon(this.couponCode)

@@ -40,6 +40,22 @@ const routes = [
           title: 'Checkout',
         },
       },
+      {
+        path: 'payment/:id',
+        name: 'Payment',
+        component: () => import('@/views/front/Payment.vue'),
+        meta: {
+          title: 'Payment',
+        },
+      },
+      {
+        path: 'finish/:id',
+        name: 'Finish',
+        component: () => import('@/views/front/Finish.vue'),
+        meta: {
+          title: 'Finish',
+        },
+      },
     ],
   },
   {
@@ -85,6 +101,19 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.hash) {
+      return {
+        el: to.hash,
+        top: 150,
+        behavior: 'smooth',
+      };
+    }
+    return { top: 0 };
+  },
 });
 
 export default router;

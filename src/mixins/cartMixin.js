@@ -60,8 +60,12 @@ export default {
     });
   },
   watch: {
-    carts() {
-      this.$emitter.emit('renewCart');
+    carts(n, o) {
+      const last = JSON.stringify(n);
+      const pre = JSON.stringify(o);
+      if (last !== pre) {
+        this.$emitter.emit('renewCart');
+      }
     },
   },
   mixins: [alertMixin],

@@ -9,7 +9,7 @@
       <template v-if="carts.length < 1">
         <p class="fw-bold h3 mt-7 mb-1">Your cart is empty</p>
         <p class="d-block mb-5 text-muted">Looks like you haven't made a choice</p>
-        <button class="btn btn-secondary w-50">Shop now</button>
+        <button class="btn btn-secondary w-50" @click="goShop">Shop now</button>
       </template>
       <template v-else>
         <ul class="ps-0">
@@ -58,6 +58,10 @@ export default {
     },
     emit() {
       this.$emit('getQuantity', this.carts.length);
+    },
+    goShop() {
+      this.offcanvas.hide();
+      this.$router.push('/products');
     },
   },
   mounted() {

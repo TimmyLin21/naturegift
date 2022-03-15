@@ -4,10 +4,6 @@
      top-35 fw-bold start-5 text-start z-2">
       All you need is <br> <span class="me-5"></span>Fresh and Delicious
     </h1>
-    <!-- <h1 class="d-sm-none display-3 lh-5 position-absolute text-white
-     top-20 fw-bold start-5 text-start">
-      Nature <br> <span class="me-6"></span> Gift
-    </h1> -->
     <video class="position-absolute top-0 start-0 w-100 h-100 object-cover opacity-90 z-n1"
     autoplay loop muted playsinline>
       <source src="@/assets/video/fresh-and-delicious.mp4" type="video/mp4">
@@ -37,9 +33,8 @@ export default {
     Reviews,
   },
   methods: {
-    // FIXME: height will change depend on browser screen
     scrollDown() {
-      window.scrollTo(0, 614);
+      this.$router.push({ path: '/', hash: '#CategoryList' });
     },
   },
 };

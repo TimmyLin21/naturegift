@@ -69,3 +69,10 @@ export const applyCoupon = (code) => axios.post(`${baseUrl}/v2/api/${path}/coupo
     code,
   },
 });
+
+// User Order
+export const postOrder = (data) => axios.post(`${baseUrl}/v2/api/${path}/order`, { data });
+export const getOrder = (id) => axios.get(`${baseUrl}/v2/api/${path}/order/${id}`);
+
+// User Pay
+export const postPay = (id) => axios.post(`${baseUrl}/v2/api/${path}/pay/${id}`);

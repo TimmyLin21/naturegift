@@ -153,6 +153,7 @@ $utilities: map-merge(
     // Sizing utilities
     // scss-docs-start utils-sizing
     "width": (
+      responsive: true,
       property: width,
       class: w,
       values: (
@@ -342,7 +343,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin-top,
       class: mt,
-      values: map-merge($spacers, (auto: auto))
+      values: map-merge($spacers, (auto: auto, 150px: 150px))
     ),
     "margin-end": (
       responsive: true,
@@ -609,7 +610,10 @@ $utilities: map-merge(
     "rounded-top": (
       property: border-top-left-radius border-top-right-radius,
       class: rounded-top,
-      values: (null: $border-radius)
+      values: (
+        null: $border-radius,
+        10px: 10px,
+      )
     ),
     "rounded-end": (
       property: border-top-right-radius border-bottom-right-radius,
@@ -619,7 +623,10 @@ $utilities: map-merge(
     "rounded-bottom": (
       property: border-bottom-right-radius border-bottom-left-radius,
       class: rounded-bottom,
-      values: (null: $border-radius)
+      values: (
+        null: $border-radius,
+        10px: 10px,
+      )
     ),
     "rounded-start": (
       property: border-bottom-left-radius border-top-left-radius,

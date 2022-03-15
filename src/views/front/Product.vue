@@ -1,5 +1,5 @@
 <template>
-  <section class="container py-5">
+  <section class="container py-5 mt-150px">
     <div class="row row-cols-1 row-cols-lg-2 g-6 mb-5">
       <div class="col">
         <img :src="currentImg"
@@ -177,19 +177,3 @@ export default {
   mixins: [alertMixin, loadingMixin],
 };
 </script>
-<style lang="scss">
-  .c-table {
-    background-color: #3e6765;
-    padding-bottom: .5rem;
-  }
-  .c-table__body {
-    margin: 0 .5rem;
-    background-color: #f9faee;
-    padding: 1rem;
-    & p {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px dashed lightgray;
-    }
-  }
-</style>

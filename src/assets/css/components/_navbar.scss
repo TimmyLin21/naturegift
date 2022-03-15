@@ -108,9 +108,9 @@
 }
 
 @include media-breakpoint-down(md) {
-  .c-navbar {
-    background: $secondary;
-  }
+  // .c-navbar {
+  //   background: $secondary;
+  // }
   .c-navbar__toggler {
     display: block;
   }

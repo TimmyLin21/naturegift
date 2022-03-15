@@ -1,6 +1,6 @@
 <template>
   <nav class="z-3 c-navbar h-150 fixed-top"
-  :class="{'bg-success': !isTrans, 'shadow-lg': !isTrans}">
+  :class="{'bg-success': !isTrans, 'shadow-lg': !isTrans, 'bg-secondary': isShow}">
     <div class="container d-flex justify-content-between align-items-center">
       <a href="#" class="c-navbar__brand">
         <img src="@/assets/images/logo__transparent.png" alt="Nature Gift" class="w-150 h-150">
@@ -18,7 +18,9 @@
             <router-link to="/products" class="nav-link fw-bold">Products</router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link fw-bold">About us</a>
+            <router-link :to="{ path: '/', hash: '#OurStory'}" class="nav-link fw-bold">
+              About us
+            </router-link>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link fw-bold">Blog</a>
