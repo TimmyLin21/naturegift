@@ -28,14 +28,11 @@ Admin
 
 ### Screenshot
 
-![](./src/assets/Demo-desktop-light.png)
-
-![](./src/assets/Demo-desktop-dark.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- [Solution URL](https://github.com/TimmyLin21/naturegift)
+- [Live Site URL](https://timmylin21.github.io/naturegift/#/)
 
 ## My process
 
@@ -138,7 +135,6 @@ this.allProducts.sort((x, y) => (x.title).localeCompare(y.title));
 
 ### Continued development
 
-I still need more practice to get used to Vue. Besides, there are still room to improve for accessibility of this project, hope to get more familiar with them in the future project.
 
 ### Useful resources
 
