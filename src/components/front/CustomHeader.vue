@@ -22,9 +22,6 @@
               About us
             </router-link>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link fw-bold">Blog</a>
-          </li>
         </ul>
         <ul class="nav d-md-flex" :class="{'d-none': !isShow}">
           <li class="nav-item">
