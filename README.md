@@ -58,7 +58,7 @@ Admin
   - Delete individual articles
 
 ### Screenshot
-![screenshot](./public/screenshot.png)
+![screenshot](./public/screenshot.png) 
 
 ### Links
 
