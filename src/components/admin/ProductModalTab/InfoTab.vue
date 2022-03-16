@@ -15,12 +15,12 @@
     </div>
     <div class="col-4">
       <label for="originPrice" class="form-label">Origin Price</label>
-      <input type="number" class="form-control" id="originPrice"
+      <input type="number" min="0" class="form-control" id="originPrice"
       placeholder="Product origin price" v-model="cacheProduct.origin_price">
     </div>
     <div class="col-4">
       <label for="price" class="form-label">Price</label>
-      <input type="number" class="form-control" id="price"
+      <input type="number" min="0" class="form-control" id="price"
       placeholder="Product price" v-model="cacheProduct.price">
     </div>
     <div class="col-4">

@@ -26,7 +26,7 @@
             </div>
             <div class="col-6">
               <label for="discount" class="form-label">Discount</label>
-              <input type="number" class="form-control" id="discount"
+              <input type="number" class="form-control" id="discount" min="0"
               placeholder="Coupon discount" v-model.number="cacheCoupon.percent" />
             </div>
             <hr class="mb-0">
@@ -78,7 +78,6 @@ export default {
           }).catch((err) => {
             [this.alert.msg] = err.response.data.message;
             this.alert.state = false;
-            this.closeModal();
             this.sendMsg();
           });
       } else {
@@ -92,7 +91,6 @@ export default {
           }).catch((err) => {
             [this.alert.msg] = err.response.data.message;
             this.alert.state = false;
-            this.closeModal();
             this.sendMsg();
           });
       }

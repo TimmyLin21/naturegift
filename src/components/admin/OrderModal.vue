@@ -9,35 +9,41 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-5">
               <h3>Customer Info</h3>
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <th style="width: 100px">Name</th>
-                    <td>{{ cacheOrder.user.name }}</td>
-                  </tr>
-                  <tr>
-                    <th>Email</th>
-                    <td>{{ cacheOrder.user.email }}</td>
-                  </tr>
-                  <tr>
-                    <th>Phone</th>
-                    <td>{{ cacheOrder.user.tel }}</td>
-                  </tr>
-                  <tr>
-                    <th>Address</th>
-                    <td>{{ cacheOrder.user.address }}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="row mb-3">
+                <label for="name" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="name" v-model="cacheOrder.user.name">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" id="email"
+                  v-model="cacheOrder.user.email">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="tel" class="col-sm-3 col-form-label">Phone</label>
+                <div class="col-sm-9">
+                  <input type="tel" class="form-control" id="tel" v-model="cacheOrder.user.tel">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="address" class="col-sm-3 col-form-label">Address</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="address"
+                  v-model="cacheOrder.user.address">
+                </div>
+              </div>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-7">
               <h3>Order Detail</h3>
               <table class="table">
                 <tbody>
                   <tr>
-                    <th style="width: 100px">Tracking number</th>
+                    <th style="width: 100px" class="text-nowrap">Tracking number</th>
                     <td>{{ cacheOrder.id }}</td>
                   </tr>
                   <tr>
@@ -92,7 +98,8 @@
               <div class="d-flex">
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" v-model="cacheOrder.is_paid"
-                  :true-value="1" :false-value="0" id="isPaidSwitch" :checked="cacheOrder.is_paid"
+                  :true-value="true" :false-value="false" id="isPaidSwitch"
+                  :checked="cacheOrder.is_paid"
                   role="switch" />
                   <label class="form-check-label" for="isPaidSwitch">
                     <span v-if="cacheOrder.is_paid">Paid</span>
@@ -116,7 +123,6 @@
 <script>
 import modalMixin from '@/mixins/modalMixin';
 import alertMixin from '@/mixins/alertMixin';
-import productTab from '@/mixins/productTab';
 import { editOrder } from '@/scripts/api';
 
 export default {
@@ -141,7 +147,6 @@ export default {
         }).catch((err) => {
           [this.alert.msg] = err.response.data.message;
           this.alert.state = false;
-          this.closeModal();
           this.sendMsg();
         });
     },
@@ -154,6 +159,6 @@ export default {
       this.cacheOrder = this.order;
     },
   },
-  mixins: [modalMixin, alertMixin, productTab],
+  mixins: [modalMixin, alertMixin],
 };
 </script>

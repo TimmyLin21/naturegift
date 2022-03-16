@@ -105,7 +105,6 @@ export default {
           }).catch((err) => {
             [this.alert.msg] = err.response.data.message;
             this.alert.state = false;
-            this.closeModal();
             this.sendMsg();
           });
       } else {
@@ -119,7 +118,6 @@ export default {
           }).catch((err) => {
             [this.alert.msg] = err.response.data.message;
             this.alert.state = false;
-            this.closeModal();
             this.sendMsg();
           });
       }

@@ -11,7 +11,8 @@
         <div class="modal-body">
           <ul class="nav nav-pills bg-success p-2 mb-3">
             <li class="nav-item" v-for="tab in tabs" :key="tab">
-              <a class="nav-link" :class="{active: currentTab === `${tab}Tab`}"
+              <a class="nav-link cursor-pointer"
+              :class="{active: currentTab === `${tab}Tab`}"
               @click="currentTab = `${tab}Tab`">
                 {{ tab }}
               </a>
@@ -64,7 +65,6 @@ export default {
           }).catch((err) => {
             [this.alert.msg] = err.response.data.message;
             this.alert.state = false;
-            this.closeModal();
             this.sendMsg();
           });
       } else {
@@ -78,7 +78,6 @@ export default {
           }).catch((err) => {
             [this.alert.msg] = err.response.data.message;
             this.alert.state = false;
-            this.closeModal();
             this.sendMsg();
           });
       }

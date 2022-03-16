@@ -2,7 +2,8 @@
   <main class="bg-light w-100">
     <div class="container py-4">
       <div class="d-flex justify-content-end mb-4">
-        <button class="btn btn-danger text-white" @click.prevent="modalToggle('delAll')">
+        <button class="btn btn-danger text-white" @click.prevent="modalToggle('delAll')"
+        :disabled="orders.orders?.length === 0">
           Delete all orders
         </button>
       </div>

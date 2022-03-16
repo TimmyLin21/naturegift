@@ -1,5 +1,5 @@
 <template>
-  <template v-if="cacheProduct.imagesUrl.length > 0 || cacheProduct.imageUrl">
+  <template v-if="cacheProduct.imagesUrl?.length > 0 || cacheProduct.imageUrl">
     <div class="d-flex my-3 justify-content-between">
       <div class="w-30 detailImg" v-if="cacheProduct.imageUrl">
         <img :src="cacheProduct.imageUrl"

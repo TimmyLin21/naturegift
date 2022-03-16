@@ -101,7 +101,7 @@ export default {
       } else if (modal === 'new') {
         this.cacheCoupon = {
           is_enabled: 1,
-          due_date: 0,
+          due_date: this.currentTime,
         };
         this.isNew = true;
         this.$refs.couponModal.openModal();
@@ -113,6 +113,11 @@ export default {
     this.$emitter.on('send-request', (page) => {
       this.getCoupons(page);
     });
+  },
+  computed: {
+    currentTime() {
+      return Math.floor(new Date().getTime() / 1000);
+    },
   },
   mixins: [alertMixin, loadingMixin],
 };
