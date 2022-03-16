@@ -21,13 +21,44 @@
 
 Users should be able to:
 
-App
-- 
+Front
+- Sign in to the administration
+- Products
+  - Check informations from individual products
+- Cart
+  - Add products to the cart
+  - Edit products to the cart
+  - Delete products to the cart
+- Coupons
+  - Apply coupons
+- Orders
+  - Post orders
 
 Admin
+- Log out from the administration
+- Products
+  - Get products from the server
+  - Add new products
+  - Edit individual products
+  - Delete individual products
+- Orders
+  - Get orders from the server
+  - Edit individual orders
+  - Delete individual orders
+  - Delete all orders
+- Coupons
+  - Get coupons from the server
+  - Add new coupons
+  - Edit individual coupons
+  - Delete individual coupons
+- Articles
+  - Get articles from the server
+  - Add new articles
+  - Edit individual articles
+  - Delete individual articles
 
 ### Screenshot
-
+![screenshot](./public/screenshot.png)
 
 ### Links
 
@@ -135,6 +166,7 @@ this.allProducts.sort((x, y) => (x.title).localeCompare(y.title));
 
 ### Continued development
 
+It's my first time to design the whole website, therefore there is still room for improvement in UI and UX. Besides, there are some plugins which I haven't used before such as ckeditor and veevalidate. I need more practice to get more familiar with them. Also, I've learned a lot in organizing project like mixins and scripts which I believe it's gonna be helpful for my future complex projects.
 
 ### Useful resources
 
