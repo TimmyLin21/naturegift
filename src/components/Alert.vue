@@ -31,8 +31,8 @@ export default {
       this.open();
       window.scrollTo(0, 0);
       setTimeout(() => {
-        // this.close();
-      }, 700);
+        this.close();
+      }, 1000);
     });
   },
 };

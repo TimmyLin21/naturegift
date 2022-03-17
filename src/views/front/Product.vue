@@ -1,6 +1,6 @@
 <template>
   <section class="container py-5 mt-150px">
-    <div class="row row-cols-1 row-cols-lg-2 g-6 mb-5">
+    <div class="row row-cols-1 row-cols-lg-2 mb-5">
       <div class="col">
         <img :src="currentImg"
         :alt="product.title" class="w-100 border h-250px object-cover object-position-center">
@@ -12,7 +12,7 @@
           </div>
           <div class="col" v-for="image in product.imagesUrl" :key="image">
             <img :src="image" :alt="product.title"
-            class="w-100 object-cover object-position-center border h-100px cursor-pointer"
+            class="mw-100 object-cover object-position-center border h-100px cursor-pointer"
             @click="currentImg = image">
           </div>
         </div>
@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div class="row row-cols-1 row-cols-lg-2 g-6 mb-5">
+    <div class="row row-cols-1 row-cols-lg-2 mb-5">
       <div class="col text-start pt-5">
         <h3 class="mb-3">Description</h3>
         <p>{{product.content}}</p>
