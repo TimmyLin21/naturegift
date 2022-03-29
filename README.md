@@ -20,6 +20,7 @@
 Users should be able to:
 
 Front
+
 - Sign in to the administration
 - Products
   - Check informations from individual products
@@ -33,6 +34,7 @@ Front
   - Post orders
 
 Admin
+
 - Log out from the administration
 - Products
   - Get products from the server
@@ -56,7 +58,8 @@ Admin
   - Delete individual articles
 
 ### Screenshot
-![screenshot](./public/screenshot.png) 
+
+![screenshot](./public/screenshot.png)
 
 ### Links
 
@@ -67,7 +70,7 @@ Admin
 
 ### Built with
 
-- HTML5 
+- HTML5
 - CSS3
 - Bootstrap
 - Scss
@@ -78,13 +81,16 @@ Admin
 
 ### What I learned
 
-Playsinline attribute in <video> tag allows the mobile browser play the video right where it is instead of opening it up with fullscreen. 
+Playsinline attribute in <video> tag allows the mobile browser play the video right where it is instead of opening it up with fullscreen.
+
 ```html
 <video class="w-100" autoplay loop muted playsinline>
   <source src="../assets/video/fresh-and-delicious.mp4" type="video/mp4">
 </video>
 ```
-Add the horizontal lines besides header with flexbox. 
+
+Add the horizontal lines besides header with flexbox.
+
 ```html
 <h2 class="mb-4 text-secondary d-flex justify-content-between align-items-center">
   <b class="d-block h-2 bg-primary flex-grow-1"></b>
@@ -92,13 +98,17 @@ Add the horizontal lines besides header with flexbox.
   <b class="d-block h-2 bg-primary flex-grow-1"></b>
 </h2>
 ```
+
 Set input with 100% width in order to make sure input won't expands outside the td.
+
 ```html
 <td width="10%">
   <input type="number" min="0" value="1" class="w-100">
 </td>
 ```
+
 The class of body should be 100vh and overflow-hidden while loading, otherwise light-box won't be the same height as body.
+
 ```js
 this.$emitter.on('loading-state', (state) => {
   this.isLoading = state;
@@ -111,7 +121,9 @@ this.$emitter.on('loading-state', (state) => {
   }
 });
 ```
+
 Most common way to monitor the height of the viewport is adding an event listener on window. You can also use watch to catch the height, but remember to apply $nextTick() method otherwise the height which you recieve will be the same.
+
 ```js
 export default {
   data() {
@@ -134,7 +146,9 @@ export default {
   },
 };
 ```
+
 Repeated scripts such as modal can be written in mixin and then import to whatever components you want. It helps you organise your code and reduce the time repeating.
+
 ```js
 import modalMixin from '@/mixins/modalMixin';
 
@@ -142,7 +156,9 @@ export default {
   mixins: [modalMixin],
 };
 ```
+
 In order to transform the value to the date form (YYYY-MM-DD) in 'date input' from timestamp or vice versa, Date object and its methods are necessary.
+
 ```js
 watch: {
   coupon() {
@@ -156,11 +172,15 @@ watch: {
   },
 },
 ```
+
 Use String.prototype.localeCompare to sort strings in objects.
+
 ```js
 this.allProducts.sort((x, y) => (x.title).localeCompare(y.title));
 ```
+
 If you would like to redirect to specific page and then scroll to the anchor, you should make sure to set up scrollBehavior in router. Also, you can define offset and scroll animation.
+
 ```js
 const router = createRouter({
   history: createWebHashHistory(),
@@ -181,6 +201,8 @@ const router = createRouter({
 });
 ```
 
+Use either data properties or javascript to trigger bootstrap components. If you apply both to components, it might trigger twice at the same time. For instance, applying both to offcanvas, when you click outside of the canvas, backdrop won't be closed.
+
 ### Continued development
 
 It's my first time to design the whole website, therefore there is still room for improvement in UI and UX. Besides, there are some plugins which I haven't used before such as ckeditor and veevalidate. I need more practice to get more familiar with them. Also, I've learned a lot in organizing project like mixins and scripts which I believe it's gonna be helpful for my future complex projects.
@@ -190,7 +212,6 @@ It's my first time to design the whole website, therefore there is still room fo
 - [What does 'playsinline' mean in web video](https://css-tricks.com/what-does-playsinline-mean-in-web-video/) - A simple and clear article explains how 'playsinline' attribute works in the video tag.
 - [Create a Website With Video Background](https://www.youtube.com/watch?v=8MgpE2DTTKA&ab_channel=TraversyMedia) - Create a beautiful, custom landing page for a Travel website using HTML, CSS and a little JavaScript.
 - [Minimal animated pure css menu icon](https://codepen.io/fromwireframes/pen/arMrYp) - Animated menu icon demo code.
-
 
 ## Author
 
