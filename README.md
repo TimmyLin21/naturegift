@@ -1,7 +1,5 @@
 # Nature Gift - Vue Ecommerce Website
 
-
-
 ## Table of contents
 
 - [Overview](#overview)
@@ -162,7 +160,26 @@ Use String.prototype.localeCompare to sort strings in objects.
 ```js
 this.allProducts.sort((x, y) => (x.title).localeCompare(y.title));
 ```
-
+If you would like to redirect to specific page and then scroll to the anchor, you should make sure to set up scrollBehavior in router. Also, you can define offset and scroll animation.
+```js
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.hash) {
+      return {
+        el: to.hash,
+        top: 150,
+        behavior: 'smooth',
+      };
+    }
+    return { top: 0 };
+  },
+});
+```
 
 ### Continued development
 

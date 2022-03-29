@@ -15,9 +15,9 @@
       <div class="scrollMore__circle" />
     </div>
   </div>
-  <CategoryList></CategoryList>
-  <OurStory></OurStory>
-  <Reviews></Reviews>
+  <CategoryList />
+  <OurStory />
+  <Reviews />
 </template>
 
 <script>

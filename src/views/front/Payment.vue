@@ -2,19 +2,19 @@
   <main class="container py-5 mt-150px">
     <div class="steps mb-7">
       <div class="steps__circle steps__circle-done">
-        <BIconCart width="2rem" height="2rem"></BIconCart>
+        <BIconCart width="2rem" height="2rem" />
         <div class="steps__text">
           <p>Checkout</p>
         </div>
       </div>
       <div class="steps__circle steps__circle-active">
-        <BIconCreditCard width="2rem" height="2rem"></BIconCreditCard>
+        <BIconCreditCard width="2rem" height="2rem" />
         <div class="steps__text">
           <p>Payment</p>
         </div>
       </div>
       <div class="steps__circle">
-        <BIconStar width="2rem" height="2rem"></BIconStar>
+        <BIconStar width="2rem" height="2rem" />
         <div class="steps__text">
           <p>Finish</p>
         </div>

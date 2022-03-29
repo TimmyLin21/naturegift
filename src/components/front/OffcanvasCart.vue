@@ -26,7 +26,7 @@
                 <span><BIconDashCircle @click="editCart(item, '-')" /></span>
                 <input class="text-center" type="number" v-model.number="item.qty"
                 @change="editCart(item)">
-                <span><BIconPlusCircle @click="editCart(item, '+')"/></span>
+                <span><BIconPlusCircle @click="editCart(item, '+')" /></span>
               </div>
               <p class="mb-0 fw-bold">$ {{item.total}}</p>
             </div>
@@ -36,7 +36,7 @@
           <span class="ms-auto fw-bold">$ {{total}}</span>
         </p>
         <a href="#" @click.prevent="goCheckout"
-        class="btn btn-secondary w-100">Checkout now</a>
+        class="btn btn-secondary w-100" data-bs-dismiss="offcanvas">Checkout now</a>
       </template>
     </div>
   </div>

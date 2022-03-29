@@ -1,7 +1,7 @@
 <template>
-  <CustomHeader></CustomHeader>
+  <CustomHeader />
   <router-view />
-  <Footer></Footer>
+  <Footer />
 </template>
 <script>
 import CustomHeader from '@/components/front/CustomHeader.vue';
