@@ -19,6 +19,7 @@
           </option>
         </select>
         <button
+          type="button"
           class="btn btn-secondary text-white"
           @click="modalToggle('new')"
         >

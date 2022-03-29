@@ -53,7 +53,7 @@
             <li>
               <a
                 href="https://github.com/TimmyLin21/naturegift"
-                class="nav-link text-secondary social__hover"
+                class="social__hover"
               >
                 <BIconGithub
                   width="24px"
@@ -64,7 +64,7 @@
             <li>
               <a
                 href="#"
-                class="nav-link text-secondary social__hover"
+                class="social__hover"
               >
                 <BIconFacebook
                   width="24px"
@@ -75,7 +75,7 @@
             <li>
               <a
                 href="#"
-                class="nav-link text-secondary social__hover"
+                class="social__hover"
               >
                 <BIconTwitter
                   width="24px"
@@ -86,7 +86,7 @@
             <li>
               <a
                 href="#"
-                class="nav-link text-secondary social__hover"
+                class="social__hover"
               >
                 <BIconInstagram
                   width="24px"
@@ -130,9 +130,12 @@ export default {
 <style lang="scss">
   .social__hover {
   transition: all .45s cubic-bezier(.05,.2,.1,1);
+  display: block;
+  color: #3e6765;
+  padding: 1.5rem .5rem;
     &:hover {
       transform: translateY(-10px);
-      color: #f9faee!important;
+      color: #f9faee;
     }
   }
 </style>

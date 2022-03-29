@@ -1,7 +1,7 @@
 <template>
   <Loading />
   <BsAlert />
-  <router-view />
+  <RouterView />
 </template>
 
 <script>

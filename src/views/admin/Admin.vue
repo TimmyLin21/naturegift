@@ -70,7 +70,7 @@
         </div>
       </div>
     </nav>
-    <router-view v-if="checkSuccess" />
+    <RouterView v-if="checkSuccess" />
   </div>
 </template>
 

@@ -51,15 +51,15 @@ export default {
       categories: [
         {
           title: 'Nuts',
-          url: 'https://images.unsplash.com/photo-1542990253-a781e04c0082?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=794&q=80',
+          url: '@/assets/images/Nuts.jpeg',
         },
         {
           title: 'Beans',
-          url: 'https://images.unsplash.com/photo-1537516825040-16759cfde671?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+          url: '@/assets/images/Beans.jpeg',
         },
         {
           title: 'Spices',
-          url: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+          url: '@/assets/images/Spices.jpeg',
         },
       ],
     };

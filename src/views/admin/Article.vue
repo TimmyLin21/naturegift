@@ -3,6 +3,7 @@
     <div class="container py-4">
       <div class="d-flex justify-content-end mb-4">
         <button
+          type="button"
           class="btn btn-secondary text-white"
           @click.prevent="modalToggle('new')"
         >

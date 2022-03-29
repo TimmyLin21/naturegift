@@ -1,6 +1,6 @@
 <template>
   <CustomHeader />
-  <router-view />
+  <RouterView />
   <Footer />
 </template>
 
