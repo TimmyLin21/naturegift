@@ -66,10 +66,9 @@
           </li>
           <li class="nav-item">
             <a
-              href="#"
+              href="#offcanvasCart"
               class="nav-link position-relative"
               data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasCart"
             >
               <BIconBag
                 width="24px"

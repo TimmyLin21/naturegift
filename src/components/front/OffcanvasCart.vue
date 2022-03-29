@@ -27,6 +27,7 @@
         <button
           class="btn btn-secondary w-50"
           @click="goShop"
+          data-bs-dismiss="offcanvas"
         >
           Shop now
         </button>
@@ -87,29 +88,18 @@
 </template>
 <script>
 import cartMixin from '@/mixins/cartMixin';
-import Offcanvas from 'bootstrap/js/dist/offcanvas';
 
 export default {
-  data() {
-    return {
-      offcanvas: '',
-    };
-  },
   methods: {
     goCheckout() {
-      this.offcanvas.hide();
       this.$router.push('/checkout');
     },
     emit() {
       this.$emit('getQuantity', this.carts.length);
     },
     goShop() {
-      this.offcanvas.hide();
       this.$router.push('/products');
     },
-  },
-  mounted() {
-    this.offcanvas = new Offcanvas(this.$refs.offcanvas);
   },
   watch: {
     carts() {
