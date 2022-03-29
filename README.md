@@ -59,7 +59,7 @@ Admin
 
 ### Screenshot
 
-![screenshot](./public/screenshot.png)
+![screenshot](./public/images/screenshot.png)
 
 ### Links
 

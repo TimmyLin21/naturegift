@@ -51,15 +51,15 @@ export default {
       categories: [
         {
           title: 'Nuts',
-          url: '@/assets/images/Nuts.jpeg',
+          url: './images/Nuts.jpeg',
         },
         {
           title: 'Beans',
-          url: '@/assets/images/Beans.jpeg',
+          url: './images/Beans.jpeg',
         },
         {
           title: 'Spices',
-          url: '@/assets/images/Spices.jpeg',
+          url: './images/Spices.jpeg',
         },
       ],
     };
