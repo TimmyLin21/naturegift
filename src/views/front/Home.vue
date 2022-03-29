@@ -39,18 +39,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-  .top-35 {
-    top: 35%;
-  }
-  .start-5 {
-    left: 5%;
-  }
-  .w-160 {
-    width: 160px;
-  }
-  .h-160 {
-    height: 160px;
-  }
-</style>

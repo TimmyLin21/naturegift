@@ -33,7 +33,4 @@ export default {
     }
   }
 }
-.mt-150 {
-  margin-top: 150px;
-}
 </style>
