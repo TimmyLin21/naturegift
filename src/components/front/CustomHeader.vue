@@ -88,6 +88,7 @@
   </nav>
   <OffcanvasCart @getQuantity="getQuantity" />
 </template>
+
 <script>
 import OffcanvasCart from '@/components/front/OffcanvasCart.vue';
 

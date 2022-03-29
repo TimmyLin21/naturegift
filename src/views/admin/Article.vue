@@ -97,6 +97,7 @@
     :state="isNew"
   />
 </template>
+
 <script>
 import { getArticle, getArticles, delArticle } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

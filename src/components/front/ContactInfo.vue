@@ -26,7 +26,7 @@
           placeholder="Please enter email"
           v-model="data.user.email"
         />
-        <error-message
+        <ErrorMessage
           name="Email"
           class="invalid-feedback"
         />
@@ -49,7 +49,7 @@
           placeholder="Please enter name"
           v-model="data.user.name"
         />
-        <error-message
+        <ErrorMessage
           name="Name"
           class="invalid-feedback"
         />
@@ -72,7 +72,7 @@
           placeholder="Please enter phone, 09xxxxxxxx"
           v-model="data.user.tel"
         />
-        <error-message
+        <ErrorMessage
           name="Phone"
           class="invalid-feedback"
         />
@@ -95,7 +95,7 @@
           placeholder="Please enter address"
           v-model="data.user.address"
         />
-        <error-message
+        <ErrorMessage
           name="Address"
           class="invalid-feedback"
         />
@@ -123,6 +123,7 @@
     </v-form>
   </section>
 </template>
+
 <script>
 import { postOrder } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

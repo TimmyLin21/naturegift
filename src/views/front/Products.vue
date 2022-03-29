@@ -104,6 +104,7 @@
     />
   </main>
 </template>
+
 <script>
 import { getAllProducts, addToCart } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

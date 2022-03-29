@@ -86,6 +86,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import cartMixin from '@/mixins/cartMixin';
 

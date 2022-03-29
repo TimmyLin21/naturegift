@@ -30,7 +30,7 @@
                   placeholder="Your Email"
                   v-model="email"
                 />
-                <error-message
+                <ErrorMessage
                   name="Email"
                   class="invalid-feedback"
                 />
@@ -105,6 +105,7 @@
     </div>
   </footer>
 </template>
+
 <script>
 import alertMixin from '@/mixins/alertMixin';
 
@@ -125,6 +126,7 @@ export default {
   mixins: [alertMixin],
 };
 </script>
+
 <style lang="scss">
   .social__hover {
   transition: all .45s cubic-bezier(.05,.2,.1,1);

@@ -7,6 +7,7 @@ align-items-center justify-content-center"
     <i class="fa-solid fa-kiwi-bird fa-4x text-primary fa-bounce" />
   </div>
 </template>
+
 <script>
 export default {
   data() {

@@ -26,6 +26,7 @@
     </div>
   </form>
 </template>
+
 <script>
 import productTab from '@/mixins/productTab';
 

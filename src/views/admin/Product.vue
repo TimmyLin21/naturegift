@@ -127,6 +127,7 @@
     Product
   </DelModal>
 </template>
+
 <script>
 import { getAdminProducts, delProduct } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

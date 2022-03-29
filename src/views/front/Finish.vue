@@ -131,6 +131,7 @@
     </div>
   </main>
 </template>
+
 <script>
 import { getOrder, postPay } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

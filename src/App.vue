@@ -3,8 +3,8 @@
   <BsAlert />
   <router-view />
 </template>
-<script>
 
+<script>
 export default {
   watch: {
     $route(to) {
@@ -18,6 +18,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 @import '@/assets/css/all';
 </style>

@@ -100,6 +100,7 @@
     :order="cacheOrder"
   />
 </template>
+
 <script>
 import { getAdminOrders, delAllOrders, delOrder } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

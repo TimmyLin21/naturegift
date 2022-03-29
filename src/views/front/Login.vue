@@ -45,6 +45,7 @@
     </div>
   </section>
 </template>
+
 <script>
 import { apiUserLogin, apiUserCheck } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

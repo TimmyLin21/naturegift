@@ -85,6 +85,7 @@
     :state="isNew"
   />
 </template>
+
 <script>
 import { getCoupons, delCoupon } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

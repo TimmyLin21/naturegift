@@ -193,6 +193,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import modalMixin from '@/mixins/modalMixin';
 import alertMixin from '@/mixins/alertMixin';

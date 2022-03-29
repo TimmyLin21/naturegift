@@ -59,10 +59,9 @@
     </div>
   </section>
 </template>
+
 <script>
 export default {
   name: 'OurStory',
 };
 </script>
-<style lang="">
-</style>

@@ -166,6 +166,7 @@
     </ul>
   </section>
 </template>
+
 <script>
 import { getProduct, getProducts, addToCart } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';

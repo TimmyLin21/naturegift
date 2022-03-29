@@ -167,6 +167,7 @@
     </div>
   </main>
 </template>
+
 <script>
 import cartMixin from '@/mixins/cartMixin';
 import { applyCoupon } from '@/scripts/api';

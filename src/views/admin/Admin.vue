@@ -73,6 +73,7 @@
     <router-view v-if="checkSuccess" />
   </div>
 </template>
+
 <script>
 import { apiUserCheck } from '@/scripts/api';
 import alertMixin from '@/mixins/alertMixin';
@@ -114,6 +115,7 @@ export default {
   mixins: [alertMixin],
 };
 </script>
+
 <style lang="scss">
 .router-link-active {
   color: white !important;

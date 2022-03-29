@@ -42,6 +42,7 @@
     >
   </section>
 </template>
+
 <script>
 export default {
   name: 'CategoryList',
@@ -70,6 +71,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
   .category__decor {
     height: 23.75rem;

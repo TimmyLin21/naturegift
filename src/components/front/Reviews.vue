@@ -2,9 +2,9 @@
   <section class="mb-7 py-5">
     <div class="container">
       <h2 class="mb-6 text-secondary d-flex justify-content-between align-items-center">
-        <b class="d-block h-2 bg-primary flex-grow-1 bg-opacity-75" />
+        <b class="d-block h-2px bg-primary flex-grow-1 bg-opacity-75" />
         <span class="mx-4">See why customers love our products</span>
-        <b class="d-block h-2 bg-primary flex-grow-1 bg-opacity-75" />
+        <b class="d-block h-2px bg-primary flex-grow-1 bg-opacity-75" />
       </h2>
       <div class="container">
         <div class="row">
@@ -32,6 +32,7 @@
     </div>
   </section>
 </template>
+
 <script>
 export default {
   name: 'Reviews',
@@ -58,8 +59,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-  .h-2 {
-    height: 2px;
-  }
-</style>

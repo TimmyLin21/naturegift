@@ -114,6 +114,7 @@
     </button>
   </div>
 </template>
+
 <script>
 import productTab from '@/mixins/productTab';
 import alertMixin from '@/mixins/alertMixin';
