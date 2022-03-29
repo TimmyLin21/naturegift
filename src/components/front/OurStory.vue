@@ -8,9 +8,9 @@
         <div class="col">
           <figure class="mt-n5">
             <img
-              src="@/assets/images/OurStoryImg.jpeg"
+              src="https://images.unsplash.com/photo-1600189083288-89e1c8b9b0cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8N3xGclVPeTBwVDQ1RXx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
               alt="A lots of fresh nuts."
-              class="rounded img-fluid"
+              class="rounded img-fluid h-500px"
             >
           </figure>
         </div>
