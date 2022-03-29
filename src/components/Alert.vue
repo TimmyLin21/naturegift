@@ -1,10 +1,17 @@
 <template>
-  <div class="alert alert-success position-absolute top-50 start-50
-  translate-middle trans-ease z-4" role="alert"
-  :class="{fade:isClose, 'alert-success':isSuccess, 'alert-danger': !isSuccess}">
+  <div
+    class="alert alert-success position-absolute top-50 start-50
+  translate-middle trans-ease z-4"
+    role="alert"
+    :class="{fade:isClose, 'alert-success':isSuccess, 'alert-danger': !isSuccess}"
+  >
     {{ msg }}
-    <button type="button" class="btn-close ms-2"
-    @click="close" aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close ms-2"
+      @click="close"
+      aria-label="Close"
+    />
   </div>
 </template>
 <script>

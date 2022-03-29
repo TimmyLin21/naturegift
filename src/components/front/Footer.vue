@@ -3,25 +3,45 @@
     <div class="container">
       <div class="row align-items-center justify-content-center">
         <div class="col-6 col-md-3">
-          <img src="@/assets/images/logo.jpeg" alt="logo" class="img-fluid">
+          <img
+            src="@/assets/images/logo.jpeg"
+            alt="logo"
+            class="img-fluid"
+          >
         </div>
         <div class="col-12 col-md-5 mb-5 mb-md-0">
           <h3>Let's Stay Connected</h3>
           <p>Enter your email to unlock 10% OFF.</p>
-          <v-form class="row align-items-center" @submit="getCoupon" v-slot="{ errors }"
-          ref="form">
+          <v-form
+            class="row align-items-center"
+            @submit="getCoupon"
+            v-slot="{ errors }"
+            ref="form"
+          >
             <div class="col-md-11 mb-3 mb-md-0">
               <div class="form-floating">
-                <v-field type="email" class="form-control" id="sub-email"
-                :class="{ 'is-invalid': errors['Email'] }" name="Email"
-                rules="required|email"
-                placeholder="Your Email" v-model="email" />
-                <error-message name="Email" class="invalid-feedback" />
+                <v-field
+                  type="email"
+                  class="form-control"
+                  id="sub-email"
+                  :class="{ 'is-invalid': errors['Email'] }"
+                  name="Email"
+                  rules="required|email"
+                  placeholder="Your Email"
+                  v-model="email"
+                />
+                <error-message
+                  name="Email"
+                  class="invalid-feedback"
+                />
                 <label for="sub-email">Your Email</label>
               </div>
             </div>
             <div class="col-md-1">
-              <button class="c-btn" type="submit">
+              <button
+                class="c-btn"
+                type="submit"
+              >
                 <span class="c-btn__text">SUBMIT</span>
               </button>
             </div>
@@ -31,23 +51,47 @@
           <h3>Follow us</h3>
           <ul class="nav justify-content-center">
             <li>
-              <a href="https://github.com/TimmyLin21/naturegift" class="nav-link text-secondary social__hover">
-                <BIconGithub width="24px" height="24px" />
+              <a
+                href="https://github.com/TimmyLin21/naturegift"
+                class="nav-link text-secondary social__hover"
+              >
+                <BIconGithub
+                  width="24px"
+                  height="24px"
+                />
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-secondary social__hover">
-                <BIconFacebook width="24px" height="24px" />
+              <a
+                href="#"
+                class="nav-link text-secondary social__hover"
+              >
+                <BIconFacebook
+                  width="24px"
+                  height="24px"
+                />
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-secondary social__hover">
-                <BIconTwitter width="24px" height="24px" />
+              <a
+                href="#"
+                class="nav-link text-secondary social__hover"
+              >
+                <BIconTwitter
+                  width="24px"
+                  height="24px"
+                />
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-secondary social__hover">
-                <BIconInstagram width="24px" height="24px" />
+              <a
+                href="#"
+                class="nav-link text-secondary social__hover"
+              >
+                <BIconInstagram
+                  width="24px"
+                  height="24px"
+                />
               </a>
             </li>
           </ul>
@@ -55,7 +99,9 @@
       </div>
     </div>
     <div class="bg-success bg-opacity-25">
-      <p class="text-mute mb-0 py-3">© 2022 Nature Gift. All rights reserved</p>
+      <p class="text-mute mb-0 py-3">
+        © 2022 Nature Gift. All rights reserved
+      </p>
     </div>
   </footer>
 </template>

@@ -2,13 +2,26 @@
   <main class="bg-light w-100">
     <div class="container py-4">
       <div class="d-flex justify-content-between mb-4">
-        <select class="form-select w-10" v-model="selected" @change="getProducts(1,selected)">
-          <option selected>All</option>
-          <option :value="category" v-for="category in categorys" :key="category">
+        <select
+          class="form-select w-10"
+          v-model="selected"
+          @change="getProducts(1,selected)"
+        >
+          <option selected>
+            All
+          </option>
+          <option
+            :value="category"
+            v-for="category in categorys"
+            :key="category"
+          >
             {{ category }}
           </option>
         </select>
-        <button class="btn btn-secondary text-white" @click="modalToggle('new')">
+        <button
+          class="btn btn-secondary text-white"
+          @click="modalToggle('new')"
+        >
           Add new product
         </button>
       </div>
@@ -16,41 +29,103 @@
         <table class="table text-center">
           <thead>
             <tr class="table-secondary text-secondary">
-              <th scope="col">Category</th>
-              <th scope="col" colspan="2">Title</th>
-              <th scope="col" class="text-nowrap">Origin Price</th>
-              <th scope="col">Price</th>
-              <th scope="col">Unit</th>
-              <th scope="col">Enabled</th>
-              <th scope="col" colspan="2">Edit</th>
+              <th scope="col">
+                Category
+              </th>
+              <th
+                scope="col"
+                colspan="2"
+              >
+                Title
+              </th>
+              <th
+                scope="col"
+                class="text-nowrap"
+              >
+                Origin Price
+              </th>
+              <th scope="col">
+                Price
+              </th>
+              <th scope="col">
+                Unit
+              </th>
+              <th scope="col">
+                Enabled
+              </th>
+              <th
+                scope="col"
+                colspan="2"
+              >
+                Edit
+              </th>
             </tr>
           </thead>
           <tbody class="border-top-0">
-            <tr v-for="product in products.products" :key="product.id">
+            <tr
+              v-for="product in products.products"
+              :key="product.id"
+            >
               <td>{{ product.category }}</td>
-              <td><img :src="product.imageUrl" :alt="product.title" class="w-50"></td>
-              <td class="w-25">{{ product.title }}</td>
+              <td>
+                <img
+                  :src="product.imageUrl"
+                  :alt="product.title"
+                  class="w-50"
+                >
+              </td>
+              <td class="w-25">
+                {{ product.title }}
+              </td>
               <td>{{ product.origin_price }}</td>
               <td>{{ product.price }}</td>
               <td>{{ product.unit }}</td>
-              <td v-if="product.is_enabled"><BIconCheckCircle /></td>
-              <td v-else><BIconXCircle /></td>
-              <td><a href="#" class="link-success" @click.prevent="modalToggle('edit', product)">
-                <BIconPen />
-              </a></td>
-              <td><a href="#" class="link-danger" @click.prevent="modalToggle('del', product)">
-                <BIconTrash />
-              </a></td>
+              <td v-if="product.is_enabled">
+                <BIconCheckCircle />
+              </td>
+              <td v-else>
+                <BIconXCircle />
+              </td>
+              <td>
+                <a
+                  href="#"
+                  class="link-success"
+                  @click.prevent="modalToggle('edit', product)"
+                >
+                  <BIconPen />
+                </a>
+              </td>
+              <td>
+                <a
+                  href="#"
+                  class="link-danger"
+                  @click.prevent="modalToggle('del', product)"
+                >
+                  <BIconTrash />
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <Pagination :pagination="products.pagination" @send-request="getProducts" />
+      <Pagination
+        :pagination="products.pagination"
+        @send-request="getProducts"
+      />
     </div>
   </main>
   <!-- Modal -->
-  <ProductModal ref="productModal" @send-request="getProducts(products.pagination.current_page)" />
-  <DelModal ref="delModal" :item="cacheProduct" @del-item="delProduct">Product</DelModal>
+  <ProductModal
+    ref="productModal"
+    @send-request="getProducts(products.pagination.current_page)"
+  />
+  <DelModal
+    ref="delModal"
+    :item="cacheProduct"
+    @del-item="delProduct"
+  >
+    Product
+  </DelModal>
 </template>
 <script>
 import { getAdminProducts, delProduct } from '@/scripts/api';

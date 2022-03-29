@@ -1,30 +1,66 @@
 <template>
-  <div class="modal fade" tabindex="-1"
-  aria-labelledby="productModalLabel" aria-hidden="true" ref="modal">
+  <div
+    class="modal fade"
+    tabindex="-1"
+    aria-labelledby="productModalLabel"
+    aria-hidden="true"
+    ref="modal"
+  >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-primary">
-          <h5 class="modal-title text-secondary" v-if="isNew">Add New Product</h5>
-          <h5 class="modal-title text-secondary" v-else>Edit Product</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+          <h5
+            class="modal-title text-secondary"
+            v-if="isNew"
+          >
+            Add New Product
+          </h5>
+          <h5
+            class="modal-title text-secondary"
+            v-else
+          >
+            Edit Product
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
         </div>
         <div class="modal-body">
           <ul class="nav nav-pills bg-success p-2 mb-3">
-            <li class="nav-item" v-for="tab in tabs" :key="tab">
-              <a class="nav-link cursor-pointer"
-              :class="{active: currentTab === `${tab}Tab`}"
-              @click="currentTab = `${tab}Tab`">
+            <li
+              class="nav-item"
+              v-for="tab in tabs"
+              :key="tab"
+            >
+              <a
+                class="nav-link cursor-pointer"
+                :class="{active: currentTab === `${tab}Tab`}"
+                @click="currentTab = `${tab}Tab`"
+              >
                 {{ tab }}
               </a>
             </li>
           </ul>
           <keep-alive>
-            <component :is="currentTab"></component>
+            <component :is="currentTab" />
           </keep-alive>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary text-secondary" @click="saveChange">
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary text-secondary"
+            @click="saveChange"
+          >
             Save changes
           </button>
         </div>
@@ -87,5 +123,6 @@ export default {
     },
   },
   mixins: [modalMixin, alertMixin, productTab],
+  emits: ['send-request'],
 };
 </script>

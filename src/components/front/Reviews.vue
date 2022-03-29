@@ -2,18 +2,27 @@
   <section class="mb-7 py-5">
     <div class="container">
       <h2 class="mb-6 text-secondary d-flex justify-content-between align-items-center">
-        <b class="d-block h-2 bg-primary flex-grow-1 bg-opacity-75"></b>
+        <b class="d-block h-2 bg-primary flex-grow-1 bg-opacity-75" />
         <span class="mx-4">See why customers love our products</span>
-        <b class="d-block h-2 bg-primary flex-grow-1 bg-opacity-75"></b>
+        <b class="d-block h-2 bg-primary flex-grow-1 bg-opacity-75" />
       </h2>
       <div class="container">
         <div class="row">
-          <div class="col-12 col-md-6 col-lg-4 mb-4" v-for="user in users" :key="user.name">
+          <div
+            class="col-12 col-md-6 col-lg-4 mb-4"
+            v-for="user in users"
+            :key="user.name"
+          >
             <div class="d-flex align-items-center">
-              <img :src="user.imgUrl"
-              alt="" class="img-fluid rounded-circle me-3">
+              <img
+                :src="user.imgUrl"
+                alt=""
+                class="img-fluid rounded-circle me-3"
+              >
               <div class="">
-                <p class="fw-bold">{{ user.name }}</p>
+                <p class="fw-bold">
+                  {{ user.name }}
+                </p>
                 <p>{{ user.comment }}</p>
               </div>
             </div>

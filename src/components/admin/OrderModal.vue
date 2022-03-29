@@ -1,40 +1,82 @@
 <template>
-  <div class="modal fade" tabindex="-1"
-  aria-labelledby="productModalLabel" aria-hidden="true" ref="modal">
+  <div
+    class="modal fade"
+    tabindex="-1"
+    aria-labelledby="productModalLabel"
+    aria-hidden="true"
+    ref="modal"
+  >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-primary">
-          <h5 class="modal-title text-secondary">Edit Order</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+          <h5 class="modal-title text-secondary">
+            Edit Order
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-12 col-lg-5">
               <h3>Customer Info</h3>
               <div class="row mb-3">
-                <label for="name" class="col-sm-3 col-form-label">Name</label>
+                <label
+                  for="name"
+                  class="col-sm-3 col-form-label"
+                >Name</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="name" v-model="cacheOrder.user.name">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    v-model="cacheOrder.user.name"
+                  >
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <label
+                  for="email"
+                  class="col-sm-3 col-form-label"
+                >Email</label>
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" id="email"
-                  v-model="cacheOrder.user.email">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    v-model="cacheOrder.user.email"
+                  >
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="tel" class="col-sm-3 col-form-label">Phone</label>
+                <label
+                  for="tel"
+                  class="col-sm-3 col-form-label"
+                >Phone</label>
                 <div class="col-sm-9">
-                  <input type="tel" class="form-control" id="tel" v-model="cacheOrder.user.tel">
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="tel"
+                    v-model="cacheOrder.user.tel"
+                  >
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="address" class="col-sm-3 col-form-label">Address</label>
+                <label
+                  for="address"
+                  class="col-sm-3 col-form-label"
+                >Address</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="address"
-                  v-model="cacheOrder.user.address">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    v-model="cacheOrder.user.address"
+                  >
                 </div>
               </div>
             </div>
@@ -43,7 +85,12 @@
               <table class="table">
                 <tbody>
                   <tr>
-                    <th style="width: 100px" class="text-nowrap">Tracking number</th>
+                    <th
+                      style="width: 100px"
+                      class="text-nowrap"
+                    >
+                      Tracking number
+                    </th>
                     <td>{{ cacheOrder.id }}</td>
                   </tr>
                   <tr>
@@ -62,10 +109,14 @@
                   <tr>
                     <th>Paid statement</th>
                     <td>
-                      <strong v-if="cacheOrder.is_paid" class="text-success"
-                        >Paid</strong
-                      >
-                      <span v-else class="text-muted">Unpaid</span>
+                      <strong
+                        v-if="cacheOrder.is_paid"
+                        class="text-success"
+                      >Paid</strong>
+                      <span
+                        v-else
+                        class="text-muted"
+                      >Unpaid</span>
                     </td>
                   </tr>
                   <tr>
@@ -81,10 +132,13 @@
               <h3>Order items</h3>
               <table class="table">
                 <thead>
-                  <tr></tr>
+                  <tr />
                 </thead>
                 <tbody>
-                  <tr v-for="product in cacheOrder.products" :key="product.id">
+                  <tr
+                    v-for="product in cacheOrder.products"
+                    :key="product.id"
+                  >
                     <th>
                       {{ product.product.title }}
                     </th>
@@ -97,11 +151,20 @@
               </table>
               <div class="d-flex">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" v-model="cacheOrder.is_paid"
-                  :true-value="true" :false-value="false" id="isPaidSwitch"
-                  :checked="cacheOrder.is_paid"
-                  role="switch" />
-                  <label class="form-check-label" for="isPaidSwitch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    v-model="cacheOrder.is_paid"
+                    :true-value="true"
+                    :false-value="false"
+                    id="isPaidSwitch"
+                    :checked="cacheOrder.is_paid"
+                    role="switch"
+                  >
+                  <label
+                    class="form-check-label"
+                    for="isPaidSwitch"
+                  >
                     <span v-if="cacheOrder.is_paid">Paid</span>
                     <span v-else>Unpaid</span>
                   </label>
@@ -111,8 +174,18 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary text-secondary" @click="saveChange">
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary text-secondary"
+            @click="saveChange"
+          >
             Save changes
           </button>
         </div>
@@ -134,7 +207,17 @@ export default {
       },
     };
   },
-  props: ['order'],
+  props: {
+    order: {
+      type: Object,
+      default() {
+        return {
+          imagesUrl: [],
+          user: {},
+        };
+      },
+    },
+  },
   methods: {
     saveChange() {
       editOrder(this.cacheOrder.id, this.cacheOrder)
@@ -160,5 +243,6 @@ export default {
     },
   },
   mixins: [modalMixin, alertMixin],
+  emits: ['send-request'],
 };
 </script>

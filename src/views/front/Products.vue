@@ -2,51 +2,106 @@
   <main class="container py-6 mt-150px">
     <div class="d-flex justify-content-between align-items-center mb-5">
       <div>
-        <p class="text-start">FILTER BY</p>
+        <p class="text-start">
+          FILTER BY
+        </p>
         <ul class="nav">
           <li class="me-3">
-            <a href="#" class="c-btn" @click.prevent="chooseCategory('All')">
+            <a
+              href="#"
+              class="c-btn"
+              @click.prevent="chooseCategory('All')"
+            >
               <span class="c-btn__text">All</span>
             </a>
           </li>
-          <li class="me-3" v-for="category in category.categories" :key="category">
-            <a href="#" class="c-btn" @click.prevent="chooseCategory(category)">
-              <span class="c-btn__text">{{ category }}</span>
+          <li
+            class="me-3"
+            v-for="item in category.categories"
+            :key="item"
+          >
+            <a
+              href="#"
+              class="c-btn"
+              @click.prevent="chooseCategory(item)"
+            >
+              <span class="c-btn__text">{{ item }}</span>
             </a>
           </li>
         </ul>
       </div>
       <div>
-        <label name="sort" class="text-end d-block mb-2">SORT BY</label>
+        <label
+          name="sort"
+          class="text-end d-block mb-2"
+        >SORT BY</label>
         <div class="c-select">
-          <div class="c-select__selected" @click="sort.isShow = !sort.isShow"
-          :class="{'select__arrow-active':sort.isShow}" aria-haspopup="listbox"
-          aria-labelledby="sort">
+          <div
+            class="c-select__selected"
+            @click="sort.isShow = !sort.isShow"
+            :class="{'select__arrow-active':sort.isShow}"
+            aria-haspopup="listbox"
+            aria-labelledby="sort"
+          >
             {{ sort.selected }}
           </div>
         </div>
-        <div class="c-select__items z-2" v-show="sort.isShow" role="listbox" tabindex="-1">
-          <div v-for="sort in sort.sorts" :key="sort" @click="chooseSort(sort)">{{ sort }}</div>
+        <div
+          class="c-select__items z-2"
+          v-show="sort.isShow"
+          role="listbox"
+          tabindex="-1"
+        >
+          <div
+            v-for="sortOption in sort.sorts"
+            :key="sortOption"
+            @click="chooseSort(sortOption)"
+          >
+            {{ sortOption }}
+          </div>
         </div>
       </div>
     </div>
     <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none">
-      <li class="col mb-4" v-for="product in products" :key="product.id">
-        <div class="mb-3 product__img" role="button" @click="getDetail(product.id)">
-          <img :src="product.imageUrl" :alt="product.title" class="img-fluid rounded">
-          <div class="bg-dark product__img__lightbox"></div>
+      <li
+        class="col mb-4"
+        v-for="product in products"
+        :key="product.id"
+      >
+        <div
+          class="mb-3 product__img"
+          role="button"
+          @click="getDetail(product.id)"
+        >
+          <img
+            :src="product.imageUrl"
+            :alt="product.title"
+            class="img-fluid rounded"
+          >
+          <div class="bg-dark product__img__lightbox" />
           <div class="product__img__text mb-3">
             Check Details
           </div>
         </div>
-        <p class="mb-1">{{ product.title }}</p>
-        <p class="text-muted">${{product.price}} NTD / {{product.unit}}</p>
-        <a href="" class="c-btn" @click.prevent="addToCart(product.id)">
+        <p class="mb-1">
+          {{ product.title }}
+        </p>
+        <p class="text-muted">
+          ${{ product.price }} NTD / {{ product.unit }}
+        </p>
+        <a
+          href=""
+          class="c-btn"
+          @click.prevent="addToCart(product.id)"
+        >
           <span class="c-btn__text">Add to cart</span>
         </a>
       </li>
     </ul>
-    <Pagination :pagination="pagination" @send-request="getProducts" />
+    <Pagination
+      :pagination="pagination"
+      @send-request="getProducts"
+    />
   </main>
 </template>
 <script>
