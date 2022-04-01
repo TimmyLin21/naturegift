@@ -89,8 +89,13 @@
             <p><span class="fw-bold">Address:</span><span>{{ order.user.address }}</span></p>
             <p class="mb-0">
               <span class="fw-bold">Subtotal:</span>
-              <span>{{ order.total }}
+              <span>{{ order.total }}</span>
+            </p>
+            <p class="fw-bold mb-0 border-bottom-0">
+              <span class="fw-bold mt-3">Order Items</span>
+              <span>
                 <BIconCaretDownFill
+                  class="fs-3 mt-2 link-secondary cursor-pointer"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseOne"
                   :class="{'rotate-180': isRotate, 'mb-1': isRotate}"
@@ -102,9 +107,6 @@
               id="collapseOne"
               class="accordion-collapse collapse mt-3"
             >
-              <p class="fw-bold border-0">
-                Order Items
-              </p>
               <table class="table">
                 <thead>
                   <tr>
@@ -132,7 +134,7 @@
                       <img
                         :src="item.product.imageUrl"
                         :alt="item.product.title"
-                        class="img-fluid"
+                        class="w-100 object-cover object-position-center h-100px"
                       >
                     </td>
                     <td>

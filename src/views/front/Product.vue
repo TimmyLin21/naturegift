@@ -77,14 +77,20 @@
         </p>
         <div class="d-flex mb-4">
           <div class="qty me-5">
-            <span><BIconDashCircle @click="minusQty" /></span>
+            <span><BIconDashCircle
+              @click="minusQty"
+              class="fs-4 link-secondary"
+            /></span>
             <input
               class="text-center"
               type="number"
               v-model.number="qty"
               min="1"
             >
-            <span><BIconPlusCircle @click="qty += 1" /></span>
+            <span><BIconPlusCircle
+              @click="qty += 1"
+              class="fs-4 link-secondary"
+            /></span>
           </div>
           <a
             href="#"

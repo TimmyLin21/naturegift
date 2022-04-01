@@ -25,3 +25,18 @@
     background: #f9faee;
   }
 }
+
+// Try it out button - Home
+.btn-hover-primary {
+  &:hover {
+    background-color: $primary;
+    color: $black;
+    border: 1px solid $primary;
+  }
+}
+.btn-hover-arrow {
+  &:hover svg{
+    transition: all .5s ease;
+    transform: translateX(50%);
+  }
+}

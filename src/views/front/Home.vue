@@ -5,10 +5,18 @@
   >
     <h1
       class="d-none d-md-block display-5 lh-5 position-absolute text-white
-     top-35 fw-bold start-5 text-start z-2"
+      top-35 fw-bold start-5 text-start z-2"
     >
       All you need is <br> <span class="me-5" />Fresh and Delicious
     </h1>
+    <button
+      class="btn btn-secondary btn-hover-primary btn-lg position-absolute start-5
+      top-60 fw-bold px-5 py-3 fs-4 btn-hover-arrow"
+      type="button"
+      @click="toProducts"
+    >
+      SHOP NOW <BIconArrowRight class="mb-1" />
+    </button>
     <video
       class="position-absolute top-0 start-0 w-100 h-100 object-cover opacity-90 z-n1"
       autoplay
@@ -54,6 +62,9 @@ export default {
   methods: {
     scrollDown() {
       this.$router.push({ path: '/', hash: '#CategoryList' });
+    },
+    toProducts() {
+      this.$router.push('/products');
     },
   },
 };

@@ -75,6 +75,7 @@
                 height="24px"
               />
               <span
+                v-if="quantity > 0"
                 class="position-absolute top-20 start-75
               translate-middle badge rounded-pill bg-danger"
               >

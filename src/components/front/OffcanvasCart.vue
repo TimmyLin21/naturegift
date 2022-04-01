@@ -54,17 +54,23 @@
               <img
                 :src="item.product.imageUrl"
                 :alt="item.product.title"
-                class="w-25"
+                class="w-25 h-50px object-cover object-position-center"
               >
               <div class="qty">
-                <span><BIconDashCircle @click="editCart(item, '-')" /></span>
+                <span><BIconDashCircle
+                  @click="editCart(item, '-')"
+                  class="fs-4 link-secondary"
+                /></span>
                 <input
                   class="text-center"
                   type="number"
                   v-model.number="item.qty"
                   @change="editCart(item)"
                 >
-                <span><BIconPlusCircle @click="editCart(item, '+')" /></span>
+                <span><BIconPlusCircle
+                  @click="editCart(item, '+')"
+                  class="fs-4 link-secondary"
+                /></span>
               </div>
               <p class="mb-0 fw-bold">
                 $ {{ item.total }}

@@ -64,7 +64,7 @@
     </div>
     <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none">
       <li
-        class="col mb-4"
+        class="col mb-7"
         v-for="product in products"
         :key="product.id"
       >
@@ -83,7 +83,10 @@
             Check Details
           </div>
         </div>
-        <p class="mb-1">
+        <p
+          class="mb-1 cursor-pointer fw-bold"
+          @click="getDetail(product.id)"
+        >
           {{ product.title }}
         </p>
         <p class="text-muted">
