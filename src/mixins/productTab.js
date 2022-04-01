@@ -16,4 +16,7 @@ export default {
       this.isNew = this.state;
     },
   },
+  activated() {
+    this.cacheProduct = this.product;
+  },
 };

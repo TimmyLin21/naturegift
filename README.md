@@ -203,6 +203,39 @@ const router = createRouter({
 
 Use either data properties or javascript to trigger bootstrap components. If you apply both to components, it might trigger twice at the same time. For instance, applying both to offcanvas, when you click outside of the canvas, backdrop won't be closed.
 
+When you use dynamic components with keep-alive component and you want to pass the value through provide or props, such as making a tab list component. Activated hook should be used to give the value when created the component, otherwise only the first component will show the data, the others need to be opened again to catch the data.
+
+```html
+<keep-alive>
+  <component :is="currentTab" />
+</keep-alive>
+```
+
+```js
+export default {
+  data() {
+    return {
+      cacheProduct: {
+        imagesUrl: [],
+      },
+      isNew: true,
+    };
+  },
+  inject: ['product', 'state'],
+  watch: {
+    product() {
+      this.cacheProduct = this.product;
+    },
+    state() {
+      this.isNew = this.state;
+    },
+  },
+  activated() {
+    this.cacheProduct = this.product;
+  },
+};
+```
+
 ### Continued development
 
 It's my first time to design the whole website, therefore there is still room for improvement in UI and UX. Besides, there are some plugins which I haven't used before such as ckeditor and veevalidate. I need more practice to get more familiar with them. Also, I've learned a lot in organizing project like mixins and scripts which I believe it's gonna be helpful for my future complex projects.
