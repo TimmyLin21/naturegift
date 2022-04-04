@@ -29,8 +29,8 @@
         </div>
       </div>
     </div>
-    <div class="row g-5">
-      <section class="col-12 col-md-5 pt-3">
+    <div class="row g-md-5">
+      <section class="col-12 col-md-5 pt-3 mb-5">
         <h2 class="mb-4">
           Payment methods
         </h2>
@@ -82,7 +82,18 @@
               <span class="fw-bold">Date:</span>
               <span>{{ $filters.date(order.create_at) }}</span>
             </p>
-            <p><span class="fw-bold">Track Number:</span><span>{{ order.id }}</span></p>
+            <p class="d-none d-sm-flex">
+              <span class="fw-bold text-start">Track Number:</span>
+              <span class="text-wrap">{{ order.id }}</span>
+            </p>
+            <p class="d-sm-none border-bottom-0 mb-0">
+              <span class="fw-bold text-start">Track Number:</span>
+              <span />
+            </p>
+            <p class="d-sm-none">
+              <span />
+              <span class="text-end">{{ order.id }}</span>
+            </p>
             <p><span class="fw-bold">Customer Name:</span><span>{{ order.user.name }}</span></p>
             <p><span class="fw-bold">Contact Number:</span><span>{{ order.user.tel }}</span></p>
             <p><span class="fw-bold">Email:</span><span>{{ order.user.email }}</span></p>
@@ -95,10 +106,10 @@
               <span class="fw-bold mt-3">Order Items</span>
               <span>
                 <BIconCaretDownFill
-                  class="fs-3 mt-2 link-secondary cursor-pointer"
+                  class="fs-3 mt-3 mt-md-2 link-secondary cursor-pointer"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseOne"
-                  :class="{'rotate-180': isRotate, 'mb-1': isRotate}"
+                  :class="{'rotate-180': isRotate, 'mb-md-1': isRotate}"
                   @click="isRotate = !isRotate"
                 />
               </span>
@@ -107,48 +118,61 @@
               id="collapseOne"
               class="accordion-collapse collapse mt-3"
             >
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      colspan="2"
-                    >
-                      Product
-                    </th>
-                    <th scope="col">
-                      Quantity
-                    </th>
-                    <th scope="col">
-                      Total
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="item in order.products"
-                    :key="item.id"
-                    class="align-middle"
-                  >
-                    <td width="20%">
-                      <img
-                        :src="item.product.imageUrl"
-                        :alt="item.product.title"
-                        class="w-100 object-cover object-position-center h-100px"
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        colspan="2"
                       >
-                    </td>
-                    <td>
-                      {{ item.product.title }}
-                    </td>
-                    <td>
-                      {{ item.qty }}
-                    </td>
-                    <td>
-                      NT$ {{ item.total }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        Product
+                      </th>
+                      <th scope="col">
+                        Quantity
+                      </th>
+                      <th scope="col">
+                        Total
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="item in order.products"
+                      :key="item.id"
+                      class="align-middle"
+                    >
+                      <td width="100px">
+                        <img
+                          :src="item.product.imageUrl"
+                          :alt="item.product.title"
+                          class="w-100px object-cover object-position-center h-100px"
+                        >
+                      </td>
+                      <td>
+                        {{ item.product.title }}
+                      </td>
+                      <td>
+                        {{ item.qty }}
+                      </td>
+                      <td
+                        class="text-nowrap"
+                        v-if="item.total === item.final_total"
+                      >
+                        NT$ {{ item.total }}
+                      </td>
+                      <td
+                        v-else
+                      >
+                        <span class="text-decoration-line-through text-danger text-nowrap">
+                          NT$ {{ item.total }}
+                        </span>
+                        NT$ {{ item.final_total }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

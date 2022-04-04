@@ -72,7 +72,7 @@
                 <img
                   :src="product.imageUrl"
                   :alt="product.title"
-                  class="w-50"
+                  class="w-100px h-100px object-cover object-position-center"
                 >
               </td>
               <td class="w-25">

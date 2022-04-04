@@ -5,7 +5,11 @@
   >
     <div class="container d-flex justify-content-between">
       <div class="row row-cols-1 row-cols-md-2">
-        <div class="col">
+        <div
+          class="col wow fadeInLeft"
+          data-wow-duration="2s"
+          data-wow-offset="50"
+        >
           <figure class="mt-n5">
             <img
               src="@/assets/images/OurStoryImg.jpeg"
@@ -14,7 +18,11 @@
             >
           </figure>
         </div>
-        <div class="col">
+        <div
+          class="col wow fadeInRight"
+          data-wow-duration="2s"
+          data-wow-offset="10"
+        >
           <div class="py-5 text-primary text-start p-3">
             <h2 class="mb-5">
               Our Story
@@ -61,6 +69,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'OurStory',
 };

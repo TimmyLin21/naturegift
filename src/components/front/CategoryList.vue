@@ -5,7 +5,7 @@
   >
     <div class="py-5 bg-primary shadow-lg">
       <div class="container">
-        <h2 class="mb-5 align-start text-secondary text-start">
+        <h2 class="mb-5 align-start text-secondary text-start wow fadeIn">
           Shop by Category
         </h2>
         <ul class="nav justify-content-between flex-md-nowrap">
@@ -38,7 +38,7 @@
     <img
       src="@/assets/images/pine-branch.png"
       alt="pine-branch"
-      class="position-absolute category__decor rotate-n20"
+      class="position-absolute category__decor wow bounceInRight rotate-n20"
     >
   </section>
 </template>

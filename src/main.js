@@ -25,6 +25,11 @@ import {
 } from 'vee-validate';
 import AllRules from '@vee-validate/rules';
 
+// wow.js
+import Wow from 'wow.js';
+import 'wow.js/css/libs/animate.css';
+
+import swal from 'sweetalert';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import CKEditor from '@ckeditor/ckeditor5-vue';
@@ -38,6 +43,7 @@ Object.keys(AllRules).forEach((rule) => {
 });
 
 const app = createApp(App);
+app.config.globalProperties.$swal = swal;
 app.config.globalProperties.$emitter = mitt;
 app.config.globalProperties.$filters = {
   date,
@@ -50,10 +56,11 @@ app.use(BootstrapIconsPlugin);
 app.use(VueAxios, axios);
 app.use(CKEditor);
 app.use(fontawesome);
-app.component('font-awesome-icon', FontAwesomeIcon);
+app.component('FontAwesomeIcon', FontAwesomeIcon);
 app.component('Loading', Loading);
 app.component('BsAlert', BsAlert);
 app.component('VForm', Form);
 app.component('VField', Field);
 app.component('ErrorMessage', ErrorMessage);
 app.use(router).mount('#app');
+new Wow().init();

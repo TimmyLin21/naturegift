@@ -72,9 +72,24 @@
                   class="fs-4 link-secondary"
                 /></span>
               </div>
-              <p class="mb-0 fw-bold">
+              <p
+                class="mb-0 fw-bold"
+                v-if="item.total === item.product.origin_price * item.qty"
+              >
                 $ {{ item.total }}
               </p>
+              <template v-else>
+                <div class="">
+                  <p class="text-decoration-line-through text-danger mb-0 fw-bold">
+                    $ {{ item.product.origin_price * item.qty }}
+                  </p>
+                  <p
+                    class="mb-0 fw-bold"
+                  >
+                    $ {{ item.total }}
+                  </p>
+                </div>
+              </template>
             </div>
           </li>
         </ul>

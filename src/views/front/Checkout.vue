@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="row gx-5">
+    <div class="row gx-md-5">
       <section class="col-12 col-md-7 mb-4">
         <h2
           class="mb-4"
@@ -38,118 +38,120 @@
           Your cart
         </h2>
         <template v-if="carts.length > 0">
-          <table
-            class="table mb-5"
-          >
-            <thead>
-              <tr>
-                <th
-                  scope="col"
-                  colspan="3"
+          <div class="table-responsive mb-5">
+            <table
+              class="table mb-5"
+            >
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    colspan="3"
+                  >
+                    Product
+                  </th>
+                  <th scope="col">
+                    Price
+                  </th>
+                  <th scope="col">
+                    Quantity
+                  </th>
+                  <th scope="col">
+                    Total
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item in carts"
+                  :key="item.id"
+                  class="align-middle"
                 >
-                  Product
-                </th>
-                <th scope="col">
-                  Price
-                </th>
-                <th scope="col">
-                  Quantity
-                </th>
-                <th scope="col">
-                  Total
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="item in carts"
-                :key="item.id"
-                class="align-middle"
-              >
-                <td>
-                  <a
-                    href="#"
-                    class="link-danger"
-                    @click.prevent="delCartItem(item.id)"
-                  >
-                    <BIconTrash />
-                  </a>
-                </td>
-                <td width="20%">
-                  <img
-                    :src="item.product.imageUrl"
-                    :alt="item.product.title"
-                    class="img-fluid"
-                  >
-                </td>
-                <td>
-                  <p class="mb-0">
-                    {{ item.product.title }}
-                  </p>
-                  <small class="text-start">Size: {{ item.product.unit }}</small>
-                </td>
-                <td>
-                  <template v-if="item.product.price">
-                    <p class="mb-0">
-                      <del class="text-danger">NT$ {{ item.product.origin_price }}</del>
-                    </p>
-                    <p class="mb-0">
-                      NT$ {{ item.product.price }}
-                    </p>
-                  </template>
-                  <template v-else>
-                    <p class="mb-0">
-                      NT$ {{ item.product.origin_price }}
-                    </p>
-                  </template>
-                </td>
-                <td width="10%">
-                  <div class="qty">
-                    <span><BIconDashCircle @click="editCart(item, '-')" /></span>
-                    <input
-                      class="text-center"
-                      type="number"
-                      v-model.number="item.qty"
-                      @change="editCart(item)"
+                  <td>
+                    <a
+                      href="#"
+                      class="link-danger"
+                      @click.prevent="delCartItem(item.id)"
                     >
-                    <span><BIconPlusCircle @click="editCart(item, '+')" /></span>
-                  </div>
-                </td>
-                <td>
-                  NT$ {{ item.total }}
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3">
-                  Subtotal
-                </td>
-                <td
-                  colspan="3"
-                  class="text-end text-danger"
-                  v-if="total !== final_total"
-                >
-                  <del>NTD$ {{ total }}</del>
-                </td>
-                <td
-                  colspan="3"
-                  class="text-end"
-                  v-else
-                >
-                  NTD$ {{ final_total }}
-                </td>
-              </tr>
-              <tr v-if="total !== final_total">
-                <td
-                  colspan="6"
-                  class="text-end border-bottom-0"
-                >
-                  NTD$ {{ final_total }}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+                      <BIconTrash />
+                    </a>
+                  </td>
+                  <td width="100px">
+                    <img
+                      :src="item.product.imageUrl"
+                      :alt="item.product.title"
+                      class="w-100px h-50px object-cover object-position-center"
+                    >
+                  </td>
+                  <td>
+                    <p class="mb-0">
+                      {{ item.product.title }}
+                    </p>
+                    <small class="text-start">Size: {{ item.product.unit }}</small>
+                  </td>
+                  <td>
+                    <template v-if="item.product.price !== item.product.origin_price">
+                      <p class="mb-0 text-nowrap">
+                        <del class="text-danger">NT$ {{ item.product.origin_price }}</del>
+                      </p>
+                      <p class="mb-0">
+                        NT$ {{ item.product.price }}
+                      </p>
+                    </template>
+                    <template v-else>
+                      <p class="mb-0">
+                        NT$ {{ item.product.origin_price }}
+                      </p>
+                    </template>
+                  </td>
+                  <td width="10%">
+                    <div class="qty">
+                      <span><BIconDashCircle @click="editCart(item, '-')" /></span>
+                      <input
+                        class="text-center"
+                        type="number"
+                        v-model.number="item.qty"
+                        @change="editCart(item)"
+                      >
+                      <span><BIconPlusCircle @click="editCart(item, '+')" /></span>
+                    </div>
+                  </td>
+                  <td class="text-nowrap">
+                    NT$ {{ item.total }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">
+                    Subtotal
+                  </td>
+                  <td
+                    colspan="3"
+                    class="text-end text-danger"
+                    v-if="total !== final_total"
+                  >
+                    <del>NTD$ {{ total }}</del>
+                  </td>
+                  <td
+                    colspan="3"
+                    class="text-end"
+                    v-else
+                  >
+                    NTD$ {{ final_total }}
+                  </td>
+                </tr>
+                <tr v-if="total !== final_total">
+                  <td
+                    colspan="6"
+                    class="text-end border-bottom-0"
+                  >
+                    NTD$ {{ final_total }}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
           <div class="input-group mb-3">
             <input
               type="text"

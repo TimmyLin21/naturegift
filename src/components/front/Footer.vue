@@ -10,7 +10,9 @@
           >
         </div>
         <div class="col-12 col-md-5 mb-5 mb-md-0">
-          <h3>Let's Stay Connected</h3>
+          <h3>
+            Let's Stay Connected
+          </h3>
           <p>Enter your email to unlock 10% OFF.</p>
           <v-form
             class="row align-items-center"
@@ -117,9 +119,15 @@ export default {
   },
   methods: {
     getCoupon() {
-      this.alert.msg = 'Coupon code: newbie2022';
-      this.alert.state = true;
-      this.sendMsg();
+      // this.alert.msg = 'Coupon code: newbie2022';
+      // this.alert.state = true;
+      // this.sendMsg();
+      this.$swal({
+        title: 'Thanks for joining!',
+        text: 'Coupon code: newbie2022',
+        icon: 'success',
+        button: 'Confirm',
+      });
       this.$refs.form.resetForm();
     },
   },

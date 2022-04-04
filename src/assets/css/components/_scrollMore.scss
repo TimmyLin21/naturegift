@@ -9,11 +9,21 @@
   transform: translateY(50%);
   cursor: pointer;
   z-index: 1;
+  @media (max-width: 768px) {
+    height: calc(30vw);
+  }
   & .scrollMore__icon {
     opacity: 1;
     z-index: 2;
     fill: $primary;
     transform: translateY(-70%);
+    width: calc(3vw);
+    height: calc(3vw);
+    @media (max-width: 768px) {
+      height: calc(10vw);
+      width: calc(10vw);
+      transform: translateY(-50%);
+    }
     &.scrollMore__icon--bounce {
       &:hover {
         animation: bounce 2s infinite;
@@ -34,5 +44,9 @@
     border: 10px double $primary;
     width: calc(13vw);
     height: calc(13vw);
+    @media (max-width: 768px) {
+      height: calc(30vw);
+      width: calc(30vw);
+    }
   }
 }

@@ -2,14 +2,16 @@
   <CustomHeader />
   <RouterView />
   <Footer />
+  <BackToTopBtn />
 </template>
 
 <script>
 import CustomHeader from '@/components/front/CustomHeader.vue';
 import Footer from '@/components/front/Footer.vue';
+import BackToTopBtn from '@/components/front/BackToTopBtn.vue';
 
 export default {
-  components: { CustomHeader, Footer },
+  components: { CustomHeader, Footer, BackToTopBtn },
 };
 </script>
 
@@ -20,17 +22,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>

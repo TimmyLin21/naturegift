@@ -72,6 +72,7 @@ $utilities: map-merge(
     ),
     "top": (
       property: top,
+      responsive: true,
       values: $position-values
     ),
     "bottom": (
@@ -163,6 +164,7 @@ $utilities: map-merge(
         50: 50%,
         75: 75%,
         100: 100%,
+        100px: 100px,
         150: 150px,
         auto: auto
       )

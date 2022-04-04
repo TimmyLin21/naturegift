@@ -40,3 +40,37 @@
     transform: translateX(50%);
   }
 }
+
+// BackToTop
+.btn-backToTop {
+  background-color: $orange-400;
+  border-radius: .5rem;
+  width: 3.125rem;
+  height: 3.125rem;
+  text-align: center;
+  position: fixed;
+  bottom: 1.875rem;
+  right: 1.875rem;
+  transition: background-color .3s, opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  & svg {
+    font-weight: bold;
+    transform: translateY(0.3125rem);
+    width: 2.5rem;
+    height: 2.5rem;
+    color: $white;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: $orange-300;
+  }
+  &:active {
+    background-color: $secondary;
+  }
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}

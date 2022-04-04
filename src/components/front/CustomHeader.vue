@@ -1,7 +1,7 @@
 <template>
   <nav
-    class="z-3 c-navbar h-150 fixed-top"
-    :class="{'bg-success': !isTrans, 'shadow-lg': !isTrans, 'bg-secondary': isShow}"
+    class="z-3 c-navbar fixed-top"
+    :class="{'trans':isTrans, 'bg-secondary': isShow, 'small':isSmall}"
   >
     <div class="container d-flex justify-content-between align-items-center">
       <a
@@ -11,7 +11,7 @@
         <img
           src="@/assets/images/logo__transparent.png"
           alt="Nature Gift"
-          class="w-150 h-150"
+          :class="{'small': isSmall}"
         >
       </a>
       <div
@@ -32,7 +32,7 @@
           class="c-navbar__nav text-primary d-md-flex trans-ease"
           :class="{'d-none': !isShow}"
         >
-          <li class="nav-item">
+          <li class="nav-item c-navbar__item">
             <router-link
               to="/products"
               class="nav-link fw-bold"
@@ -40,7 +40,7 @@
               Products
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item c-navbar__item">
             <router-link
               :to="{ path: '/', hash: '#OurStory'}"
               class="nav-link fw-bold"
@@ -50,10 +50,10 @@
           </li>
         </ul>
         <ul
-          class="nav d-md-flex"
+          class="nav d-md-flex my-4 my-md-0"
           :class="{'d-none': !isShow}"
         >
-          <li class="nav-item">
+          <li class="nav-item c-navbar__item">
             <router-link
               to="/login"
               class="nav-link"
@@ -64,7 +64,7 @@
               />
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item c-navbar__item">
             <a
               href="#offcanvasCart"
               class="nav-link position-relative"
@@ -99,6 +99,7 @@ export default {
       isTrans: false,
       isShow: false,
       quantity: 0,
+      isSmall: false,
     };
   },
   components: { OffcanvasCart },
@@ -109,6 +110,11 @@ export default {
         this.isTrans = true;
       } else {
         this.isTrans = false;
+      }
+      if (scrollPosition >= 100) {
+        this.isSmall = true;
+      } else {
+        this.isSmall = false;
       }
     },
     toggleMenu() {

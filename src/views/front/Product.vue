@@ -66,9 +66,17 @@
         <p class="text-muted mb-4">
           Weight: {{ product.unit }}
         </p>
-        <p class="h3 mb-4">
+        <p
+          class="h3 mb-4"
+          v-if="product.origin_price === product.price"
+        >
+          $ {{ product.price }}
+        </p>
+        <p
+          class="h3 mb-4"
+          v-else
+        >
           <span
-            v-if="product.origin_price"
             class="text-danger text-decoration-line-through me-2"
           >
             $ {{ product.origin_price }}

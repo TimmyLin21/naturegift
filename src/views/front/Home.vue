@@ -4,14 +4,22 @@
     class="position-relative overflow-hidden min-vh-100"
   >
     <h1
-      class="d-none d-md-block display-5 lh-5 position-absolute text-white
-      top-35 fw-bold start-5 text-start z-2"
+      class="display-6 display-md-5 lh-5 position-absolute text-white
+      top-md-35 fw-bold start-5 text-start z-2 top-45"
     >
       All you need is <br> <span class="me-5" />Fresh and Delicious
     </h1>
     <button
-      class="btn btn-secondary btn-hover-primary btn-lg position-absolute start-5
-      top-60 fw-bold px-5 py-3 fs-4 btn-hover-arrow"
+      class="btn btn-secondary btn-hover-primary position-absolute start-5
+      top-60 fw-bold px-5 py-3 fs-4 btn-hover-arrow d-none d-md-block"
+      type="button"
+      @click="toProducts"
+    >
+      SHOP NOW <BIconArrowRight class="mb-1" />
+    </button>
+    <button
+      class="btn btn-secondary btn-hover-primary position-absolute start-5
+      top-70 fw-bold px-4 py-2 fs-5 btn-hover-arrow d-md-none"
       type="button"
       @click="toProducts"
     >
@@ -36,8 +44,6 @@
     >
       <BIconChevronDoubleDown
         class="scrollMore__icon scrollMore__icon--bounce"
-        width="3vw"
-        height="3vw"
       />
       <div class="scrollMore__circle" />
     </div>

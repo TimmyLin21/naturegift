@@ -1,12 +1,12 @@
 <template>
   <main class="container py-6 mt-150px">
-    <div class="d-flex justify-content-between align-items-center mb-5">
-      <div>
+    <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap">
+      <div class="w-100 w-md-50 mb-4 mb-md-0">
         <p class="text-start">
           FILTER BY
         </p>
         <ul class="nav">
-          <li class="me-3">
+          <li class="me-3 mb-3 mb-lg-0">
             <a
               href="#"
               class="c-btn"
@@ -33,7 +33,7 @@
       <div>
         <label
           name="sort"
-          class="text-end d-block mb-2"
+          class="text-start text-md-end d-block mb-2"
         >SORT BY</label>
         <div class="c-select">
           <div
@@ -62,7 +62,7 @@
         </div>
       </div>
     </div>
-    <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none">
+    <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none ps-0">
       <li
         class="col mb-7"
         v-for="product in products"
@@ -70,17 +70,35 @@
       >
         <div
           class="mb-3 product__img"
-          role="button"
-          @click="getDetail(product.id)"
         >
           <img
             :src="product.imageUrl"
             :alt="product.title"
             class="img-fluid rounded"
           >
-          <div class="bg-dark product__img__lightbox" />
-          <div class="product__img__text mb-3">
+          <div
+            class="bg-dark product__img__lightbox"
+            role="button"
+            @click.self="getDetail(product.id)"
+          />
+          <div
+            class="product__img__text mb-3"
+            role="button"
+            @click.self="getDetail(product.id)"
+          >
             Check Details
+          </div>
+          <div
+            class="product__img__like"
+            @click="toggleFav(product.id)"
+          >
+            <BIconSuitHeartFill :class="{like: checkFav(product.id)}" />
+          </div>
+          <div
+            class="product__img__sale"
+            v-if="product.price !== product.origin_price"
+          >
+            On Sale
           </div>
         </div>
         <p
@@ -89,8 +107,20 @@
         >
           {{ product.title }}
         </p>
-        <p class="text-muted">
+        <p
+          class="text-muted"
+          v-if="product.price !== product.origin_price"
+        >
+          <span class="text-decoration-line-through text-danger">
+            ${{ product.origin_price }}
+          </span>
           ${{ product.price }} NTD / {{ product.unit }}
+        </p>
+        <p
+          class="text-muted"
+          v-else
+        >
+          ${{ product.origin_price }} NTD / {{ product.unit }}
         </p>
         <a
           href=""
@@ -136,6 +166,7 @@ export default {
         product_id: '',
         qty: 1,
       },
+      favProducts: [],
     };
   },
   components: { Pagination },
@@ -197,7 +228,7 @@ export default {
       }, 1000);
     },
     getDetail(id) {
-      this.$router.replace(`/product/${id}`);
+      this.$router.push(`/product/${id}`);
     },
     addToCart(id) {
       this.data.product_id = id;
@@ -213,12 +244,26 @@ export default {
           this.sendMsg();
         });
     },
+    toggleFav(id) {
+      const filterResult = this.favProducts.findIndex((i) => i === id);
+      if (filterResult === -1) {
+        this.favProducts.push(id);
+      } else {
+        this.favProducts.splice(filterResult, 1);
+      }
+      const favListStr = JSON.stringify(this.favProducts);
+      localStorage.setItem('favList', favListStr);
+    },
+    checkFav(id) {
+      return this.favProducts.includes(id);
+    },
   },
   created() {
     this.getAllProducts();
     this.$emitter.on('send-request', (page) => {
       this.getProducts(page);
     });
+    this.favProducts = JSON.parse(localStorage.getItem('favList')) || [];
   },
   mixins: [alertMixin, loadingMixin],
   computed: {
