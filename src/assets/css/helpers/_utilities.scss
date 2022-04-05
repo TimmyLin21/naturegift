@@ -348,7 +348,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin-top,
       class: mt,
-      values: map-merge($spacers, (auto: auto, 150px: 150px))
+      values: map-merge($spacers, (auto: auto, 100px: 100px, 150px: 150px))
     ),
     "margin-end": (
       responsive: true,

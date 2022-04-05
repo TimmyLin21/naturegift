@@ -1,5 +1,5 @@
 <template>
-  <main class="container py-5 mt-150px">
+  <main class="container py-5 mt-100px mt-md-150px">
     <div class="steps mb-7">
       <div class="steps__circle steps__circle-active">
         <BIconCart

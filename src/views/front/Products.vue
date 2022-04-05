@@ -1,5 +1,5 @@
 <template>
-  <main class="container py-6 mt-150px">
+  <main class="container py-6 mt-100px mt-md-150px">
     <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap">
       <div class="w-100 w-md-50 mb-4 mb-md-0">
         <p class="text-start">

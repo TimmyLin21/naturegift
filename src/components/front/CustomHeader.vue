@@ -21,6 +21,7 @@
         <input
           class="c-navbar__togglerIcon__check"
           type="checkbox"
+          :checked="isShow"
         >
         <div>
           <span />
@@ -36,6 +37,7 @@
             <router-link
               to="/products"
               class="nav-link fw-bold"
+              @click="toggleMenu"
             >
               Products
             </router-link>
@@ -44,6 +46,7 @@
             <router-link
               :to="{ path: '/', hash: '#OurStory'}"
               class="nav-link fw-bold"
+              @click="toggleMenu"
             >
               About us
             </router-link>
@@ -57,6 +60,7 @@
             <router-link
               to="/login"
               class="nav-link"
+              @click="toggleMenu"
             >
               <BIconPersonCircle
                 width="24px"
@@ -69,6 +73,7 @@
               href="#offcanvasCart"
               class="nav-link position-relative"
               data-bs-toggle="offcanvas"
+              @click="toggleMenu"
             >
               <BIconBag
                 width="24px"

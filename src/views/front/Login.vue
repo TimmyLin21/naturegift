@@ -1,6 +1,6 @@
 <template>
-  <section class="container mt-150px">
-    <div class="row align-items-center">
+  <section class="container mt-100px mt-md-150px">
+    <div class="row align-items-center pt-5 pt-md-0">
       <div class="col-12 col-md-6">
         <img
           src="https://images.unsplash.com/photo-1510941005693-77a52ac643d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1267&q=80"

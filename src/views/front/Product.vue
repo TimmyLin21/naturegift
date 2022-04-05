@@ -1,6 +1,6 @@
 <template>
-  <section class="container py-5 mt-150px">
-    <div class="row row-cols-1 row-cols-lg-2 mb-5">
+  <section class="container py-5 mt-100px mt-md-150px">
+    <div class="row row-cols-1 row-cols-lg-2 mb-md-5">
       <div class="col">
         <img
           :src="currentImg"
@@ -83,8 +83,8 @@
           </span>
           $ {{ product.price }}
         </p>
-        <div class="d-flex mb-4">
-          <div class="qty me-5">
+        <div class="d-flex mb-4 flex-wrap justify-content-center">
+          <div class="qty me-md-5 w-100 w-md-auto">
             <span><BIconDashCircle
               @click="minusQty"
               class="fs-4 link-secondary"
@@ -102,7 +102,7 @@
           </div>
           <a
             href="#"
-            class="c-btn"
+            class="c-btn mt-4 mt-md-0"
             @click.prevent="addToCart(product.id, qty)"
           >
             <span class="c-btn__text">Add to cart</span>
@@ -138,7 +138,7 @@
     <h3 class="mb-5">
       Have you tried?
     </h3>
-    <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none">
+    <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none ps-0">
       <template
         v-for="(item, index) in products"
         :key="item.id"
