@@ -13,7 +13,6 @@
         :modules="modules"
         :slides-per-view="1"
         :space-between="10"
-        navigation
         :pagination="{ clickable: true }"
         :breakpoints="{
           '768': {
@@ -56,7 +55,7 @@
 <script>
 // import Swiper core and required modules
 import {
-  Navigation, Pagination, A11y, Autoplay,
+  Pagination, A11y, Autoplay,
 } from 'swiper';
 
 // Import Swiper Vue.js components
@@ -64,7 +63,6 @@ import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
-import 'swiper/modules/navigation/navigation.min.css';
 import 'swiper/modules/pagination/pagination.min.css';
 
 export default {
@@ -106,7 +104,7 @@ export default {
           Thank you 🥺`,
         },
       ],
-      modules: [Navigation, Pagination, A11y, Autoplay],
+      modules: [Pagination, A11y, Autoplay],
     };
   },
   components: {

@@ -29,7 +29,7 @@
           <ul class="navbar-nav flex-lg-column justify-content-lg-center h-lg-100">
             <li class="nav-item">
               <router-link
-                to="/admin/product"
+                to="/admin"
                 class="nav-link"
               >
                 Product

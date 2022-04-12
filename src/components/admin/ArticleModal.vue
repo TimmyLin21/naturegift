@@ -141,6 +141,7 @@
             type="button"
             class="btn btn-success"
             data-bs-dismiss="modal"
+            @click="clearTag"
           >
             Close
           </button>
@@ -221,6 +222,7 @@ export default {
             this.sendMsg();
           });
       }
+      this.clearTag();
     },
     sendRequest() {
       this.$emit('send-request');
@@ -231,11 +233,14 @@ export default {
           this.cacheArticle.tag = [];
         }
         this.cacheArticle.tag.push(this.tagInput.trim());
-        this.tagInput = '';
+        this.clearTag();
       }
     },
     delTag(i) {
       this.cacheArticle.tag.splice(i, 1);
+    },
+    clearTag() {
+      this.tagInput = '';
     },
   },
   watch: {

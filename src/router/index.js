@@ -67,12 +67,9 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: () => import('@/views/admin/Admin.vue'),
-    meta: {
-      title: 'Admin',
-    },
     children: [
       {
-        path: 'product',
+        path: '',
         component: () => import('@/views/admin/Product.vue'),
         meta: {
           title: 'Admin Product',

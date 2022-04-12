@@ -3,7 +3,7 @@
     <div class="row align-items-center pt-5 pt-md-0">
       <div class="col-12 col-md-6">
         <img
-          src="https://images.unsplash.com/photo-1510941005693-77a52ac643d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1267&q=80"
+          src="@/assets/images/login.jpeg"
           alt=""
           class="img-fluid rounded rounded-lg"
         >
@@ -78,7 +78,7 @@ export default {
             const { token, expired } = res.data;
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
             setTimeout(() => {
-              this.$router.push('/admin/product');
+              this.$router.push('/admin');
             }, 1000);
           })
           .catch(() => {
@@ -95,7 +95,7 @@ export default {
   mounted() {
     apiUserCheck()
       .then(() => {
-        this.$router.push('/admin/product');
+        this.$router.push('/admin');
       });
   },
   mixins: [alertMixin, loadingMixin],

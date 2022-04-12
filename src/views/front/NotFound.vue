@@ -15,7 +15,7 @@
       </div>
       <div class="col-12 col-md-6 my-5">
         <img
-          src="https://images.unsplash.com/photo-1511823794984-b87716139b88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=696&q=80"
+          src="@/assets/images/notfound.jpeg"
           alt="A bird wants to give you some nuts."
           class="img-fluid rounded rounded-lg w-75"
         >

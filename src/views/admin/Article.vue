@@ -149,6 +149,7 @@ export default {
     modalToggle(modal, item) {
       if (modal === 'new') {
         this.cacheArticle = {
+          isPublic: false,
           tag: [],
           create_at: this.currentTime,
         };
