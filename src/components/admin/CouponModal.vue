@@ -1,125 +1,113 @@
 <template>
   <div
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="productModalLabel"
-    aria-hidden="true"
-    ref="modal"
+    v-if="isModalOpen"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 transition-opacity"
+    @click.self="closeModal"
   >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-primary">
-          <h5
-            class="modal-title text-secondary"
-            v-if="state"
-          >
-            Add New Coupon
-          </h5>
-          <h5
-            class="modal-title text-secondary"
-            v-else
-          >
-            Edit Coupon
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          />
-        </div>
-        <div class="modal-body">
-          <form class="row g-3">
-            <div class="col-6">
-              <label
-                for="title"
-                class="form-label"
-              >Title</label>
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col relative">
+      <div class="flex items-center justify-between p-4 border-b bg-primary rounded-t-lg">
+        <h5 class="text-xl font-bold text-secondary">
+          {{ state ? 'Add New Coupon' : 'Edit Coupon' }}
+        </h5>
+        <button
+          type="button"
+          class="text-secondary hover:text-white text-2xl leading-none"
+          @click="closeModal"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto">
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="col-span-1">
+            <label
+              for="title"
+              class="block mb-2 font-bold"
+            >Title</label>
+            <input
+              type="text"
+              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              id="title"
+              placeholder="Coupon title"
+              v-model="cacheCoupon.title"
+            >
+          </div>
+          <div class="col-span-1">
+            <label
+              for="code"
+              class="block mb-2 font-bold"
+            >Code</label>
+            <input
+              type="text"
+              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              id="code"
+              placeholder="Coupon code"
+              v-model="cacheCoupon.code"
+            >
+          </div>
+          <div class="col-span-1">
+            <label
+              for="due_date"
+              class="block mb-2 font-bold"
+            >Expired date</label>
+            <input
+              type="date"
+              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              id="due_date"
+              v-model="due_date"
+            >
+          </div>
+          <div class="col-span-1">
+            <label
+              for="discount"
+              class="block mb-2 font-bold"
+            >Discount</label>
+            <input
+              type="number"
+              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              id="discount"
+              min="0"
+              placeholder="Coupon discount"
+              v-model.number="cacheCoupon.percent"
+            >
+          </div>
+          <div class="col-span-1 md:col-span-2 pt-4 border-t">
+            <div class="flex items-center">
               <input
-                type="text"
-                class="form-control"
-                id="title"
-                placeholder="Coupon title"
-                v-model="cacheCoupon.title"
+                class="mr-2 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                type="checkbox"
+                v-model="cacheCoupon.is_enabled"
+                id="couponEnabledSwitch"
+                :checked="cacheCoupon.is_enabled === 1"
+                :true-value="1"
+                :false-value="0"
               >
-            </div>
-            <div class="col-6">
               <label
-                for="code"
-                class="form-label"
-              >Code</label>
-              <input
-                type="text"
-                class="form-control"
-                id="code"
-                placeholder="Coupon code"
-                v-model="cacheCoupon.code"
+                class="font-bold cursor-pointer"
+                for="couponEnabledSwitch"
               >
+                Enable coupon
+              </label>
             </div>
-            <div class="col-6">
-              <label
-                for="due_date"
-                class="form-label"
-              >Expired date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="due_date"
-                v-model="due_date"
-              >
-            </div>
-            <div class="col-6">
-              <label
-                for="discount"
-                class="form-label"
-              >Discount</label>
-              <input
-                type="number"
-                class="form-control"
-                id="discount"
-                min="0"
-                placeholder="Coupon discount"
-                v-model.number="cacheCoupon.percent"
-              >
-            </div>
-            <hr class="mb-0">
-            <div class="col">
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  v-model="cacheCoupon.is_enabled"
-                  id="couponEnabledSwitch"
-                  :checked="cacheCoupon.is_enabled === 1"
-                  :true-value="1"
-                  :false-value="0"
-                >
-                <label
-                  class="form-check-label"
-                  for="couponEnabledSwitch"
-                >
-                  Enable coupon
-                </label>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-success"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary text-secondary"
-            @click="saveChange"
-          >
-            Save changes
-          </button>
-        </div>
+          </div>
+        </form>
+      </div>
+      <div class="p-4 border-t flex justify-end gap-2 bg-gray-50 rounded-b-lg">
+        <button
+          type="button"
+          class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+          @click="closeModal"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="px-4 py-2 bg-primary text-secondary font-bold rounded hover:bg-opacity-90 transition-colors"
+          @click="saveChange"
+        >
+          Save changes
+        </button>
       </div>
     </div>
   </div>

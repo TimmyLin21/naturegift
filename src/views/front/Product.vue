@@ -1,179 +1,181 @@
 <template>
-  <section class="container py-5 mt-100px mt-md-150px">
-    <div class="row row-cols-1 row-cols-lg-2 mb-md-5">
+  <section class="container mx-auto px-4 py-12 mt-[100px] md:mt-[150px]">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
       <div class="col">
         <img
           :src="currentImg"
           :alt="product.title"
-          class="w-100 border h-250px object-cover object-position-center"
+          class="w-full border h-[250px] md:h-[400px] object-cover object-center rounded-lg mb-4"
         >
-        <div class="row row-cols-3 mt-3">
-          <div class="col">
+        <div class="grid grid-cols-3 gap-4">
+          <div class="">
             <img
               :src="product.imageUrl"
               :alt="product.title"
-              class="w-100 object-cover object-position-center border h-100px cursor-pointer"
+              class="w-full h-[100px] object-cover object-center border rounded cursor-pointer hover:opacity-80 transition-opacity"
               @click="currentImg = product.imageUrl"
             >
           </div>
           <div
-            class="col"
+            class=""
             v-for="image in product.imagesUrl"
             :key="image"
           >
             <img
               :src="image"
               :alt="product.title"
-              class="mw-100 object-cover object-position-center border h-100px cursor-pointer"
+              class="w-full h-[100px] object-cover object-center border rounded cursor-pointer hover:opacity-80 transition-opacity"
               @click="currentImg = image"
             >
           </div>
         </div>
       </div>
-      <div class="col text-start">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
+      <div class="text-left">
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="flex space-x-2 text-gray-500">
+            <li class="flex items-center">
               <router-link
                 to="/"
-                class="text-decoration-none link-success"
+                class="text-primary hover:text-secondary no-underline"
               >
                 Home
               </router-link>
+              <span class="mx-2">/</span>
             </li>
-            <li class="breadcrumb-item">
+            <li class="flex items-center">
               <router-link
                 to="/products"
-                class="text-decoration-none link-success"
+                class="text-primary hover:text-secondary no-underline"
               >
                 Products
               </router-link>
+              <span class="mx-2">/</span>
             </li>
             <li
-              class="breadcrumb-item active fw-bold"
+              class="font-bold text-gray-700"
               aria-current="page"
             >
               {{ product.category }}
             </li>
           </ol>
         </nav>
-        <h2 class="">
+        <h2 class="text-3xl font-bold mb-4">
           {{ product.title }}
         </h2>
-        <p class="text-muted">
+        <p class="text-gray-600 mb-4 leading-relaxed">
           {{ product.description }}
         </p>
-        <p class="text-muted mb-4">
+        <p class="text-gray-500 mb-8">
           Weight: {{ product.unit }}
         </p>
         <p
-          class="h3 mb-4"
+          class="text-3xl font-bold mb-8 text-secondary"
           v-if="product.origin_price === product.price"
         >
           $ {{ product.price }}
         </p>
         <p
-          class="h3 mb-4"
+          class="text-3xl font-bold mb-8 text-secondary"
           v-else
         >
           <span
-            class="text-danger text-decoration-line-through me-2"
+            class="text-red-500 line-through text-xl mr-4"
           >
             $ {{ product.origin_price }}
           </span>
           $ {{ product.price }}
         </p>
-        <div class="d-flex mb-4 flex-wrap justify-content-center">
-          <div class="qty me-md-5 w-100 w-md-auto">
-            <span><BIconDashCircle
+        <div class="flex mb-8 flex-wrap items-center gap-6">
+          <div class="flex items-center border border-gray-300 rounded px-4 py-2">
+            <BIconDashCircle
               @click="minusQty"
-              class="fs-4 link-secondary"
-            /></span>
+              class="text-xl text-secondary cursor-pointer hover:text-primary"
+            />
             <input
-              class="text-center"
+              class="text-center w-16 border-0 focus:ring-0 text-xl font-bold mx-2"
               type="number"
               v-model.number="qty"
               min="1"
             >
-            <span><BIconPlusCircle
+            <BIconPlusCircle
               @click="qty += 1"
-              class="fs-4 link-secondary"
-            /></span>
+              class="text-xl text-secondary cursor-pointer hover:text-primary"
+            />
           </div>
           <a
             href="#"
-            class="c-btn mt-4 mt-md-0"
+            class="inline-block bg-secondary text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all duration-300 font-bold uppercase tracking-wider"
             @click.prevent="addToCart(product.id, qty)"
           >
-            <span class="c-btn__text">Add to cart</span>
+            Add to cart
           </a>
         </div>
       </div>
     </div>
-    <div class="row row-cols-1 row-cols-lg-2 mb-5">
-      <div class="col text-start pt-5">
-        <h3 class="mb-3">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+      <div class="text-left pt-5">
+        <h3 class="text-2xl font-bold mb-4 border-b-2 border-secondary pb-2 inline-block">
           Description
         </h3>
-        <p>{{ product.content }}</p>
+        <p class="leading-relaxed text-gray-600">{{ product.content }}</p>
       </div>
-      <div class="col">
-        <div class="c-table">
-          <h4 class="text-white py-3">
+      <div class="">
+        <div class="bg-secondary pb-2 rounded overflow-hidden">
+          <h4 class="text-white py-3 text-center text-xl font-bold">
             Nutritional Information
           </h4>
-          <div class="c-table__body">
-            <p><span />Per 100g</p>
-            <p>Energy (kg)<span>{{ product.calories }}</span></p>
-            <p>Carbohydrate (g)<span>{{ product.carbohydrate }}</span></p>
-            <p>Protein (g)<span>{{ product.protein }}</span></p>
-            <p>Fat (g)<span>{{ product.fat }}</span></p>
-            <p class="mb-0 border-0">
+          <div class="mx-2 bg-[#f9faee] p-4 rounded-b">
+            <p class="flex justify-between border-b border-dashed border-gray-300 py-2"><span />Per 100g</p>
+            <p class="flex justify-between border-b border-dashed border-gray-300 py-2">Energy (kg)<span>{{ product.calories }}</span></p>
+            <p class="flex justify-between border-b border-dashed border-gray-300 py-2">Carbohydrate (g)<span>{{ product.carbohydrate }}</span></p>
+            <p class="flex justify-between border-b border-dashed border-gray-300 py-2">Protein (g)<span>{{ product.protein }}</span></p>
+            <p class="flex justify-between border-b border-dashed border-gray-300 py-2">Fat (g)<span>{{ product.fat }}</span></p>
+            <p class="flex justify-between py-2 border-0">
               Fiber (g)<span>{{ product.fiber }}</span>
             </p>
           </div>
         </div>
       </div>
     </div>
-    <h3 class="mb-5">
+    <h3 class="text-2xl font-bold mb-6 text-left border-l-4 border-secondary pl-4">
       Have you tried?
     </h3>
-    <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none ps-0">
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 list-none p-0">
       <template
         v-for="(item, index) in products"
         :key="item.id"
       >
         <li
-          class="col mb-4"
+          class="mb-4"
           v-if="index < 3"
         >
           <div
-            class="mb-3 product__img"
+            class="mb-3 relative overflow-hidden group rounded-lg cursor-pointer"
             role="button"
             @click="getDetail(item.id)"
           >
             <img
               :src="item.imageUrl"
               :alt="item.title"
-              class="img-fluid rounded"
+              class="w-full h-[200px] object-cover object-center rounded-lg"
             >
-            <div class="bg-dark product__img__lightbox" />
-            <div class="product__img__text mb-3">
+            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300" />
+            <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-[150%] bg-gray-200 px-6 py-2 text-secondary rounded transition-transform duration-300 group-hover:-translate-y-[10%] cursor-pointer">
               Check Details
             </div>
           </div>
-          <p class="mb-1">
+          <p class="mb-1 font-bold text-lg text-left">
             {{ item.title }}
           </p>
-          <p class="text-muted">
+          <p class="text-gray-500 mb-2 text-left">
             ${{ item.price }} NTD / {{ item.unit }}
           </p>
           <a
             href=""
-            class="c-btn"
+            class="inline-block bg-secondary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-all duration-300 font-bold"
             @click.prevent="addToCart(item.id)"
           >
-            <span class="c-btn__text">Add to cart</span>
+            <span>Add to cart</span>
           </a>
         </li>
       </template>

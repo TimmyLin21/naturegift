@@ -1,32 +1,31 @@
 <template>
   <div
     id="showcase"
-    class="position-relative overflow-hidden min-vh-100"
+    class="relative overflow-hidden min-h-screen"
   >
     <h1
-      class="display-6 display-md-5 lh-5 position-absolute text-white
-      top-md-35 fw-bold start-5 text-start z-2 top-45"
+      class="text-4xl md:text-5xl leading-tight absolute text-white font-bold text-left z-20 left-[5%] top-[45%] md:top-[35%]"
     >
-      All you need is <br> <span class="me-5" />Fresh and Delicious
+      All you need is <br> <span class="mr-12" />Fresh and Delicious
     </h1>
+    <!-- Desktop Button -->
     <button
-      class="btn btn-secondary btn-hover-primary position-absolute start-5
-      top-60 fw-bold px-5 py-3 fs-4 btn-hover-arrow d-none d-md-block"
+      class="hidden md:block absolute left-[5%] top-[60%] font-bold px-12 py-4 text-2xl bg-secondary text-white hover:bg-white hover:text-black border border-transparent hover:border-black transition-all duration-300 group"
       type="button"
       @click="toProducts"
     >
-      SHOP NOW <BIconArrowRight class="mb-1" />
+      SHOP NOW <BIconArrowRight class="mb-1 transition-transform group-hover:translate-x-2" />
     </button>
+    <!-- Mobile Button -->
     <button
-      class="btn btn-secondary btn-hover-primary position-absolute start-5
-      top-70 fw-bold px-4 py-2 fs-5 btn-hover-arrow d-md-none"
+      class="md:hidden absolute left-[5%] top-[70%] font-bold px-6 py-2 text-xl bg-secondary text-white hover:bg-white hover:text-black border border-transparent hover:border-black transition-all duration-300 group"
       type="button"
       @click="toProducts"
     >
-      SHOP NOW <BIconArrowRight class="mb-1" />
+      SHOP NOW <BIconArrowRight class="mb-1 transition-transform group-hover:translate-x-2" />
     </button>
     <video
-      class="position-absolute top-0 start-0 w-100 h-100 object-cover opacity-90 z-n1"
+      class="absolute top-0 left-0 w-full h-full object-cover opacity-90 -z-10"
       autoplay
       loop
       muted
@@ -39,13 +38,13 @@
       Your browser does not support the video tag.
     </video>
     <div
-      class="scrollMore"
+      class="flex justify-center items-center w-full h-[30vw] md:h-[13vw] absolute bottom-0 translate-y-1/2 z-10 cursor-pointer"
       @click="scrollDown"
     >
       <BIconChevronDoubleDown
-        class="scrollMore__icon scrollMore__icon--bounce"
+        class="w-[10vw] h-[10vw] md:w-[3vw] md:h-[3vw] text-primary -translate-y-1/2 md:-translate-y-[70%] z-20 animate-bounce"
       />
-      <div class="scrollMore__circle" />
+      <div class="absolute rounded-full border-[10px] border-double border-primary w-[30vw] h-[30vw] md:w-[13vw] md:h-[13vw]" />
     </div>
   </div>
   <CategoryList />

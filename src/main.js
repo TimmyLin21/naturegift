@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 // Bootstrap
-import 'bootstrap';
 import { BootstrapIconsPlugin } from 'bootstrap-icons-vue';
 
 // Font awesome

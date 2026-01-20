@@ -1,17 +1,15 @@
-import Modal from 'bootstrap/js/dist/modal';
-
 export default {
+  data() {
+    return {
+      isModalOpen: false,
+    };
+  },
   methods: {
     openModal() {
-      this.modal.show();
+      this.isModalOpen = true;
     },
     closeModal() {
-      this.modal.hide();
+      this.isModalOpen = false;
     },
-  },
-  mounted() {
-    this.modal = new Modal(this.$refs.modal, {
-      keyboard: false,
-    });
   },
 };

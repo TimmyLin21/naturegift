@@ -1,69 +1,61 @@
 <template>
   <div
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="productModalLabel"
-    aria-hidden="true"
-    ref="modal"
+    v-if="isModalOpen"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 transition-opacity"
+    @click.self="closeModal"
   >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-primary">
-          <h5
-            class="modal-title text-secondary"
-            v-if="isNew"
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col relative">
+      <div class="flex items-center justify-between p-4 border-b bg-primary rounded-t-lg">
+        <h5 class="text-xl font-bold text-secondary">
+          {{ isNew ? 'Add New Product' : 'Edit Product' }}
+        </h5>
+        <button
+          type="button"
+          class="text-secondary hover:text-white text-2xl leading-none"
+          @click="closeModal"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto">
+        <ul class="flex space-x-2 bg-green-100 p-2 mb-4 rounded">
+          <li
+            v-for="tab in tabs"
+            :key="tab"
+            class="flex-1"
           >
-            Add New Product
-          </h5>
-          <h5
-            class="modal-title text-secondary"
-            v-else
-          >
-            Edit Product
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          />
-        </div>
-        <div class="modal-body">
-          <ul class="nav nav-pills bg-success p-2 mb-3">
-            <li
-              class="nav-item"
-              v-for="tab in tabs"
-              :key="tab"
+            <a
+              class="block text-center py-2 px-4 rounded cursor-pointer transition-colors"
+              :class="{ 
+                'bg-secondary text-white font-bold shadow': currentTab === `${tab}Tab`,
+                'hover:bg-green-200 text-green-800': currentTab !== `${tab}Tab`
+              }"
+              @click="currentTab = `${tab}Tab`"
             >
-              <a
-                class="nav-link cursor-pointer"
-                :class="{ active: currentTab === `${tab}Tab` }"
-                @click="currentTab = `${tab}Tab`"
-              >
-                {{ tab }}
-              </a>
-            </li>
-          </ul>
-          <keep-alive>
-            <component :is="currentTab" />
-          </keep-alive>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-success"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary text-secondary"
-            @click="saveChange"
-          >
-            Save changes
-          </button>
-        </div>
+              {{ tab }}
+            </a>
+          </li>
+        </ul>
+        <keep-alive>
+          <component :is="currentTab" />
+        </keep-alive>
+      </div>
+      <div class="p-4 border-t flex justify-end gap-2 bg-gray-50 rounded-b-lg">
+        <button
+          type="button"
+          class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+          @click="closeModal"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="px-4 py-2 bg-primary text-secondary font-bold rounded hover:bg-opacity-90 transition-colors"
+          @click="saveChange"
+        >
+          Save changes
+        </button>
       </div>
     </div>
   </div>

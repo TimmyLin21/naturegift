@@ -1,31 +1,31 @@
 <template>
-  <main class="container py-6 mt-100px mt-md-150px">
-    <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap">
-      <div class="w-100 w-md-50 mb-4 mb-md-0">
-        <p class="text-start">
+  <main class="container mx-auto px-4 py-6 mt-[100px] md:mt-[150px]">
+    <div class="flex justify-between items-center mb-12 flex-wrap">
+      <div class="w-full md:w-1/2 mb-4 md:mb-0">
+        <p class="text-left font-bold mb-2">
           FILTER BY
         </p>
-        <ul class="nav">
-          <li class="me-3 mb-3 mb-lg-0">
+        <ul class="flex flex-wrap">
+          <li class="mr-3 mb-3 lg:mb-0">
             <a
               href="#"
-              class="c-btn"
+              class="inline-block bg-secondary text-white px-5 py-2 rounded-full hover:bg-primary hover:text-secondary transition-colors duration-300"
               @click.prevent="chooseCategory('All')"
             >
-              <span class="c-btn__text">All</span>
+              <span>All</span>
             </a>
           </li>
           <li
-            class="me-3"
+            class="mr-3"
             v-for="item in category.categories"
             :key="item"
           >
             <a
               href="#"
-              class="c-btn"
+              class="inline-block bg-secondary text-white px-5 py-2 rounded-full hover:bg-primary hover:text-secondary transition-colors duration-300"
               @click.prevent="chooseCategory(item)"
             >
-              <span class="c-btn__text">{{ item }}</span>
+              <span>{{ item }}</span>
             </a>
           </li>
         </ul>
@@ -33,101 +33,106 @@
       <div>
         <label
           name="sort"
-          class="text-start text-md-end d-block mb-2"
+          class="text-left md:text-right block mb-2 font-bold"
         >SORT BY</label>
-        <div class="c-select">
+        <div class="relative w-[200px] cursor-pointer group">
           <div
-            class="c-select__selected"
+            class="bg-white py-2 px-8 mt-2 rounded shadow text-center relative select-none"
             @click="sort.isShow = !sort.isShow"
-            :class="{ 'select__arrow-active': sort.isShow }"
             aria-haspopup="listbox"
             aria-labelledby="sort"
           >
             {{ sort.selected }}
+            <span 
+              class="absolute right-4 top-[0.9rem] w-2 h-2 border-r-2 border-b-2 border-secondary transform rotate-45 transition-transform duration-300"
+              :class="{ '-rotate-[135deg] top-[1.1rem]': sort.isShow }"
+            ></span>
           </div>
-        </div>
-        <div
-          class="c-select__items z-2"
-          v-show="sort.isShow"
-          role="listbox"
-          tabindex="-1"
-        >
           <div
-            v-for="sortOption in sort.sorts"
-            :key="sortOption"
-            @click="chooseSort(sortOption)"
+            class="absolute rounded-lg w-[200px] z-20 bg-white mt-1 shadow-lg overflow-hidden"
+            v-show="sort.isShow"
+            role="listbox"
+            tabindex="-1"
           >
-            {{ sortOption }}
+            <div
+              v-for="sortOption in sort.sorts"
+              :key="sortOption"
+              @click="chooseSort(sortOption)"
+              class="py-2 px-6 hover:bg-primary cursor-pointer transition-colors"
+            >
+              {{ sortOption }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-3 list-style-none ps-0">
+    
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none p-0">
       <li
-        class="col mb-7"
+        class="mb-7"
         v-for="product in products"
         :key="product.id"
       >
         <div
-          class="mb-3 product__img"
+          class="mb-3 relative overflow-hidden group rounded-lg"
         >
           <img
             :src="product.imageUrl"
             :alt="product.title"
-            class="img-fluid rounded"
+            class="w-full h-[200px] object-cover object-center rounded-lg"
           >
           <div
-            class="bg-dark product__img__lightbox"
+            class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300 cursor-pointer"
             role="button"
             @click.self="getDetail(product.id)"
           />
           <div
-            class="product__img__text mb-3"
+            class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-[150%] bg-gray-200 px-6 py-2 text-secondary rounded transition-transform duration-300 group-hover:-translate-y-[10%] cursor-pointer"
             role="button"
             @click.self="getDetail(product.id)"
           >
             Check Details
           </div>
           <div
-            class="product__img__like"
+            class="absolute top-4 right-4 z-10 cursor-pointer text-gray-300 hover:text-red-500 transition-colors"
             @click="toggleFav(product.id)"
           >
-            <BIconSuitHeartFill :class="{ like: checkFav(product.id) }" />
+            <BIconSuitHeartFill class="w-6 h-6" :class="{ 'text-red-500': checkFav(product.id) }" />
           </div>
           <div
-            class="product__img__sale"
+            class="absolute top-2 left-2 z-0 bg-light text-red-500 px-2 py-1 rounded shadow text-sm"
             v-if="product.price !== product.origin_price"
           >
             On Sale
           </div>
         </div>
         <p
-          class="mb-1 cursor-pointer fw-bold"
+          class="mb-1 cursor-pointer font-bold text-lg hover:text-secondary transition-colors"
           @click="getDetail(product.id)"
         >
           {{ product.title }}
         </p>
         <p
-          class="text-muted"
+          class="text-gray-500 mb-4"
           v-if="product.price !== product.origin_price"
         >
-          <span class="text-decoration-line-through text-danger">
+          <span class="line-through text-red-500 mr-2">
             ${{ product.origin_price }}
           </span>
           ${{ product.price }} NTD / {{ product.unit }}
         </p>
         <p
-          class="text-muted"
+          class="text-gray-500 mb-4"
           v-else
         >
           ${{ product.origin_price }} NTD / {{ product.unit }}
         </p>
         <a
           href=""
-          class="c-btn"
+          class="inline-block bg-secondary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-all duration-300 font-bold"
           @click.prevent="addToCart(product.id)"
         >
-          <span class="c-btn__text">Add to cart</span>
+          <span>Add to cart</span>
         </a>
       </li>
     </ul>

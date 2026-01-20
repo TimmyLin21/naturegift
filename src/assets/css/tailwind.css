@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold mb-4;
+  }
+  h2 {
+    @apply text-3xl font-bold mb-3;
+  }
+  h3 {
+    @apply text-2xl font-bold mb-3;
+  }
+  h4 {
+    @apply text-xl font-bold mb-2;
+  }
+  h5 {
+    @apply text-lg font-bold mb-2;
+  }
+  h6 {
+    @apply text-base font-bold mb-1;
+  }
+  a {
+    @apply text-secondary hover:text-primary transition-colors duration-300 no-underline;
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply inline-block px-4 py-2 rounded transition-colors duration-200 font-medium text-center align-middle border border-transparent;
+  }
+  .btn-primary {
+    @apply bg-primary text-secondary hover:bg-opacity-90;
+  }
+  .btn-success {
+    @apply bg-secondary text-white hover:bg-opacity-90;
+  }
+  .btn-danger {
+    @apply bg-red-500 text-white hover:bg-red-600;
+  }
+  .btn-outline-success {
+    @apply border-secondary text-secondary hover:bg-secondary hover:text-white bg-transparent;
+  }
+  .btn-outline-danger {
+    @apply border-red-500 text-red-500 hover:bg-red-500 hover:text-white bg-transparent;
+  }
+  .btn-close {
+    @apply box-border w-4 h-4 p-4 text-black border-0 rounded opacity-50 hover:opacity-75 focus:outline-none focus:opacity-100 bg-transparent bg-contain bg-center bg-no-repeat cursor-pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
+  }
+
+  /* Forms */
+  .form-control {
+    @apply block w-full px-3 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-secondary focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+  .form-label {
+    @apply inline-block mb-2 text-gray-700 font-semibold;
+  }
+  .form-select {
+    @apply block w-full px-3 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-secondary focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+  .form-check {
+    @apply block min-h-[1.5rem] pl-6 mb-2;
+  }
+  .form-check-input {
+    @apply float-left -ml-6 mt-1 mr-2 h-4 w-4 appearance-none rounded border border-gray-300 bg-white bg-contain bg-center bg-no-repeat align-top cursor-pointer transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary text-secondary;
+  }
+  .form-check-label {
+    @apply inline-block text-gray-800 cursor-pointer;
+  }
+  .form-switch .form-check-input {
+    @apply w-8 rounded-full bg-contain;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0, 0, 0, 0.25)'/%3e%3c/svg%3e");
+    background-position: left center;
+  }
+  .form-switch .form-check-input:checked {
+    background-position: right center;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-block px-2 py-1 text-xs font-bold leading-none text-center whitespace-nowrap align-baseline rounded-full;
+  }
+  .bg-primary {
+    background-color: theme('colors.primary') !important;
+  }
+  .bg-secondary {
+    background-color: theme('colors.secondary') !important;
+  }
+  .bg-success {
+    background-color: theme('colors.success') !important;
+  }
+  .bg-danger {
+    background-color: theme('colors.red.500') !important;
+  }
+  .text-primary {
+    color: theme('colors.primary') !important;
+  }
+  .text-secondary {
+    color: theme('colors.secondary') !important;
+  }
+  .text-white {
+    color: theme('colors.white') !important;
+  }
+}

@@ -1,76 +1,77 @@
 <template>
-  <div class="d-flex flex-column flex-lg-row">
-    <nav
-      class="navbar navbar-expand-lg navbar-dark bg-secondary
-    border-bottom border-bottom-lg-0 border-end-lg vh-lg-100 sticky-top"
-    >
-      <div class="container-fluid flex-lg-column vh-lg-100 align-items-lg-stretch">
+  <div class="flex flex-col lg:flex-row min-h-screen">
+    <nav class="bg-secondary text-white w-full lg:w-64 flex-shrink-0 p-4 lg:h-screen lg:sticky lg:top-0">
+      <div class="flex justify-between items-center lg:block">
         <router-link
           to="/"
-          class="navbar-brand h1 my-3 mx-auto"
+          class="text-2xl font-bold block mb-0 lg:mb-8 text-white no-underline hover:text-light"
         >
           Nature Gift
         </router-link>
         <button
-          class="navbar-toggler"
+          class="lg:hidden border border-white rounded px-3 py-2"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#sidebarCollapse"
-          aria-controls="sidebarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          @click="isMenuOpen = !isMenuOpen"
         >
-          <span class="navbar-toggler-icon" />
+          <span class="block w-6 h-[2px] bg-white mb-1"></span>
+          <span class="block w-6 h-[2px] bg-white mb-1"></span>
+          <span class="block w-6 h-[2px] bg-white"></span>
         </button>
-        <div
-          class="navbar-collapse collapse align-items-start justify-content-center"
-          id="sidebarCollapse"
-        >
-          <ul class="navbar-nav flex-lg-column justify-content-lg-center h-lg-100">
-            <li class="nav-item">
-              <router-link
-                to="/admin"
-                class="nav-link"
-              >
-                Product
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/admin/coupon"
-                class="nav-link"
-              >
-                Coupon
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/admin/order"
-                class="nav-link"
-              >
-                Order
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link
-                to="/admin/article"
-                class="nav-link"
-              >
-                Article
-              </router-link>
-            </li>
-            <li class="nav-item mt-auto mb-3">
-              <a
-                href="#"
-                class="btn btn-outline-light"
-                @click.prevent="signOut"
-              >Sign Out</a>
-            </li>
-          </ul>
-        </div>
+      </div>
+      <div
+        class="lg:block mt-4 lg:mt-0"
+        :class="{ 'hidden': !isMenuOpen }"
+      >
+        <ul class="flex flex-col space-y-2 list-none p-0">
+          <li>
+            <router-link
+              to="/admin"
+              class="block py-2 px-4 hover:bg-primary hover:text-secondary rounded transition-colors text-white no-underline"
+              active-class="bg-primary !text-secondary font-bold"
+            >
+              Product
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/admin/coupon"
+              class="block py-2 px-4 hover:bg-primary hover:text-secondary rounded transition-colors text-white no-underline"
+              active-class="bg-primary !text-secondary font-bold"
+            >
+              Coupon
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/admin/order"
+              class="block py-2 px-4 hover:bg-primary hover:text-secondary rounded transition-colors text-white no-underline"
+              active-class="bg-primary !text-secondary font-bold"
+            >
+              Order
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/admin/article"
+              class="block py-2 px-4 hover:bg-primary hover:text-secondary rounded transition-colors text-white no-underline"
+              active-class="bg-primary !text-secondary font-bold"
+            >
+              Article
+            </router-link>
+          </li>
+          <li class="mt-8">
+            <a
+              href="#"
+              class="block py-2 px-4 border border-white text-center rounded hover:bg-white hover:text-secondary transition-colors text-white no-underline"
+              @click.prevent="signOut"
+            >Sign Out</a>
+          </li>
+        </ul>
       </div>
     </nav>
-    <RouterView v-if="checkSuccess" />
+    <div class="flex-grow p-4 bg-gray-100">
+      <RouterView v-if="checkSuccess" />
+    </div>
   </div>
 </template>
 
@@ -82,6 +83,7 @@ export default {
   data() {
     return {
       checkSuccess: false,
+      isMenuOpen: false,
     };
   },
   methods: {
@@ -115,10 +117,3 @@ export default {
   mixins: [alertMixin],
 };
 </script>
-
-<style lang="scss">
-.router-link-active {
-  color: white !important;
-}
-
-</style>

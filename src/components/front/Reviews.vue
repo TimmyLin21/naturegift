@@ -1,13 +1,13 @@
 <template lang="">
-  <section class="mb-0 py-5">
-    <div class="container">
+  <section class="mb-0 py-12">
+    <div class="container mx-auto px-4">
       <h2
-        class="mb-6 text-secondary d-flex justify-content-between
-      align-items-center wow fadeInDown"
+        class="mb-12 text-secondary flex justify-between
+      items-center wow fadeInDown"
       >
-        <b class="d-block h-2px bg-primary flex-grow-1 bg-opacity-75" />
-        <span class="mx-4">See why customers love our products</span>
-        <b class="d-block h-2px bg-primary flex-grow-1 bg-opacity-75" />
+        <b class="block h-[2px] bg-primary flex-grow bg-opacity-75" />
+        <span class="mx-4 text-2xl font-bold">See why customers love our products</span>
+        <b class="block h-[2px] bg-primary flex-grow bg-opacity-75" />
       </h2>
       <swiper
         :modules="modules"
@@ -33,17 +33,17 @@
           v-for="user in users"
           :key="user.name"
         >
-          <div class="d-flex pb-5">
+          <div class="flex pb-12 items-start">
             <img
               :src="user.imgUrl"
               alt=""
-              class="rounded-circle me-3 w-50 h-100px"
+              class="rounded-full mr-4 w-24 h-24 object-cover border-2 border-primary"
             >
-            <div>
-              <p class="fw-bold">
+            <div class="text-left">
+              <p class="font-bold text-lg mb-1">
                 {{ user.name }}
               </p>
-              <p>{{ user.comment }}</p>
+              <p class="text-gray-700 leading-relaxed">{{ user.comment }}</p>
             </div>
           </div>
         </swiper-slide>
