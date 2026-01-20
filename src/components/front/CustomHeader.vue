@@ -1,24 +1,25 @@
 <template>
   <nav
     class="z-30 fixed top-0 w-full flex items-center justify-between py-10 transition-all duration-500 h-[150px]"
-    :class="{ 'bg-transparent': isTrans, 'bg-secondary': !isTrans, '!bg-secondary': isShow, '!h-[100px] shadow-lg py-6': isSmall }"
+    :class="{ 'bg-transparent': isTrans, 'bg-secondary': !isTrans, '!bg-secondary': isShow, '!h-[100px] shadow-lg py-6': isSmall || isShow }"
   >
     <div class="container mx-auto flex justify-between items-center px-4">
       <router-link
         to="/"
         class="absolute left-1/2 -translate-x-1/2 transition-all duration-500 z-50"
-        :style="{ top: isSmall ? '0px' : '24px' }"
+        :style="{ top: isSmall || isShow ? '0px' : '24px' }"
       >
         <img
           src="@/assets/images/logo__transparent.png"
           alt="Nature Gift"
           class="w-[150px] h-[150px] transition-all duration-300"
-          :class="{ '!w-[100px] !h-[100px]': isSmall }"
+          :class="{ '!w-[100px] !h-[100px]': isSmall || isShow }"
         >
       </router-link>
       <div
         class="md:hidden relative w-[50px] h-[50px] cursor-pointer"
         @click="toggleMenu"
+        :style="{ transform: !isSmall && !isShow ? 'translateY(24px)' : 'translateY(0px)' }"
       >
         <div class="absolute inset-0 m-auto w-[22px] h-[12px]">
           <span class="absolute top-0 w-full h-[2px] bg-primary rounded-[1px] transition-all duration-200" :class="{ 'rotate-45 top-[5px]': isShow }" />
@@ -26,8 +27,8 @@
         </div>
       </div>
       <div 
-        class="flex-basis-full flex-grow flex justify-between items-center flex-row transition-all duration-300"
-        :class="{ 'flex-col absolute top-[100px] left-0 w-full bg-secondary z-[20000] pb-4': !hiddenMenu, 'hidden md:flex': !isShow && hiddenMenu }"
+        class="flex-basis-full flex-grow flex justify-between items-center md:flex-row transition-all duration-300"
+        :class="{ 'flex-col absolute top-[100px] left-0 w-full bg-secondary z-[20000] pb-4': isShow, 'hidden md:flex': !isShow }"
         :style="{ transform: !isSmall && !isShow ? 'translateY(24px)' : 'translateY(0px)' }"
       >
         <ul
@@ -57,7 +58,7 @@
         </ul>
         <ul
           class="flex list-none flex-wrap pl-0 mb-0 flex-row text-white md:flex md:flex-row my-4 md:my-0 gap-4"
-          :class="{ 'flex-col items-center': isShow, 'hidden': !isShow && !hiddenMenu }"
+          :class="{ 'justify-center gap-6': isShow, 'hidden': !isShow && !hiddenMenu }"
         >
           <li class="relative group">
             <router-link
@@ -111,11 +112,6 @@ export default {
     };
   },
   components: { OffcanvasCart },
-  computed: {
-    hiddenMenu() {
-      return true;
-    },
-  },
   methods: {
     scrollHeight() {
       const scrollPosition = document.documentElement.scrollTop;
