@@ -51,7 +51,7 @@
       "@vue/airbnb"
     ],
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "ecmaVersion": 2020
     },
     "rules": {
       "default-param-last": "off",
@@ -64,14 +64,9 @@
       "vuejs-accessibility/form-control-has-label": "off",
       "vue/multi-word-component-names": "off",
       "vue/html-button-has-type": "off",
-      "vue/no-reserved-component-names": "off"
-    },
-    "settings": {
-      "import/resolver": {
-        "webpack": {
-          "config": "node_modules/@vue/cli-service/webpack.config.js"
-        }
-      }
+      "vue/no-reserved-component-names": "off",
+      "import/extensions": "off",
+      "import/no-unresolved": "off"
     }
   },
   "browserslist": [
