@@ -38,13 +38,15 @@
       Your browser does not support the video tag.
     </video>
     <div
-      class="flex justify-center items-center w-full h-[30vw] md:h-[13vw] absolute bottom-0 translate-y-1/2 z-10 cursor-pointer"
+      class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer z-20 group"
       @click="scrollDown"
     >
-      <BIconChevronDoubleDown
-        class="w-[10vw] h-[10vw] md:w-[3vw] md:h-[3vw] text-primary -translate-y-1/2 md:-translate-y-[70%] z-20 animate-bounce"
-      />
-      <div class="absolute rounded-full border-[10px] border-double border-primary w-[30vw] h-[30vw] md:w-[13vw] md:h-[13vw]" />
+      <!-- Mouse Icon -->
+      <div class="w-[30px] h-[50px] border-2 border-white rounded-full flex justify-center pt-2 opacity-80 group-hover:opacity-100 transition-opacity">
+        <div class="w-1.5 h-3 bg-white rounded-full animate-bounce" />
+      </div>
+      <!-- Text/Arrow -->
+      <BIconChevronDown class="text-white w-6 h-6 animate-pulse" />
     </div>
   </div>
   <CategoryList />
