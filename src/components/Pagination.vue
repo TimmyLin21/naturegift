@@ -3,13 +3,13 @@
     <ul class="pagination justify-content-center">
       <li
         class="page-item"
-        :class="{ 'disabled': !pagination?.has_pre}"
+        :class="{ disabled: !pagination?.has_pre }"
       >
         <a
           class="page-link"
           href="#"
           aria-label="Previous"
-          @click.prevent="sendRequest(pagination.current_page-1)"
+          @click.prevent="sendRequest(pagination.current_page - 1)"
         >
           <span aria-hidden="true">&laquo;</span>
         </a>
@@ -20,7 +20,7 @@
       >
         <li
           class="page-item"
-          :class="{'active': pagination.current_page === page}"
+          :class="{ active: pagination.current_page === page }"
         >
           <a
             class="page-link"
@@ -31,13 +31,13 @@
       </template>
       <li
         class="page-item"
-        :class="{ 'disabled': !pagination?.has_next}"
+        :class="{ disabled: !pagination?.has_next }"
       >
         <a
           class="page-link"
           href="#"
           aria-label="Next"
-          @click.prevent="sendRequest(pagination.current_page+1)"
+          @click.prevent="sendRequest(pagination.current_page + 1)"
         >
           <span aria-hidden="true">&raquo;</span>
         </a>

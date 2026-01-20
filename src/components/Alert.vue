@@ -3,7 +3,7 @@
     class="alert alert-success position-absolute top-50 start-50
   translate-middle trans-ease z-4"
     role="alert"
-    :class="{fade:isClose, 'alert-success':isSuccess, 'alert-danger': !isSuccess}"
+    :class="{ fade: isClose, 'alert-success': isSuccess, 'alert-danger': !isSuccess }"
   >
     {{ msg }}
     <button

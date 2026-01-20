@@ -182,9 +182,9 @@
 </template>
 
 <script>
-import { getProduct, getProducts, addToCart } from '@/scripts/api';
-import alertMixin from '@/mixins/alertMixin';
-import loadingMixin from '@/mixins/loadingMixin';
+import { getProduct, getProducts, addToCart } from '@/scripts/api.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import loadingMixin from '@/mixins/loadingMixin.js';
 
 export default {
   data() {

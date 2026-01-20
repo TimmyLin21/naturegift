@@ -5,7 +5,7 @@
         <select
           class="form-select w-10"
           v-model="selected"
-          @change="getProducts(1,selected)"
+          @change="getProducts(1, selected)"
         >
           <option selected>
             All
@@ -130,13 +130,13 @@
 </template>
 
 <script>
-import { getAdminProducts, delProduct } from '@/scripts/api';
-import alertMixin from '@/mixins/alertMixin';
-import loadingMixin from '@/mixins/loadingMixin';
+import { computed } from 'vue';
+import { getAdminProducts, delProduct } from '@/scripts/api.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import loadingMixin from '@/mixins/loadingMixin.js';
 import Pagination from '@/components/Pagination.vue';
 import ProductModal from '@/components/admin/ProductModal.vue';
 import DelModal from '@/components/admin/DelModal.vue';
-import { computed } from 'vue';
 
 export default {
   data() {

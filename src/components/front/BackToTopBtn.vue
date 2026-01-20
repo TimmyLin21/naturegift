@@ -2,7 +2,7 @@
   <a
     href="#"
     class="btn-backToTop"
-    :class="{'show': isShow}"
+    :class="{ show: isShow }"
     @click.prevent="backToTop"
   >
     <BIconArrowUp aria-hidden="true" />

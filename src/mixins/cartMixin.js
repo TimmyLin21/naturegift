@@ -1,5 +1,5 @@
-import { getCart, editCart, delCartItem } from '@/scripts/api';
-import alertMixin from '@/mixins/alertMixin';
+import { getCart, editCart, delCartItem } from '@/scripts/api.js';
+import alertMixin from '@/mixins/alertMixin.js';
 
 export default {
   data() {

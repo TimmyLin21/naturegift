@@ -88,9 +88,9 @@
 </template>
 
 <script>
-import { getCoupons, delCoupon } from '@/scripts/api';
-import alertMixin from '@/mixins/alertMixin';
-import loadingMixin from '@/mixins/loadingMixin';
+import { getCoupons, delCoupon } from '@/scripts/api.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import loadingMixin from '@/mixins/loadingMixin.js';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/admin/DelModal.vue';
 import CouponModal from '@/components/admin/CouponModal.vue';

@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import { apiUserCheck } from '@/scripts/api';
-import alertMixin from '@/mixins/alertMixin';
+import { apiUserCheck } from '@/scripts/api.js';
+import alertMixin from '@/mixins/alertMixin.js';
 
 export default {
   data() {

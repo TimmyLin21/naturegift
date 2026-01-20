@@ -26,7 +26,7 @@
                   type="email"
                   class="form-control"
                   id="sub-email"
-                  :class="{ 'is-invalid': errors['Email'] }"
+                  :class="{ 'is-invalid': errors.Email }"
                   name="Email"
                   rules="required|email"
                   placeholder="Your Email"

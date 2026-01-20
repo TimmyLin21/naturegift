@@ -103,9 +103,9 @@
 </template>
 
 <script>
-import { getAdminOrders, delAllOrders, delOrder } from '@/scripts/api';
-import alertMixin from '@/mixins/alertMixin';
-import loadingMixin from '@/mixins/loadingMixin';
+import { getAdminOrders, delAllOrders, delOrder } from '@/scripts/api.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import loadingMixin from '@/mixins/loadingMixin.js';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/admin/DelModal.vue';
 import OrderModal from '@/components/admin/OrderModal.vue';

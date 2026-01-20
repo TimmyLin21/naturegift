@@ -2,7 +2,7 @@
   <div
     class="position-absolute top-0 bottom-0 vh-100 w-100 bg-dark z-3 bg-opacity-25 d-flex
 align-items-center justify-content-center"
-    :class="{'d-none': !isLoading}"
+    :class="{ 'd-none': !isLoading }"
   >
     <i class="fa-solid fa-kiwi-bird fa-4x text-primary fa-bounce" />
   </div>

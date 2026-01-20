@@ -109,7 +109,7 @@
                   class="fs-3 mt-3 mt-md-2 link-secondary cursor-pointer"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseOne"
-                  :class="{'rotate-180': isRotate, 'mb-md-1': isRotate}"
+                  :class="{ 'rotate-180': isRotate, 'mb-md-1': isRotate }"
                   @click="isRotate = !isRotate"
                 />
               </span>
@@ -182,8 +182,8 @@
 </template>
 
 <script>
-import { getOrder, postPay } from '@/scripts/api';
-import alertMixin from '@/mixins/alertMixin';
+import { getOrder, postPay } from '@/scripts/api.js';
+import alertMixin from '@/mixins/alertMixin.js';
 
 export default {
   data() {

@@ -37,7 +37,7 @@
             >
               <a
                 class="nav-link cursor-pointer"
-                :class="{active: currentTab === `${tab}Tab`}"
+                :class="{ active: currentTab === `${tab}Tab` }"
                 @click="currentTab = `${tab}Tab`"
               >
                 {{ tab }}
@@ -70,10 +70,10 @@
 </template>
 
 <script>
-import modalMixin from '@/mixins/modalMixin';
-import alertMixin from '@/mixins/alertMixin';
-import productTab from '@/mixins/productTab';
-import { addNewProduct, editProduct } from '@/scripts/api';
+import modalMixin from '@/mixins/modalMixin.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import productTab from '@/mixins/productTab.js';
+import { addNewProduct, editProduct } from '@/scripts/api.js';
 import InfoTab from '@/components/admin/ProductModalTab/InfoTab.vue';
 import ContentTab from '@/components/admin/ProductModalTab/ContentTab.vue';
 import NutritionTab from '@/components/admin/ProductModalTab/NutritionTab.vue';

@@ -15,11 +15,11 @@
         :space-between="10"
         :pagination="{ clickable: true }"
         :breakpoints="{
-          '768': {
+          768: {
             slidesPerView: 2,
             spaceBetween: 20,
           },
-          '992': {
+          992: {
             slidesPerView: 3,
             spaceBetween: 30,
           },
@@ -59,11 +59,11 @@ import {
 } from 'swiper';
 
 // Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 // Import Swiper styles
-import 'swiper/swiper.scss';
-import 'swiper/modules/pagination/pagination.min.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default {
   name: 'Reviews',

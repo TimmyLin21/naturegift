@@ -11,9 +11,9 @@
         <ul class="nav justify-content-between flex-md-nowrap">
           <li
             class="c-card text-white w-75 w-md-auto mx-auto mx-md-0 mb-3 mb-md-0"
-            v-for="(category,i) in categories"
+            v-for="(category, i) in categories"
             :key="category.title"
-            :class="{'mx-md-5': i === 1}"
+            :class="{ 'mx-md-5': i === 1 }"
           >
             <figure class="c-card__img">
               <img

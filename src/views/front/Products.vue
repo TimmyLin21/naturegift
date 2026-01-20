@@ -39,7 +39,7 @@
           <div
             class="c-select__selected"
             @click="sort.isShow = !sort.isShow"
-            :class="{'select__arrow-active':sort.isShow}"
+            :class="{ 'select__arrow-active': sort.isShow }"
             aria-haspopup="listbox"
             aria-labelledby="sort"
           >
@@ -92,7 +92,7 @@
             class="product__img__like"
             @click="toggleFav(product.id)"
           >
-            <BIconSuitHeartFill :class="{like: checkFav(product.id)}" />
+            <BIconSuitHeartFill :class="{ like: checkFav(product.id) }" />
           </div>
           <div
             class="product__img__sale"
@@ -139,9 +139,9 @@
 </template>
 
 <script>
-import { getAllProducts, addToCart } from '@/scripts/api';
-import alertMixin from '@/mixins/alertMixin';
-import loadingMixin from '@/mixins/loadingMixin';
+import { getAllProducts, addToCart } from '@/scripts/api.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import loadingMixin from '@/mixins/loadingMixin.js';
 import Pagination from '@/components/Pagination.vue';
 
 export default {

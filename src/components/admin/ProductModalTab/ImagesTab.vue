@@ -25,7 +25,7 @@
         </div>
       </div>
       <template
-        v-for="(img,key) in cacheProduct.imagesUrl"
+        v-for="(img, key) in cacheProduct.imagesUrl"
         :key="key"
       >
         <div class="w-30 detailImg">
@@ -116,9 +116,9 @@
 </template>
 
 <script>
-import productTab from '@/mixins/productTab';
-import alertMixin from '@/mixins/alertMixin';
-import { uploadImg } from '@/scripts/api';
+import productTab from '@/mixins/productTab.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import { uploadImg } from '@/scripts/api.js';
 
 export default {
   data() {

@@ -126,9 +126,9 @@
 </template>
 
 <script>
-import modalMixin from '@/mixins/modalMixin';
-import alertMixin from '@/mixins/alertMixin';
-import { addNewCoupon, editCoupon } from '@/scripts/api';
+import modalMixin from '@/mixins/modalMixin.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import { addNewCoupon, editCoupon } from '@/scripts/api.js';
 
 export default {
   data() {

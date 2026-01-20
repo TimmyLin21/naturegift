@@ -1,7 +1,7 @@
 <template>
   <nav
     class="z-3 c-navbar fixed-top"
-    :class="{'trans':isTrans, 'bg-secondary': isShow, 'small':isSmall}"
+    :class="{ trans: isTrans, 'bg-secondary': isShow, small: isSmall }"
   >
     <div class="container d-flex justify-content-between align-items-center">
       <a
@@ -11,7 +11,7 @@
         <img
           src="@/assets/images/logo__transparent.png"
           alt="Nature Gift"
-          :class="{'small': isSmall}"
+          :class="{ small: isSmall }"
         >
       </a>
       <div
@@ -31,7 +31,7 @@
       <div class="c-navbar__collapse">
         <ul
           class="c-navbar__nav text-primary d-md-flex trans-ease"
-          :class="{'d-none': !isShow}"
+          :class="{ 'd-none': !isShow }"
         >
           <li class="nav-item c-navbar__item">
             <router-link
@@ -44,7 +44,7 @@
           </li>
           <li class="nav-item c-navbar__item">
             <router-link
-              :to="{ path: '/', hash: '#OurStory'}"
+              :to="{ path: '/', hash: '#OurStory' }"
               class="nav-link fw-bold"
               @click="toggleMenu"
             >
@@ -54,7 +54,7 @@
         </ul>
         <ul
           class="nav d-md-flex my-4 my-md-0"
-          :class="{'d-none': !isShow}"
+          :class="{ 'd-none': !isShow }"
         >
           <li class="nav-item c-navbar__item">
             <router-link
@@ -92,7 +92,7 @@
       </div>
     </div>
   </nav>
-  <OffcanvasCart @getQuantity="getQuantity" />
+  <OffcanvasCart @get-quantity="getQuantity" />
 </template>
 
 <script>

@@ -67,7 +67,7 @@
               >
                 <div
                   class="d-flex align-items-center"
-                  :class="{'me-2':cacheArticle.tag?.length>0 }"
+                  :class="{ 'me-2': cacheArticle.tag?.length > 0 }"
                 >
                   <span
                     class="badge rounded-pill bg-secondary me-1 d-block"
@@ -159,10 +159,10 @@
 </template>
 
 <script>
-import modalMixin from '@/mixins/modalMixin';
-import alertMixin from '@/mixins/alertMixin';
-import { addNewArticle, editArticle } from '@/scripts/api';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import modalMixin from '@/mixins/modalMixin.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import { addNewArticle, editArticle } from '@/scripts/api.js';
 
 export default {
   data() {

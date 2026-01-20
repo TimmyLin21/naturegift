@@ -4,7 +4,7 @@ import 'bootstrap';
 import { BootstrapIconsPlugin } from 'bootstrap-icons-vue';
 
 // Font awesome
-import fontawesome from '@fortawesome/fontawesome-free/js/all';
+// import fontawesome from '@fortawesome/fontawesome-free/js/all';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes,
@@ -12,18 +12,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 // Components
-import Loading from '@/components/Loading.vue';
-import BsAlert from '@/components/Alert.vue';
 
 // Scripts
-import mitt from '@/scripts/mitt';
-import { date, currency } from '@/scripts/filters';
 
 // Veevalidate
 import {
   Form, Field, ErrorMessage, defineRule,
 } from 'vee-validate';
-import AllRules from '@vee-validate/rules';
+import { all } from '@vee-validate/rules';
 
 // wow.js
 import Wow from 'wow.js';
@@ -33,13 +29,17 @@ import swal from 'sweetalert';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import CKEditor from '@ckeditor/ckeditor5-vue';
+import { date, currency } from '@/scripts/filters.js';
+import mitt from '@/scripts/mitt.js';
+import BsAlert from '@/components/Alert.vue';
+import Loading from '@/components/Loading.vue';
 import App from './App.vue';
 import router from './router';
 
 library.add(faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes);
 
-Object.keys(AllRules).forEach((rule) => {
-  defineRule(rule, AllRules[rule]);
+Object.entries(all).forEach(([name, rule]) => {
+  defineRule(name, rule);
 });
 
 const app = createApp(App);
@@ -55,7 +55,7 @@ app.config.unwrapInjectedRef = true;
 app.use(BootstrapIconsPlugin);
 app.use(VueAxios, axios);
 app.use(CKEditor);
-app.use(fontawesome);
+// app.use(fontawesome);
 app.component('FontAwesomeIcon', FontAwesomeIcon);
 app.component('Loading', Loading);
 app.component('BsAlert', BsAlert);

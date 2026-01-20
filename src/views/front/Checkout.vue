@@ -33,7 +33,7 @@
       <section class="col-12 col-md-7 mb-4">
         <h2
           class="mb-4"
-          :class="{'visually-hidden': carts.length === 0}"
+          :class="{ 'visually-hidden': carts.length === 0 }"
         >
           Your cart
         </h2>
@@ -192,8 +192,8 @@
 </template>
 
 <script>
-import cartMixin from '@/mixins/cartMixin';
-import { applyCoupon } from '@/scripts/api';
+import cartMixin from '@/mixins/cartMixin.js';
+import { applyCoupon } from '@/scripts/api.js';
 import ContactInfo from '@/components/front/ContactInfo.vue';
 
 export default {
