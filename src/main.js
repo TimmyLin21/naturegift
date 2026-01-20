@@ -22,7 +22,7 @@ import { all } from '@vee-validate/rules';
 
 // wow.js
 import Wow from 'wow.js';
-import 'wow.js/css/libs/animate.css';
+import 'animate.css';
 
 import swal from 'sweetalert';
 import axios from 'axios';
@@ -62,4 +62,6 @@ app.component('VForm', Form);
 app.component('VField', Field);
 app.component('ErrorMessage', ErrorMessage);
 app.use(router).mount('#app');
-new Wow().init();
+new Wow({
+  animateClass: 'animate__animated',
+}).init();

@@ -19,7 +19,7 @@
               <img
                 :src="category.url"
                 :alt="category.title"
-                class="w-full rounded-lg transform transition-transform duration-[650ms] group-hover:scale-125"
+                class="w-full h-64 md:h-80 object-cover rounded-lg transform transition-transform duration-[650ms] group-hover:scale-125"
               >
             </figure>
             <div class="absolute inset-0 p-4 flex items-end">

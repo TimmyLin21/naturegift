@@ -6,20 +6,20 @@
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div
-          class="wow fadeInLeft"
+          class="wow animate__fadeInLeft"
           data-wow-duration="2s"
           data-wow-offset="50"
         >
-          <figure class="-mt-12">
+          <figure class="-mt-12 flex justify-center">
             <img
               src="@/assets/images/OurStoryImg.jpeg"
               alt="A lots of fresh nuts."
-              class="rounded max-w-full h-auto md:h-[500px] object-cover"
+              class="rounded-lg max-w-full h-[450px] md:h-[500px] object-cover mx-auto"
             >
           </figure>
         </div>
         <div
-          class="wow fadeInRight"
+          class="wow animate__fadeInRight"
           data-wow-duration="2s"
           data-wow-offset="10"
         >
