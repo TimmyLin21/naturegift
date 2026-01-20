@@ -85,24 +85,24 @@
     @apply inline-block px-2 py-1 text-xs font-bold leading-none text-center whitespace-nowrap align-baseline rounded-full;
   }
   .bg-primary {
-    background-color: theme('colors.primary') !important;
+    background-color: theme('colors.primary');
   }
   .bg-secondary {
-    background-color: theme('colors.secondary') !important;
+    background-color: theme('colors.secondary');
   }
   .bg-success {
-    background-color: theme('colors.success') !important;
+    background-color: theme('colors.success');
   }
   .bg-danger {
-    background-color: theme('colors.red.500') !important;
+    background-color: theme('colors.red.500');
   }
   .text-primary {
-    color: theme('colors.primary') !important;
+    color: theme('colors.primary');
   }
   .text-secondary {
-    color: theme('colors.secondary') !important;
+    color: theme('colors.secondary');
   }
   .text-white {
-    color: theme('colors.white') !important;
+    color: theme('colors.white');
   }
 }

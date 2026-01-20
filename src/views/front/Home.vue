@@ -10,7 +10,7 @@
     </h1>
     <!-- Desktop Button -->
     <button
-      class="hidden md:block absolute left-[5%] top-[60%] font-bold px-12 py-4 text-2xl bg-secondary text-white hover:bg-white hover:text-black border border-transparent hover:border-black transition-all duration-300 group"
+      class="hidden md:flex items-center justify-center gap-2 rounded-lg absolute left-[5%] top-[60%] font-bold px-12 py-4 text-2xl bg-secondary text-white hover:bg-white hover:text-black border border-transparent hover:bg-primary transition-all duration-500 group"
       type="button"
       @click="toProducts"
     >
@@ -18,7 +18,7 @@
     </button>
     <!-- Mobile Button -->
     <button
-      class="md:hidden absolute left-[5%] top-[70%] font-bold px-6 py-2 text-xl bg-secondary text-white hover:bg-white hover:text-black border border-transparent hover:border-black transition-all duration-300 group"
+      class="md:hidden flex items-center justify-center gap-2 rounded-lg absolute left-[5%] top-[70%] font-bold px-6 py-2 text-xl bg-secondary text-white hover:bg-white hover:text-black border border-transparent hover:bg-primary transition-all duration-500 group"
       type="button"
       @click="toProducts"
     >
