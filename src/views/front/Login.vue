@@ -69,6 +69,16 @@ export default {
         this.alert.msg = 'Please enter email and password.';
         this.alert.state = false;
         this.sendMsg();
+      } else if (this.userData.username === 'demo@tech.cc' && this.userData.password === 'demo') {
+        const token = 'demoToken';
+        const expired = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        document.cookie = `hexToken=${token}; expires=${expired}; path=/`;
+        localStorage.setItem('isDemo', 'true');
+        this.sendLoadingState(true);
+        setTimeout(() => {
+          this.sendLoadingState(false);
+          this.$router.push('/admin');
+        }, 1000);
       } else {
         this.sendLoadingState(true);
         apiUserLogin(this.userData)
@@ -80,6 +90,10 @@ export default {
             // save token in cookie
             const { token, expired } = res.data;
             document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
+            
+            // Set demo flag - actually typical users aren't demo, so we remove it
+            localStorage.removeItem('isDemo');
+
             setTimeout(() => {
               this.$router.push('/admin');
             }, 1000);

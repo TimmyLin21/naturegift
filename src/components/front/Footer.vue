@@ -132,7 +132,7 @@ export default {
       // this.sendMsg();
       this.$swal({
         title: 'Thanks for joining!',
-        text: 'Coupon code: newbie2022',
+        text: 'Coupon code: newbie2026',
         icon: 'success',
         button: 'Confirm',
       });

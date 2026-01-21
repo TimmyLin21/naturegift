@@ -1,170 +1,156 @@
 <template>
-  <main class="container py-5 mt-100px mt-md-150px">
-    <div class="steps mb-7">
-      <div class="steps__circle steps__circle-active">
-        <BIconCart
-          width="2rem"
-          height="2rem"
-        />
-        <div class="steps__text">
-          <p>Checkout</p>
+  <main class="container mx-auto px-4 py-5 mt-[100px] md:mt-[150px]">
+    <div class="flex justify-center items-center mb-10 gap-8 lg:gap-20">
+      <div class="flex flex-col items-center relative z-10">
+        <div class="w-16 h-16 rounded-full bg-secondary text-white flex items-center justify-center mb-2 shadow-lg">
+          <BIconCart width="1.5rem" height="1.5rem" />
         </div>
+        <p class="font-bold text-gray-800">Checkout</p>
       </div>
-      <div class="steps__circle">
-        <BIconCreditCard
-          width="2rem"
-          height="2rem"
-        />
-        <div class="steps__text">
-          <p>Payment</p>
+      <div class="h-[2px] w-16 bg-gray-300 -mt-8 hidden md:block"></div>
+      <div class="flex flex-col items-center relative z-10 text-gray-400">
+        <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center mb-2">
+          <BIconCreditCard width="1.5rem" height="1.5rem" />
         </div>
+        <p>Payment</p>
       </div>
-      <div class="steps__circle">
-        <BIconStar
-          width="2rem"
-          height="2rem"
-        />
-        <div class="steps__text">
-          <p>Finish</p>
+      <div class="h-[2px] w-16 bg-gray-300 -mt-8 hidden md:block"></div>
+      <div class="flex flex-col items-center relative z-10 text-gray-400">
+        <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center mb-2">
+          <BIconStar width="1.5rem" height="1.5rem" />
         </div>
+        <p>Finish</p>
       </div>
     </div>
-    <div class="row gx-md-5">
-      <section class="col-12 col-md-7 mb-4">
+    <div class="flex flex-col md:flex-row gap-8">
+      <section class="w-full md:w-7/12 mb-4">
         <h2
-          class="mb-4"
-          :class="{ 'visually-hidden': carts.length === 0 }"
+          class="text-2xl font-bold mb-4"
+          :class="{ 'hidden': carts.length === 0 }"
         >
           Your cart
         </h2>
         <template v-if="carts.length > 0">
-          <div class="table-responsive mb-5">
-            <table
-              class="table mb-5"
-            >
-              <thead>
+          <div class="overflow-x-auto mb-5 rounded-lg shadow-sm border border-gray-100">
+            <table class="w-full text-left border-collapse">
+              <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
                 <tr>
-                  <th
-                    scope="col"
-                    colspan="3"
-                  >
-                    Product
-                  </th>
-                  <th scope="col">
-                    Price
-                  </th>
-                  <th scope="col">
-                    Quantity
-                  </th>
-                  <th scope="col">
-                    Total
-                  </th>
+                  <th scope="col" colspan="3" class="py-3 px-4">Product</th>
+                  <th scope="col" class="py-3 px-4">Price</th>
+                  <th scope="col" class="py-3 px-4">Quantity</th>
+                  <th scope="col" class="py-3 px-4">Total</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="divide-y divide-gray-100">
                 <tr
                   v-for="item in carts"
                   :key="item.id"
-                  class="align-middle"
+                  class="bg-white hover:bg-gray-50 transition-colors"
                 >
-                  <td>
+                  <td class="py-3 px-4 w-10">
                     <a
                       href="#"
-                      class="link-danger"
-                      @click.prevent="delCartItem(item.id)"
+                      class="text-red-400 hover:text-red-600 transition-colors"
+                      :class="{ 'opacity-50 cursor-not-allowed': loadingItem === item.id }"
+                      @click.prevent="removeCartItem(item.id)"
                     >
-                      <BIconTrash />
+                      <font-awesome-icon icon="spinner" spin v-if="loadingItem === item.id" />
+                      <BIconTrash v-else />
                     </a>
                   </td>
-                  <td width="100px">
+                  <td class="py-3 px-4" width="100px">
                     <img
                       :src="item.product.imageUrl"
                       :alt="item.product.title"
-                      class="w-100px h-50px object-cover object-position-center"
+                      class="w-20 h-14 object-cover rounded shadow-sm"
                     >
                   </td>
-                  <td>
-                    <p class="mb-0">
+                  <td class="py-3 px-4">
+                    <p class="font-medium text-gray-800 mb-0">
                       {{ item.product.title }}
                     </p>
-                    <small class="text-start">Size: {{ item.product.unit }}</small>
+                    <small class="text-gray-500">Size: {{ item.product.unit }}</small>
                   </td>
-                  <td>
+                  <td class="py-3 px-4">
                     <template v-if="item.product.price !== item.product.origin_price">
-                      <p class="mb-0 text-nowrap">
-                        <del class="text-danger">NT$ {{ item.product.origin_price }}</del>
+                      <p class="mb-0 text-sm line-through text-gray-400">
+                        NT$ {{ item.product.origin_price }}
                       </p>
-                      <p class="mb-0">
+                      <p class="mb-0 font-bold text-gray-800">
                         NT$ {{ item.product.price }}
                       </p>
                     </template>
                     <template v-else>
-                      <p class="mb-0">
+                      <p class="mb-0 font-bold text-gray-800">
                         NT$ {{ item.product.origin_price }}
                       </p>
                     </template>
                   </td>
-                  <td width="10%">
-                    <div class="qty">
-                      <span><BIconDashCircle @click="editCart(item, '-')" /></span>
-                      <input
-                        class="text-center"
-                        type="number"
-                        v-model.number="item.qty"
-                        @change="editCart(item)"
+                  <td class="py-3 px-4" width="15%">
+                    <div class="flex items-center gap-2 relative">
+                      <div v-if="loadingItem === item.id" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 z-10 font-bold text-xs">
+                        <font-awesome-icon icon="spinner" spin />
+                      </div>
+                      <button 
+                        class="text-gray-500 hover:text-secondary disabled:opacity-50 w-6 h-6 flex items-center justify-center"
+                        @click="updateCart(item, '-')"
+                        :disabled="item.qty <= 1 || loadingItem === item.id"
                       >
-                      <span><BIconPlusCircle @click="editCart(item, '+')" /></span>
+                        <BIconDashCircle class="w-5 h-5" />
+                      </button>
+                      <input
+                        class="w-12 text-center border-0 p-0 focus:ring-0 font-bold bg-gray-100 rounded border border-gray-200 h-6 leading-none text-sm"
+                        type="number"
+                        min="1"
+                        v-model.number="item.qty"
+                        @change="updateCart(item)"
+                        :disabled="loadingItem === item.id"
+                      >
+                      <button 
+                        class="text-gray-500 hover:text-secondary disabled:opacity-50 w-6 h-6 flex items-center justify-center"
+                        @click="updateCart(item, '+')"
+                        :disabled="loadingItem === item.id"
+                      >
+                        <BIconPlusCircle class="w-5 h-5" />
+                      </button>
                     </div>
                   </td>
-                  <td class="text-nowrap">
+                  <td class="py-3 px-4 font-bold text-secondary whitespace-nowrap">
                     NT$ {{ item.total }}
                   </td>
                 </tr>
               </tbody>
-              <tfoot>
+              <tfoot class="bg-gray-50 border-t border-gray-100">
                 <tr>
-                  <td colspan="3">
+                  <td colspan="3" class="py-3 px-4 font-bold text-right text-gray-600">
                     Subtotal
                   </td>
                   <td
                     colspan="3"
-                    class="text-end text-danger"
-                    v-if="total !== final_total"
+                    class="py-3 px-4 text-right"
                   >
-                    <del>NTD$ {{ total }}</del>
-                  </td>
-                  <td
-                    colspan="3"
-                    class="text-end"
-                    v-else
-                  >
-                    NTD$ {{ final_total }}
-                  </td>
-                </tr>
-                <tr v-if="total !== final_total">
-                  <td
-                    colspan="6"
-                    class="text-end border-bottom-0"
-                  >
-                    NTD$ {{ final_total }}
+                    <div v-if="total !== final_total" class="flex flex-col items-end">
+                      <span class="text-gray-400 line-through text-sm">NTD$ {{ total }}</span>
+                      <span class="text-red-500 font-bold text-lg">NTD$ {{ final_total }}</span>
+                    </div>
+                    <div v-else class="text-lg font-bold text-gray-800">
+                      NTD$ {{ final_total }}
+                    </div>
                   </td>
                 </tr>
               </tfoot>
             </table>
           </div>
-          <div class="input-group mb-3">
+          <div class="flex gap-2 mb-6">
             <input
               type="text"
-              class="form-control"
-              placeholder="Coupon"
-              aria-label="Coupon"
-              aria-describedby="coupon-apply"
+              class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+              placeholder="Coupon Code"
               v-model="couponCode"
             >
             <button
-              class="btn btn-outline-secondary"
+              class="px-6 py-2 border border-secondary text-secondary font-bold rounded-lg hover:bg-secondary hover:text-white transition-colors"
               type="button"
-              id="coupon-apply"
               @click="applyCoupon"
             >
               Apply
@@ -172,21 +158,23 @@
           </div>
         </template>
         <template v-else>
-          <p class="fw-bold h3 mt-7 mb-1">
-            Your cart is empty
-          </p>
-          <p class="d-block mb-5 text-muted mt-5">
-            Looks like you haven't made a choice
-          </p>
-          <button
-            class="btn btn-secondary w-25 mb-7"
-            @click="goShop"
-          >
-            Shop now
-          </button>
+          <div class="text-center py-10">
+            <p class="font-bold text-2xl text-gray-800 mb-2">
+              Your cart is empty
+            </p>
+            <p class="text-gray-500 mb-8">
+              Looks like you haven't made a choice yet.
+            </p>
+            <button
+              class="px-8 py-3 bg-secondary text-white font-bold rounded-full shadow-lg hover:bg-opacity-90 transform hover:scale-105 transition-all"
+              @click="goShop"
+            >
+              Shop now
+            </button>
+          </div>
         </template>
       </section>
-      <ContactInfo />
+      <ContactInfo class="w-full md:w-5/12" />
     </div>
   </main>
 </template>
@@ -200,6 +188,7 @@ export default {
   data() {
     return {
       couponCode: '',
+      loadingItem: '',
     };
   },
   components: { ContactInfo },
@@ -221,7 +210,37 @@ export default {
     goShop() {
       this.$router.push('/products');
     },
+    updateCart(item, action) {
+      if (this.loadingItem === item.id) return;
+      this.loadingItem = item.id;
+      this.editCart(item, action)
+        .finally(() => {
+          this.loadingItem = '';
+        });
+    },
+    removeCartItem(id) {
+      if (this.loadingItem === id) return;
+      this.loadingItem = id;
+      this.delCartItem(id)
+        .finally(() => {
+          this.loadingItem = '';
+        });
+    },
   },
   mixins: [cartMixin],
 };
 </script>
+
+<style scoped>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>

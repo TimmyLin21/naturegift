@@ -6,6 +6,7 @@
           type="button"
           class="inline-block bg-secondary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all duration-300 font-bold shadow-sm"
           @click.prevent="modalToggle('new')"
+          v-if="!isDemo"
         >
           Add new article
         </button>
@@ -66,22 +67,30 @@
               </td>
               <td class="py-3 px-6">
                 <div class="flex item-center justify-center gap-4">
-                  <a
-                    href="#"
+                  <button
                     class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
                     @click.prevent="modalToggle('edit', article)"
                     title="Edit"
+                    v-if="!isDemo"
                   >
                     <BIconPen class="w-5 h-5" />
-                  </a>
-                  <a
-                    href="#"
+                  </button>
+                  <button
                     class="transform hover:text-red-500 hover:scale-110 transition-transform duration-300"
                     @click.prevent="modalToggle('del', article)"
                     title="Delete"
+                    v-if="!isDemo"
                   >
                     <BIconTrash class="w-5 h-5" />
-                  </a>
+                  </button>
+                  <button
+                    class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('view', article)"
+                    title="View Details"
+                    v-if="isDemo"
+                  >
+                    <BIconEyeFill class="w-5 h-5" />
+                  </button>
                 </div>
               </td>
             </tr>
@@ -109,6 +118,7 @@
     @send-request="getArticles"
     :article="cacheArticle"
     :state="isNew"
+    :is-read-only="isDemo"
   />
 </template>
 
@@ -126,11 +136,41 @@ export default {
       articles: [],
       cacheArticle: [],
       isNew: true,
+      isDemo: false,
     };
   },
   components: { Pagination, DelModal, ArticleModal },
   methods: {
     getArticles(page) {
+      if (this.isDemo) {
+        this.articles = {
+          articles: [
+            {
+              id: 'demo-art-1',
+              title: 'Demo Article 1',
+              create_at: Math.floor(new Date().getTime() / 1000),
+              author: 'Demo Author',
+              isPublic: true,
+              tag: ['News']
+            },
+            {
+              id: 'demo-art-2',
+              title: 'Demo Article 2',
+              create_at: Math.floor(new Date().getTime() / 1000) - 100000,
+              author: 'Demo Author',
+              isPublic: false,
+              tag: ['Event']
+            }
+          ],
+          pagination: {
+            total_pages: 1,
+            current_page: 1,
+            has_pre: false,
+            has_next: false,
+          }
+        };
+        return;
+      }
       this.sendLoadingState(true);
       getArticles(page)
         .then((res) => {
@@ -173,6 +213,17 @@ export default {
           this.$refs.articleModal.openModal();
         });
         this.isNew = false;
+      } else if (modal === 'view') {
+        if (this.isDemo) {
+          this.cacheArticle = JSON.parse(JSON.stringify(item));
+          this.isNew = false;
+          this.$refs.articleModal.openModal();
+        } else {
+          this.getArticle(item.id).then(() => {
+            this.$refs.articleModal.openModal();
+          });
+        }
+        this.isNew = false;
       } else if (modal === 'del') {
         this.getArticle(item.id).then(() => {
           this.$refs.delModal.openModal();
@@ -195,6 +246,7 @@ export default {
     },
   },
   created() {
+    this.isDemo = localStorage.getItem('isDemo') === 'true';
     this.getArticles();
     this.$emitter.on('send-request', (page) => {
       this.getArticles(page);

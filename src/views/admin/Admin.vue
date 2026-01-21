@@ -4,9 +4,13 @@
       <div class="flex justify-between items-center lg:block">
         <router-link
           to="/"
-          class="text-2xl font-bold block mb-0 lg:mb-8 text-white no-underline hover:text-light"
+          class="text-2xl font-bold flex items-center mb-0 lg:mb-8 text-white no-underline hover:text-light"
         >
           Nature Gift
+          <span
+            v-if="isDemo"
+            class="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full uppercase tracking-wider"
+          >Demo</span>
         </router-link>
         <button
           class="lg:hidden border border-white rounded px-3 py-2"
@@ -84,25 +88,33 @@ export default {
     return {
       checkSuccess: false,
       isMenuOpen: false,
+      isDemo: false,
     };
   },
   methods: {
     checkLogin() {
-      apiUserCheck()
-        .then(() => {
-          this.checkSuccess = true;
-        })
-        .catch(() => {
-          this.alert.msg = 'Please login again :)';
-          this.alert.state = false;
-          this.sendMsg();
-          setTimeout(() => {
-            this.$router.push('/login');
-          }, 1000);
-        });
+      const isDemo = localStorage.getItem('isDemo') === 'true';
+      if (isDemo) {
+        this.isDemo = true;
+        this.checkSuccess = true;
+      } else {
+        apiUserCheck()
+          .then(() => {
+            this.checkSuccess = true;
+          })
+          .catch(() => {
+            this.alert.msg = 'Please login again :)';
+            this.alert.state = false;
+            this.sendMsg();
+            setTimeout(() => {
+              this.$router.push('/login');
+            }, 1000);
+          });
+      }
     },
     signOut() {
       document.cookie = 'hexToken=;expires=;';
+      localStorage.removeItem('isDemo');
       this.alert.msg = 'Sign out success!';
       this.alert.state = true;
       this.sendMsg();

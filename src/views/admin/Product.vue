@@ -26,6 +26,7 @@
           type="button"
           class="inline-block bg-secondary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all duration-300 font-bold shadow-sm"
           @click="modalToggle('new')"
+          v-if="!isDemo"
         >
           Add new product
         </button>
@@ -80,6 +81,7 @@
                     class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
                     @click.prevent="modalToggle('edit', product)"
                     title="Edit"
+                    v-if="!isDemo"
                   >
                     <BIconPen class="w-5 h-5" />
                   </button>
@@ -87,8 +89,17 @@
                     class="transform hover:text-red-500 hover:scale-110 transition-transform duration-300"
                     @click.prevent="modalToggle('del', product)"
                     title="Delete"
+                    v-if="!isDemo"
                   >
                     <BIconTrash class="w-5 h-5" />
+                  </button>
+                  <button
+                    class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('view', product)"
+                    title="View Details"
+                    v-if="isDemo"
+                  >
+                    <BIconEyeFill class="w-5 h-5" />
                   </button>
                 </div>
               </td>
@@ -109,6 +120,7 @@
   <ProductModal
     ref="productModal"
     @send-request="getProducts(products.pagination.current_page)"
+    :is-read-only="isDemo"
   />
   <DelModal
     ref="delModal"
@@ -143,11 +155,45 @@ export default {
       isNew: true,
       categorys: ['Spices', 'Beans', 'Nuts'],
       selected: 'All',
+      isDemo: false,
     };
   },
   components: { Pagination, ProductModal, DelModal },
   methods: {
     getProducts(page, category) {
+      if (this.isDemo) {
+        this.products = {
+          products: [
+            {
+              id: 'demo-1',
+              category: 'Spices',
+              title: 'Demo Spice',
+              origin_price: 100,
+              price: 80,
+              unit: 'bottle',
+              is_enabled: 1,
+              imageUrl: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
+            },
+            {
+              id: 'demo-2',
+              category: 'Beans',
+              title: 'Demo Beans',
+              origin_price: 200,
+              price: 150,
+              unit: 'bag',
+              is_enabled: 0,
+              imageUrl: '/images/Beans.jpeg',
+            }
+          ],
+          pagination: {
+            total_pages: 1,
+            current_page: 1,
+            has_pre: false,
+            has_next: false,
+          }
+        };
+        return;
+      }
       this.sendLoadingState(true);
       getAdminProducts(page, category)
         .then((res) => {
@@ -174,6 +220,10 @@ export default {
         this.isNew = false;
         this.cacheProduct = JSON.parse(JSON.stringify(item));
         this.$refs.delModal.openModal();
+      } else if (modal === 'view') {
+        this.isNew = false;
+        this.cacheProduct = JSON.parse(JSON.stringify(item));
+        this.$refs.productModal.openModal();
       }
     },
     delProduct() {
@@ -199,6 +249,7 @@ export default {
     };
   },
   created() {
+    this.isDemo = localStorage.getItem('isDemo') === 'true';
     this.getProducts();
     this.$emitter.on('send-request', (page) => {
       this.getProducts(page);

@@ -6,6 +6,7 @@
           type="button"
           class="inline-block bg-secondary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all duration-300 font-bold shadow-sm"
           @click.prevent="modalToggle('new')"
+          v-if="!isDemo"
         >
           Add new coupon
         </button>
@@ -26,7 +27,7 @@
               <th scope="col" class="py-3 px-6">
                 Enable
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" class="py-3 px-6 text-center">
                 Edit coupon
               </th>
             </tr>
@@ -52,22 +53,30 @@
               </td>
               <td class="py-3 px-6">
                 <div class="flex item-center justify-center gap-4">
-                  <a
-                    href="#"
+                  <button
                     class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
                     @click.prevent="modalToggle('edit', coupon)"
                     title="Edit"
+                    v-if="!isDemo"
                   >
                     <BIconPen class="w-5 h-5" />
-                  </a>
-                  <a
-                    href="#"
+                  </button>
+                  <button
                     class="transform hover:text-red-500 hover:scale-110 transition-transform duration-300"
                     @click.prevent="modalToggle('del', coupon)"
                     title="Delete"
+                    v-if="!isDemo"
                   >
                     <BIconTrash class="w-5 h-5" />
-                  </a>
+                  </button>
+                  <button
+                    class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('view', coupon)"
+                    title="View Details"
+                    v-if="isDemo"
+                  >
+                    <BIconEyeFill class="w-5 h-5" />
+                  </button>
                 </div>
               </td>
             </tr>
@@ -95,6 +104,7 @@
     @send-request="getCoupons"
     :coupon="cacheCoupon"
     :state="isNew"
+    :is-read-only="isDemo"
   />
 </template>
 
@@ -112,11 +122,41 @@ export default {
       coupons: '',
       cacheCoupon: '',
       isNew: true,
+      isDemo: false,
     };
   },
   components: { Pagination, DelModal, CouponModal },
   methods: {
     getCoupons(page) {
+      if (this.isDemo) {
+        this.coupons = {
+          coupons: [
+            {
+              id: 'demo-coupon-1',
+              title: 'Demo 50% Off',
+              percent: 50,
+              due_date: Math.floor(new Date().getTime() / 1000) + 864000,
+              is_enabled: 1,
+              code: 'demo50',
+            },
+            {
+              id: 'demo-coupon-2',
+              title: 'Demo 10% Off',
+              percent: 10,
+              due_date: Math.floor(new Date().getTime() / 1000) - 86400, // expired
+              is_enabled: 0,
+              code: 'demo10',
+            }
+          ],
+          pagination: {
+            total_pages: 1,
+            current_page: 1,
+            has_pre: false,
+            has_next: false,
+          }
+        };
+        return;
+      }
       this.sendLoadingState(true);
       getCoupons(page)
         .then((res) => {
@@ -153,6 +193,10 @@ export default {
       } else if (modal === 'del') {
         this.cacheCoupon = JSON.parse(JSON.stringify(item));
         this.$refs.delModal.openModal();
+      } else if (modal === 'view') {
+        this.cacheCoupon = JSON.parse(JSON.stringify(item));
+        this.isNew = false;
+        this.$refs.couponModal.openModal();
       } else if (modal === 'new') {
         this.cacheCoupon = {
           is_enabled: 1,
@@ -164,6 +208,7 @@ export default {
     },
   },
   created() {
+    this.isDemo = localStorage.getItem('isDemo') === 'true';
     this.getCoupons();
     this.$emitter.on('send-request', (page) => {
       this.getCoupons(page);

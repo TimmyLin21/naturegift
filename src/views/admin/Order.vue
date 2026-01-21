@@ -7,6 +7,7 @@
           class="inline-block bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-all duration-300 font-bold shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
           @click.prevent="modalToggle('delAll')"
           :disabled="orders.orders?.length === 0"
+          v-if="!isDemo"
         >
           Delete all orders
         </button>
@@ -69,22 +70,30 @@
               </td>
               <td class="py-3 px-6">
                 <div class="flex item-center justify-center gap-4">
-                  <a
-                    href="#"
+                  <button
                     class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
                     @click.prevent="modalToggle('edit', order)"
                     title="Edit"
+                    v-if="!isDemo"
                   >
                     <BIconPen class="w-5 h-5" />
-                  </a>
-                  <a
-                    href="#"
+                  </button>
+                  <button
                     class="transform hover:text-red-500 hover:scale-110 transition-transform duration-300"
                     @click.prevent="modalToggle('del', order)"
                     title="Delete"
+                    v-if="!isDemo"
                   >
                     <BIconTrash class="w-5 h-5" />
-                  </a>
+                  </button>
+                  <button
+                    class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('view', order)"
+                    title="View Details"
+                    v-if="isDemo"
+                  >
+                    <BIconEyeFill class="w-5 h-5" />
+                  </button>
                 </div>
               </td>
             </tr>
@@ -112,6 +121,7 @@
     ref="orderModal"
     @send-request="getOrders"
     :order="cacheOrder"
+    :is-read-only="isDemo"
   />
 </template>
 
@@ -130,11 +140,53 @@ export default {
       cacheOrder: {
         imagesUrl: [],
       },
+      isDemo: false,
     };
   },
   components: { Pagination, DelModal, OrderModal },
   methods: {
     getOrders(page) {
+      if (this.isDemo) {
+        this.orders = {
+          orders: [
+            {
+              id: '-Mw_1234567890',
+              create_at: Math.floor(new Date().getTime() / 1000),
+              is_paid: true,
+              total: 1500,
+              products: [
+                {
+                   id: 'demo-prod-1',
+                   product: { title: 'Demo Spice', unit: 'bottle' },
+                   qty: 3
+                }
+              ],
+              user: { email: 'user@demo.com' }
+            },
+            {
+              id: '-Mw_0987654321',
+              create_at: Math.floor(new Date().getTime() / 1000) - 100000,
+              is_paid: false,
+              total: 800,
+              products: [
+                 {
+                   id: 'demo-prod-2',
+                   product: { title: 'Demo Beans', unit: 'bag' },
+                   qty: 1
+                }
+              ],
+              user: { email: 'user2@demo.com' }
+            }
+          ],
+          pagination: {
+            total_pages: 1,
+            current_page: 1,
+            has_pre: false,
+            has_next: false,
+          }
+        };
+        return;
+      }
       this.sendLoadingState(true);
       getAdminOrders(page)
         .then((res) => {
@@ -184,6 +236,9 @@ export default {
       if (modal === 'edit') {
         this.cacheOrder = JSON.parse(JSON.stringify(item));
         this.$refs.orderModal.openModal();
+      } else if (modal === 'view') {
+        this.cacheOrder = JSON.parse(JSON.stringify(item));
+        this.$refs.orderModal.openModal();
       } else if (modal === 'del') {
         this.cacheOrder = JSON.parse(JSON.stringify(item));
         this.$refs.delModal.openModal();
@@ -194,6 +249,7 @@ export default {
     },
   },
   created() {
+    this.isDemo = localStorage.getItem('isDemo') === 'true';
     this.getOrders();
     this.$emitter.on('send-request', (page) => {
       this.getOrders(page);

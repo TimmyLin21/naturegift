@@ -105,6 +105,7 @@
           type="button"
           class="px-4 py-2 bg-primary text-secondary font-bold rounded hover:bg-opacity-90 transition-colors"
           @click="saveChange"
+          v-if="!isReadOnly"
         >
           Save changes
         </button>
@@ -134,6 +135,10 @@ export default {
     },
     state: {
       type: Boolean,
+    },
+    isReadOnly: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
