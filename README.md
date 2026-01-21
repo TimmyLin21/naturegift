@@ -23,11 +23,11 @@ Front
 
 - Sign in to the administration
 - Products
-  - Check informations from individual products
+  - Check details of individual products
 - Cart
   - Add products to the cart
   - Edit products to the cart
-  - Delete products to the cart
+  - Delete products from the cart
 - Coupons
   - Apply coupons
 - Orders
@@ -72,11 +72,13 @@ Admin
 
 - HTML5
 - CSS3
-- Bootstrap
-- Scss
+- ~~Bootstrap~~ (Migrate to Tailwind CSS)
+- ~~Scss~~ (Migrate to Tailwind CSS)
 - Vue
-- Vue Cli
+- ~~Vue Cli~~ (Migrate to Vite)
 - Vue Router
+- Axios
+- Hexschool API (External backend for authentication and data management)
 - Git
 
 ### What I learned
