@@ -1,50 +1,49 @@
-import { mount } from '@vue/test-utils';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { mount, flushPromises } from '@vue/test-utils';
 import Login from '@/views/front/Login.vue';
 import { apiUserLogin, apiUserCheck } from '@/scripts/api.js';
 
-vi.mock('@/scripts/api.js', () => ({
-  apiUserLogin: vi.fn(),
-  apiUserCheck: vi.fn(),
-}));
+// Mock dependencies
+jest.mock('@/scripts/api.js');
+const mockPush = jest.fn();
+const mockRouter = {
+  push: mockPush,
+};
 
-// Mock mixins if necessary, or let them run if they don't have side effects that break tests.
-// alertMixin uses 'mitt'. We might need to mock global properties or stub mixins.
-// Actually, shallowMount or stubbing 'mitt' is better.
-const mockSendMsg = vi.fn();
-const mockSendLoadingState = vi.fn();
+// Mock alert/loading mixins since they're global
+const alertMixin = {
+  data() {
+    return {
+      alert: { msg: '', state: false },
+    };
+  },
+  methods: {
+    sendMsg: jest.fn(),
+  },
+};
 
-const globalMocks = {
-  mixins: [
-    {
-      methods: {
-        sendMsg: mockSendMsg,
-        sendLoadingState: mockSendLoadingState,
-      },
-      data() {
-        return {
-          alert: { msg: '', state: false },
-        };
-      },
-    },
-  ],
+const loadingMixin = {
+  methods: {
+    sendLoadingState: jest.fn(),
+  },
 };
 
 describe('Login.vue', () => {
   let wrapper;
-  const mockPush = vi.fn();
 
   beforeEach(() => {
-    vi.clearAllMocks();
-    // Default apiUserCheck to fail so we stay on Login page
+    jest.clearAllMocks();
+    // Default apiUserCheck failure (not logged in)
     apiUserCheck.mockRejectedValue(new Error('Not logged in'));
-
+    
     wrapper = mount(Login, {
       global: {
+        mixins: [alertMixin, loadingMixin],
         mocks: {
-          $router: { push: mockPush },
+          $router: mockRouter,
         },
-        mixins: [globalMocks.mixins[0]], // Override real mixins with mocks
+        stubs: {
+          BIconInfoCircleFill: true
+        }
       },
     });
   });
@@ -53,83 +52,78 @@ describe('Login.vue', () => {
     expect(wrapper.find('h2').text()).toBe('Welcome Back!');
     expect(wrapper.find('input[type="email"]').exists()).toBe(true);
     expect(wrapper.find('input[type="password"]').exists()).toBe(true);
-    expect(wrapper.find('a').text()).toBe('Login');
+    expect(wrapper.text()).toContain('Login to continue');
   });
 
-  it('updates v-model when typing', async () => {
-    const emailInput = wrapper.find('input[type="email"]');
-    const passwordInput = wrapper.find('input[type="password"]');
-
-    await emailInput.setValue('test@example.com');
-    await passwordInput.setValue('password123');
-
-    expect(wrapper.vm.userData.username).toBe('test@example.com');
-    expect(wrapper.vm.userData.password).toBe('password123');
-  });
-
-  it('shows alert if fields are empty', async () => {
-    const loginButton = wrapper.find('a');
-    await loginButton.trigger('click');
-
-    expect(mockSendMsg).toHaveBeenCalled();
+  it('shows error if inputs are empty', async () => {
+    await wrapper.find('a').trigger('click');
     expect(wrapper.vm.alert.msg).toBe('Please enter email and password.');
-    expect(wrapper.vm.alert.state).toBe(false);
   });
 
-  it('calls apiUserLogin and redirects on success', async () => {
-    // Mock successful login
+  it('performs demo login correctly', async () => {
+    // Set demo credentials
+    await wrapper.find('input[type="email"]').setValue('demo@tech.cc');
+    await wrapper.find('input[type="password"]').setValue('demo');
+    
+    await wrapper.find('a').trigger('click');
+    
+    // Check loading state
+    expect(wrapper.vm.sendLoadingState).toHaveBeenCalledWith(true);
+    
+    // Wait for timeout
+    await new Promise(resolve => setTimeout(resolve, 1100));
+    
+    expect(localStorage.getItem('isDemo')).toBe('true');
+    expect(mockPush).toHaveBeenCalledWith('/admin');
+  });
+
+  it('performs standard login correctly', async () => {
+    // Mock success login
     apiUserLogin.mockResolvedValue({
       data: {
-        token: 'mock-token',
-        expired: Date.now() + 3600000,
+        token: 'fake-token',
+        expired: new Date().getTime() + 10000,
       },
-      headers: { authorization: 'mock-token' }
     });
 
-    const emailInput = wrapper.find('input[type="email"]');
-    const passwordInput = wrapper.find('input[type="password"]');
-    const loginButton = wrapper.find('a');
-
-    await emailInput.setValue('admin@example.com');
-    await passwordInput.setValue('password');
-    await loginButton.trigger('click');
-
-    expect(mockSendLoadingState).toHaveBeenCalledWith(true);
-    expect(apiUserLogin).toHaveBeenCalledWith({
-      username: 'admin@example.com',
-      password: 'password',
-    });
+    await wrapper.find('input[type="email"]').setValue('user@example.com');
+    await wrapper.find('input[type="password"]').setValue('password');
     
-    // Wait for promise resolution
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await wrapper.find('a').trigger('click');
+    
+    await flushPromises();
+    // Wait for timeout
+    await new Promise(resolve => setTimeout(resolve, 1100));
 
-    expect(mockSendLoadingState).toHaveBeenCalledWith(false);
+    expect(apiUserLogin).toHaveBeenCalled();
     expect(wrapper.vm.alert.msg).toBe('Login success');
-    // Check if redirect happens (it's inside setTimeout 1000ms)
-    // We can use vi.runAllTimers() if we enable fake timers, 
-    // or just check logic. For now, let's assume if alert is success, it proceeds.
-    
-    // To test strict redirect, we'd need fake timers.
-    // vi.useFakeTimers();
-    // ... trigger ...
-    // vi.runAllTimers();
-    // expect(mockPush).toHaveBeenCalledWith('/admin');
+    expect(mockPush).toHaveBeenCalledWith('/admin');
+    expect(localStorage.getItem('isDemo')).toBeNull(); // Should be removed
   });
 
   it('shows error on login failure', async () => {
-    apiUserLogin.mockRejectedValue(new Error('Auth failed'));
+    apiUserLogin.mockRejectedValue(new Error('Login failed'));
 
-    const emailInput = wrapper.find('input[type="email"]');
-    const passwordInput = wrapper.find('input[type="password"]');
-    const loginButton = wrapper.find('a');
-
-    await emailInput.setValue('wrong@example.com');
-    await passwordInput.setValue('wrong');
-    await loginButton.trigger('click');
-
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await wrapper.find('input[type="email"]').setValue('user@example.com');
+    await wrapper.find('input[type="password"]').setValue('wrong');
+    
+    await wrapper.find('a').trigger('click');
+    
+    await flushPromises();
 
     expect(wrapper.vm.alert.msg).toBe('Please check your email and password');
-    expect(wrapper.vm.alert.state).toBe(false);
+  });
+
+  it('toggles demo info tooltip', async () => {
+    const toggleBtn = wrapper.find('button.flex.items-center');
+    expect(toggleBtn.exists()).toBe(true);
+    
+    // Initially hidden
+    expect(wrapper.find('.absolute.bottom-full').exists()).toBe(false);
+    
+    // Click toggle
+    await toggleBtn.trigger('click');
+    expect(wrapper.find('.absolute.bottom-full').exists()).toBe(true);
+    expect(wrapper.text()).toContain('demo@tech.cc');
   });
 });

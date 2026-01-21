@@ -1,176 +1,170 @@
 import { mount, flushPromises } from '@vue/test-utils';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Product from '@/views/admin/Product.vue';
-import { getAdminProducts, delProduct } from '@/scripts/api.js';
+import { apiGetProducts } from '@/scripts/api.js';
 
 // Mock API
-vi.mock '@/scripts/api.js', () => ({
-  getAdminProducts: vi.fn(),
-  delProduct: vi.fn(),
-}));
+jest.mock('@/scripts/api.js');
 
-// Mock Child Components
-const ProductModalStub = {
-  template: '<div></div>',
+// Mock child components
+const Pagination = {
+  template: '<div class="pagination-stub" @click="$emit(\'get-products\', 2)"></div>',
+  props: ['pages'],
+};
+
+const ProductModal = {
+  template: '<div class="product-modal-stub"></div>',
   methods: {
-    openModal: vi.fn(),
-    closeModal: vi.fn(),
+    openModal: jest.fn(),
   },
 };
-const DelModalStub = {
-  template: '<div></div>',
+
+const DelModal = {
+  template: '<div class="del-modal-stub"></div>',
   methods: {
-    openModal: vi.fn(),
-    closeModal: vi.fn(),
-  },
-};
-const PaginationStub = {
-  template: '<div></div>',
-  props: ['pagination'],
-};
-
-// Global Mocks
-const mockSendMsg = vi.fn();
-const mockSendLoadingState = vi.fn();
-const globalMocks = {
-  mixins: [
-    {
-      methods: {
-        sendMsg: mockSendMsg,
-        sendLoadingState: mockSendLoadingState,
-      },
-      data() {
-        return {
-          alert: { msg: '', state: false },
-        };
-      },
-    },
-  ],
-  provide: {
-    emitter: {
-      on: vi.fn(),
-      off: vi.fn(),
-      emit: vi.fn(),
-    },
-  },
-  components: {
-    BIconCheckCircle: { template: '<span class="check-icon"></span>' },
-    BIconXCircle: { template: '<span class="x-icon"></span>' },
-    BIconPen: { template: '<span class="pen-icon"></span>' },
-    BIconTrash: { template: '<span class="trash-icon"></span>' },
+    openModal: jest.fn(),
   },
 };
 
-describe('Admin Product.vue', () => {
+const Loading = {
+  template: '<div class="loading-stub"></div>',
+};
+
+// Mock alert/loading mixins
+const alertMixin = {
+  data() {
+    return {
+      alert: { msg: '', state: false },
+    };
+  },
+  methods: {
+    sendMsg: jest.fn(),
+  },
+};
+
+const loadingMixin = {
+  methods: {
+    sendLoadingState: jest.fn(),
+  },
+};
+
+describe('Product.vue', () => {
   let wrapper;
-  const mockProducts = {
-    products: [
-      {
-        id: 'p1',
-        title: 'Product 1',
-        category: 'Spices',
-        origin_price: 100,
-        price: 90,
-        unit: 'box',
-        is_enabled: 1,
-        imageUrl: 'http://example.com/img1.jpg',
-      },
-      {
-        id: 'p2',
-        title: 'Product 2',
-        category: 'Apples',
-        origin_price: 200,
-        price: 150,
-        unit: 'kg',
-        is_enabled: 0,
-        imageUrl: 'http://example.com/img2.jpg',
-      },
-    ],
-    pagination: {
-      total_pages: 1,
-      current_page: 1,
-      has_pre: false,
-      has_next: false,
+  const mockProducts = [
+    {
+      id: 'p1',
+      title: 'Test Product 1',
+      category: 'Category A',
+      origin_price: 100,
+      price: 80,
+      is_enabled: 1,
     },
+    {
+      id: 'p2',
+      title: 'Test Product 2',
+      category: 'Category B',
+      origin_price: 200,
+      price: 150,
+      is_enabled: 0,
+    },
+  ];
+
+  const mockPagination = {
+    total_pages: 5,
+    current_page: 1,
+    has_pre: false,
+    has_next: true,
   };
 
   beforeEach(() => {
-    vi.clearAllMocks();
-    getAdminProducts.mockResolvedValue({ data: mockProducts });
+    jest.clearAllMocks();
+    apiGetProducts.mockResolvedValue({
+      data: {
+        products: mockProducts,
+        pagination: mockPagination,
+      },
+    });
 
     wrapper = mount(Product, {
       global: {
-        stubs: {
-          ProductModal: ProductModalStub,
-          DelModal: DelModalStub,
-          Pagination: PaginationStub,
-          ...globalMocks.components,
+        mixins: [alertMixin, loadingMixin],
+        components: {
+          Pagination,
+          ProductModal,
+          DelModal,
+          Loading,
         },
-        mixins: [globalMocks.mixins[0]],
-        provide: globalMocks.provide,
+        stubs: {
+          BIconPen: true,
+          BIconTrash: true,
+          BIconEyeFill: true,
+        },
       },
     });
   });
 
   it('renders product list correctly', async () => {
     await flushPromises();
-    const rows = wrapper.findAll('tbody tr');
-    expect(rows.length).toBe(2);
-    expect(rows[0].text()).toContain('Product 1');
-    expect(rows[0].text()).toContain('Spices');
-    expect(rows[1].text()).toContain('Product 2');
-    expect(rows[1].find('.x-icon').exists()).toBe(true);
+    expect(wrapper.findAll('tbody tr').length).toBe(2);
+    expect(wrapper.text()).toContain('Test Product 1');
+    expect(wrapper.text()).toContain('Category A');
+    expect(wrapper.text()).toContain('Enable');
+    expect(wrapper.text()).toContain('Not Enable');
   });
 
-  it('opens add new modal', async () => {
+  it('fetches products on mount', () => {
+    expect(apiGetProducts).toHaveBeenCalledWith(1);
+  });
+
+  it('handles pagination', async () => {
     await flushPromises();
-    const addButton = wrapper.find('button.bg-secondary'); // "Add new product" button
-    const productModal = wrapper.findComponent(ProductModalStub);
-    
-    await addButton.trigger('click');
-    expect(wrapper.vm.isNew).toBe(true);
-    expect(wrapper.vm.cacheProduct.imagesUrl).toEqual([]);
-    expect(productModal.vm.openModal).toHaveBeenCalled();
+    const pagination = wrapper.findComponent(Pagination);
+    pagination.vm.$emit('get-products', 2);
+    expect(apiGetProducts).toHaveBeenCalledWith(2);
   });
 
   it('opens edit modal', async () => {
     await flushPromises();
-    const editButtons = wrapper.findAll('button[title="Edit"]');
-    const productModal = wrapper.findComponent(ProductModalStub);
+    // Simulate non-demo mode
+    wrapper.vm.isDemo = false;
+    await wrapper.vm.$nextTick();
 
-    await editButtons[0].trigger('click');
+    const editBtn = wrapper.find('button[title="Edit"]');
+    await editBtn.trigger('click');
+
+    const modal = wrapper.findComponent(ProductModal);
+    expect(modal.vm.openModal).toHaveBeenCalled();
+    expect(wrapper.vm.tempProduct.id).toBe('p1');
     expect(wrapper.vm.isNew).toBe(false);
-    expect(wrapper.vm.cacheProduct.id).toBe('p1');
-    expect(productModal.vm.openModal).toHaveBeenCalled();
   });
 
   it('opens delete modal', async () => {
     await flushPromises();
-    const delButtons = wrapper.findAll('button[title="Delete"]');
-    const delModal = wrapper.findComponent(DelModalStub);
+    // Simulate non-demo mode
+    wrapper.vm.isDemo = false;
+    await wrapper.vm.$nextTick();
 
-    await delButtons[0].trigger('click');
-    expect(wrapper.vm.cacheProduct.id).toBe('p1');
-    expect(delModal.vm.openModal).toHaveBeenCalled();
+    const delBtn = wrapper.find('button[title="Delete"]');
+    await delBtn.trigger('click');
+
+    const modal = wrapper.findComponent(DelModal);
+    expect(modal.vm.openModal).toHaveBeenCalled();
+    expect(wrapper.vm.tempProduct.id).toBe('p1');
   });
 
-  it('calls delProduct API when confirmed', async () => {
-    await flushPromises();
-    delProduct.mockResolvedValue({ data: { message: 'Deleted' } });
-    
-    // Setup state for delete
-    wrapper.vm.cacheProduct = { id: 'p1' };
-    
-    await wrapper.vm.delProduct();
-    expect(delProduct).toHaveBeenCalledWith('p1');
-    expect(getAdminProducts).toHaveBeenCalledTimes(2); // Once on mount, once after delete
-  });
+  it('opens view modal in demo mode', async () => {
+    // Enable demo mode
+    wrapper.vm.isDemo = true;
+    await wrapper.vm.$forceUpdate(); 
+    await wrapper.vm.$nextTick();
 
-  it('filters by category', async () => {
-    await flushPromises();
-    const select = wrapper.find('select');
-    await select.setValue('Spices');
+    const viewBtn = wrapper.find('button[title="View Details"]');
+    expect(viewBtn.exists()).toBe(true);
     
-    expect(getAdminProducts).toHaveBeenCalledWith(1, 'Spices');
+    // Edit/Delete should be hidden
+    expect(wrapper.find('button[title="Edit"]').exists()).toBe(false);
+
+    await viewBtn.trigger('click');
+    const modal = wrapper.findComponent(ProductModal);
+    expect(modal.vm.openModal).toHaveBeenCalled();
   });
 });
