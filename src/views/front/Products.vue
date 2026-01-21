@@ -9,7 +9,8 @@
           <li class="mr-3 mb-3 lg:mb-0">
             <a
               href="#"
-              class="inline-block bg-secondary text-white px-5 py-2 rounded-full hover:bg-primary hover:text-secondary transition-colors duration-300"
+              class="inline-block px-5 py-2 rounded-full transition-colors duration-300"
+              :class="category.selected === 'All' ? 'bg-primary text-secondary' : 'bg-secondary text-white hover:bg-primary hover:text-secondary'"
               @click.prevent="chooseCategory('All')"
             >
               <span>All</span>
@@ -22,7 +23,8 @@
           >
             <a
               href="#"
-              class="inline-block bg-secondary text-white px-5 py-2 rounded-full hover:bg-primary hover:text-secondary transition-colors duration-300"
+              class="inline-block px-5 py-2 rounded-full transition-colors duration-300"
+              :class="category.selected === item ? 'bg-primary text-secondary' : 'bg-secondary text-white hover:bg-primary hover:text-secondary'"
               @click.prevent="chooseCategory(item)"
             >
               <span>{{ item }}</span>
@@ -167,7 +169,7 @@ export default {
   data() {
     return {
       category: {
-        categories: ['Nuts', 'Beans', 'Spices'],
+        categories: ['Nuts', 'Beans', 'Spices', 'On Sale'],
         selected: 'All',
       },
       sort: {
@@ -190,7 +192,27 @@ export default {
     };
   },
   components: { Pagination, SkeletonProduct },
+  created() {
+    this.getAllProducts();
+    this.$emitter.on('send-request', this.handleSendRequest);
+    this.favProducts = JSON.parse(localStorage.getItem('favList')) || [];
+  },
+  unmounted() {
+    this.$emitter.off('send-request', this.handleSendRequest);
+  },
+  mixins: [alertMixin, loadingMixin],
+  computed: {
+    total_pages() {
+      if (this.category.selected !== 'All') {
+        return Math.ceil(this.cacheProducts.length / 9);
+      }
+      return Math.ceil(this.allProducts.length / 9);
+    },
+  },
   methods: {
+    handleSendRequest(page) {
+      this.getProducts(page, this.category.selected, this.sort.selected);
+    },
     chooseSort(sort) {
       this.sort.selected = sort;
       this.sort.isShow = !this.sort.isShow;
@@ -229,7 +251,11 @@ export default {
         } else if (sort === 'Price: high to low') {
           this.allProducts.sort((x, y) => y.price - x.price);
         }
-        if (category !== 'All') {
+
+        if (category === 'On Sale') {
+          this.cacheProducts = this.allProducts.filter((product) => product.price !== product.origin_price);
+          this.products = this.cacheProducts.slice((page * 9 - 9), (page * 9));
+        } else if (category !== 'All') {
           this.cacheProducts = this.allProducts.filter((product) => product.category === category);
           this.products = this.cacheProducts.slice((page * 9 - 9), (page * 9));
         } else {
@@ -279,22 +305,6 @@ export default {
     },
     checkFav(id) {
       return this.favProducts.includes(id);
-    },
-  },
-  created() {
-    this.getAllProducts();
-    this.$emitter.on('send-request', (page) => {
-      this.getProducts(page);
-    });
-    this.favProducts = JSON.parse(localStorage.getItem('favList')) || [];
-  },
-  mixins: [alertMixin, loadingMixin],
-  computed: {
-    total_pages() {
-      if (this.category.selected !== 'All') {
-        return Math.floor(this.cacheProducts.length / 9) + 1;
-      }
-      return Math.floor(this.allProducts.length / 9) + 1;
     },
   },
 };
