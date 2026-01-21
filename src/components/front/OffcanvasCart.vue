@@ -46,10 +46,12 @@
                 </p>
                 <a
                   href="#"
-                  class="text-red-500 hover:text-red-700"
-                  @click.prevent="delCartItem(item.id)"
+                  class="text-red-500 hover:text-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  :class="{ 'opacity-50 cursor-not-allowed': loadingItem === item.id }"
+                  @click.prevent="removeCartItem(item.id)"
                 >
-                  <BIconTrash />
+                  <font-awesome-icon icon="spinner" spin v-if="loadingItem === item.id" />
+                  <BIconTrash v-else />
                 </a>
               </div>
               <div class="flex items-center">
@@ -152,6 +154,14 @@ export default {
       if (this.loadingItem === item.id) return;
       this.loadingItem = item.id;
       this.editCart(item, action)
+        .finally(() => {
+          this.loadingItem = '';
+        });
+    },
+    removeCartItem(id) {
+      if (this.loadingItem === id) return;
+      this.loadingItem = id;
+      this.delCartItem(id)
         .finally(() => {
           this.loadingItem = '';
         });

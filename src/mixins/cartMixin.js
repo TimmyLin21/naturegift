@@ -38,7 +38,7 @@ export default {
         });
     },
     delCartItem(id) {
-      delCartItem(id)
+      return delCartItem(id)
         .then(() => {
           this.alert.msg = 'Product deleted successfully!';
           this.alert.state = true;
