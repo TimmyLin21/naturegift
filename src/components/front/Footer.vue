@@ -23,7 +23,7 @@
             v-slot="{ errors }"
             ref="form"
           >
-            <div class="w-full md:w-8/12">
+            <div class="w-full md:w-8/12 mb-4 md:mb-0">
               <div class="relative">
                 <v-field
                   type="email"
@@ -34,10 +34,13 @@
                   rules="required|email"
                   placeholder="Your Email"
                   v-model="email"
+                  :validate-on-blur="false"
+                  :validate-on-change="false"
+                  :validate-on-input="false"
                 />
                 <ErrorMessage
                   name="Email"
-                  class="text-red-500 text-sm mt-1 block"
+                  class="text-red-500 text-sm absolute left-0 -bottom-6"
                 />
                 <!-- Floating label not easily replicated without extra CSS, using simple placeholder -->
               </div>
