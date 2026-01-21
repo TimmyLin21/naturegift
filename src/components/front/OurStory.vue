@@ -23,7 +23,7 @@
           data-wow-duration="2s"
           data-wow-offset="10"
         >
-          <div class="py-12 text-primary text-left p-3">
+          <div class="py-12 text-primary text-justify p-3">
             <h2 class="mb-12 text-4xl font-bold">
               Our Story
             </h2>

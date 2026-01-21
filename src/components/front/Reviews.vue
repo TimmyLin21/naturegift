@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4">
       <h2
         class="mb-12 text-secondary flex justify-between
-      items-center wow fadeInDown"
+      items-center wow animate__fadeInDown"
       >
         <b class="block h-[2px] bg-primary flex-grow bg-opacity-75" />
         <span class="mx-4 text-2xl font-bold">See why customers love our products</span>
@@ -39,7 +39,7 @@
               alt=""
               class="rounded-full mr-4 w-24 h-24 object-cover border-2 border-primary"
             >
-            <div class="text-left">
+            <div class="text-justify">
               <p class="font-bold text-lg mb-1">
                 {{ user.name }}
               </p>
