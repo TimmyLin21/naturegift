@@ -12,7 +12,39 @@
         <h2 class="text-3xl font-bold mb-2">
           Welcome Back!
         </h2>
-        <p class="text-gray-500 mb-6">Login to continue</p>
+        
+        <div class="my-4 relative bg-transparent z-50">
+          <button 
+            type="button" 
+            class="flex items-center text-blue-500 hover:text-blue-700 font-bold transition-colors text-sm focus:outline-none"
+            @click="showDemoInfo = !showDemoInfo"
+          >
+            <BIconInfoCircleFill class="w-4 h-4 mr-2" />
+            <span>Want to try the Demo Admin?</span>
+          </button>
+          
+          <transition
+            enter-active-class="transition ease-out duration-200"
+            enter-from-class="opacity-0 translate-y-2"
+            enter-to-class="opacity-100 translate-y-0"
+            leave-active-class="transition ease-in duration-150"
+            leave-from-class="opacity-100 translate-y-0"
+            leave-to-class="opacity-0 translate-y-2"
+          >
+            <div 
+              v-if="showDemoInfo" 
+              class="absolute bottom-full mb-2 w-full bg-blue-50 border-l-4 border-blue-500 p-4 rounded shadow-lg z-50"
+            >
+              <p class="text-xs text-blue-800 mb-2">
+                Use these credentials to view the admin dashboard in read-only mode:
+              </p>
+              <div class="text-xs bg-white p-2 rounded border border-blue-100">
+                <p><span class="font-bold text-gray-700">Email:</span> demo@tech.cc</p>
+                <p><span class="font-bold text-gray-700">Password:</span> demo</p>
+              </div>
+            </div>
+          </transition>
+        </div>
         
         <div class="mb-4">
           <label for="loginEmail" class="block text-gray-700 font-bold mb-2">Email address</label>
@@ -61,6 +93,7 @@ export default {
         username: '',
         password: '',
       },
+      showDemoInfo: false,
     };
   },
   methods: {
