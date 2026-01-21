@@ -67,7 +67,20 @@
       </div>
     </div>
     
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none p-0">
+    
+    <ul 
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none p-0"
+      v-if="isLoading"
+    >
+      <li v-for="n in 6" :key="n">
+        <SkeletonProduct />
+      </li>
+    </ul>
+
+    <ul 
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none p-0"
+      v-else
+    >
       <li
         class="mb-7"
         v-for="product in products"
@@ -148,6 +161,7 @@ import { getAllProducts, addToCart } from '@/scripts/api.js';
 import alertMixin from '@/mixins/alertMixin.js';
 import loadingMixin from '@/mixins/loadingMixin.js';
 import Pagination from '@/components/Pagination.vue';
+import SkeletonProduct from '@/components/front/SkeletonProduct.vue';
 
 export default {
   data() {
@@ -172,9 +186,10 @@ export default {
         qty: 1,
       },
       favProducts: [],
+      isLoading: false,
     };
   },
-  components: { Pagination },
+  components: { Pagination, SkeletonProduct },
   methods: {
     chooseSort(sort) {
       this.sort.selected = sort;
@@ -186,10 +201,10 @@ export default {
       this.getProducts(1, category);
     },
     getAllProducts() {
-      this.sendLoadingState(true);
+      this.isLoading = true;
       getAllProducts()
         .then((res) => {
-          this.sendLoadingState(false);
+          this.isLoading = false;
           this.allProducts = res.data.products;
           if (Object.keys(this.$route.query).length !== 0) {
             this.chooseCategory(this.$route.query.category);
@@ -198,14 +213,14 @@ export default {
           }
         })
         .catch(() => {
-          this.sendLoadingState(false);
+          this.isLoading = false;
           this.alert.msg = 'Fail to get the products';
           this.alert.state = false;
           this.sendMsg();
         });
     },
     getProducts(page = 1, category = 'All', sort) {
-      this.sendLoadingState(true);
+      this.isLoading = true;
       setTimeout(() => {
         if (sort === 'Name') {
           this.allProducts.sort((x, y) => (x.title).localeCompare(y.title));
@@ -229,21 +244,24 @@ export default {
           has_next: hasNext,
           category,
         };
-        this.sendLoadingState(false);
-      }, 1000);
+        this.isLoading = false;
+      }, 500);
     },
     getDetail(id) {
       this.$router.push(`/product/${id}`);
     },
     addToCart(id) {
+      this.sendLoadingState(true);
       this.data.product_id = id;
       addToCart(this.data)
         .then(() => {
+          this.sendLoadingState(false);
           this.alert.msg = 'Product added to cart successfully!';
           this.alert.state = true;
           this.sendMsg();
           this.$emitter.emit('renewCart');
         }).catch((err) => {
+          this.sendLoadingState(false);
           [this.alert.msg] = err.response.data.message;
           this.alert.state = false;
           this.sendMsg();
