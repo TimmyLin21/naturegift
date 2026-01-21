@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = import.meta.env.VUE_APP_API;
-const path = import.meta.env.VUE_APP_PATH;
+const baseUrl = import.meta.env.VITE_APP_API;
+const path = import.meta.env.VITE_APP_PATH;
 
 // Login
 export const apiUserLogin = (data) => axios.post(`${baseUrl}/v2/admin/signin`, data);

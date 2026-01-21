@@ -3,7 +3,7 @@
     class="fixed inset-0 h-screen w-full bg-black bg-opacity-25 z-50 flex items-center justify-center"
     :class="{ 'hidden': !isLoading }"
   >
-    <i class="fa-solid fa-kiwi-bird fa-4x text-primary fa-bounce" />
+    <FontAwesomeIcon :icon="['fas', 'kiwi-bird']" class="text-primary text-6xl animate-bounce" />
   </div>
 </template>
 
