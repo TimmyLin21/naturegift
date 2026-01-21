@@ -6,7 +6,7 @@ import { BootstrapIconsPlugin } from 'bootstrap-icons-vue';
 // import fontawesome from '@fortawesome/fontawesome-free/js/all';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes,
+  faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes, faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -35,7 +35,7 @@ import Loading from '@/components/Loading.vue';
 import App from './App.vue';
 import router from './router';
 
-library.add(faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes);
+library.add(faBalanceScale, faMedal, faLeaf, faKiwiBird, faTimes, faSpinner);
 
 Object.entries(all).forEach(([name, rule]) => {
   defineRule(name, rule);

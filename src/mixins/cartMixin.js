@@ -25,7 +25,7 @@ export default {
       } else if (action === '-') {
         qty -= (qty > 1 ? 1 : 0);
       }
-      editCart(item.id, qty)
+      return editCart(item.id, qty)
         .then(() => {
           this.alert.msg = 'Product edited successfully!';
           this.alert.state = true;

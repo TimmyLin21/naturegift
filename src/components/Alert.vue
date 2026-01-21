@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 transition-all duration-300 px-6 py-4 rounded shadow-lg border flex items-center min-w-[300px]"
+    class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2000] transition-all duration-300 px-6 py-4 rounded shadow-lg border flex items-center min-w-[300px]"
     role="alert"
     :class="{ 
       'opacity-0 invisible': isClose, 

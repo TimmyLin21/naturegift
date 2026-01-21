@@ -294,6 +294,13 @@ export default {
         });
     },
     toggleFav(id) {
+      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+      if (!token) {
+        this.alert.msg = 'You have to login first';
+        this.alert.state = false;
+        this.sendMsg();
+        return;
+      }
       const filterResult = this.favProducts.findIndex((i) => i === id);
       if (filterResult === -1) {
         this.favProducts.push(id);

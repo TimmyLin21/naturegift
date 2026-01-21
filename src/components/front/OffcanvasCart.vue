@@ -52,27 +52,41 @@
                   <BIconTrash />
                 </a>
               </div>
-              <div class="flex justify-between items-center">
-                <img
-                  :src="item.product.imageUrl"
-                  :alt="item.product.title"
-                  class="w-[80px] h-[80px] object-cover object-center rounded"
-                >
-                <div class="flex items-center gap-2">
-                  <button @click="editCart(item, '-')" class="text-secondary text-2xl leading-none focus:outline-none">
-                    <BIconDashCircle />
-                  </button>
-                  <input
-                    class="w-12 text-center border-0 p-0 focus:ring-0 font-bold"
-                    type="number"
-                    v-model.number="item.qty"
-                    @change="editCart(item)"
+              <div class="flex items-center">
+                <div class="w-24 flex-shrink-0 overflow-hidden">
+                  <img
+                    :src="item.product.imageUrl"
+                    :alt="item.product.title"
+                    class="w-[80px] h-[80px] object-cover object-center rounded"
                   >
-                  <button @click="editCart(item, '+')" class="text-secondary text-2xl leading-none focus:outline-none">
-                    <BIconPlusCircle />
-                  </button>
                 </div>
-                <div class="text-right">
+                <div class="flex-grow flex justify-center px-2">
+                  <div class="flex items-center gap-2 relative">
+                    <div v-if="loadingItem === item.id" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 z-10 font-bold text-xs">
+                      <font-awesome-icon icon="spinner" spin />
+                    </div>
+                    <button 
+                      @click="updateCart(item, '-')" 
+                      :disabled="item.qty <= 1 || loadingItem === item.id"
+                      class="text-secondary text-2xl leading-none focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center w-6 h-6"
+                    >
+                      <BIconDashCircle />
+                    </button>
+                    <input
+                      class="w-12 text-center border-0 p-0 focus:ring-0 font-bold bg-gray-100 rounded border border-gray-200 h-6 leading-none text-lg"
+                      type="number"
+                      v-model.number="item.qty"
+                      @change="updateCart(item)"
+                      :disabled="loadingItem === item.id"
+                    >
+                    <button @click="updateCart(item, '+')" 
+                      :disabled="loadingItem === item.id"
+                      class="text-secondary text-2xl leading-none focus:outline-none flex items-center justify-center w-6 h-6 disabled:opacity-50 disabled:cursor-not-allowed">
+                      <BIconPlusCircle />
+                    </button>
+                  </div>
+                </div>
+                <div class="w-24 text-right flex-shrink-0">
                   <p
                     class="mb-0 font-bold text-lg"
                     v-if="item.total === item.product.origin_price * item.qty"
@@ -93,12 +107,12 @@
           </ul>
           <div class="flex justify-between items-center mb-4 text-xl">
             <span>Total</span>
-            <span class="font-bold text-primary text-2xl">$ {{ total }}</span>
+            <span class="font-bold text-2xl">$ {{ total }}</span>
           </div>
           <a
             href="#"
             @click.prevent="goCheckout"
-            class="btn btn-secondary w-full block text-center"
+            class="inline-block bg-secondary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-all duration-300 font-bold w-full block text-center uppercase"
           >Checkout now</a>
         </template>
       </div>
@@ -113,6 +127,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      loadingItem: '',
     };
   },
   methods: {
@@ -133,6 +148,14 @@ export default {
       this.closeCart();
       this.$router.push('/products');
     },
+    updateCart(item, action) {
+      if (this.loadingItem === item.id) return;
+      this.loadingItem = item.id;
+      this.editCart(item, action)
+        .finally(() => {
+          this.loadingItem = '';
+        });
+    },
   },
   watch: {
     carts() {
@@ -143,3 +166,17 @@ export default {
   emits: ['getQuantity'],
 };
 </script>
+
+<style scoped>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
