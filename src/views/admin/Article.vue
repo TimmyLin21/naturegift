@@ -1,86 +1,99 @@
 <template>
-  <main class="bg-light w-100">
-    <div class="container py-4">
-      <div class="d-flex justify-content-end mb-4">
+  <main class="bg-white w-full min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <div class="flex justify-end mb-6">
         <button
           type="button"
-          class="btn btn-secondary text-white"
+          class="inline-block bg-secondary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all duration-300 font-bold shadow-sm"
           @click.prevent="modalToggle('new')"
         >
           Add new article
         </button>
       </div>
-      <div class="table-responsive">
-        <table class="table text-center">
-          <thead>
-            <tr class="table-secondary text-secondary align-middle">
-              <th scope="col">
+      <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <table class="w-full table-auto text-center">
+          <thead class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+            <tr>
+              <th scope="col" class="py-3 px-6">
                 Release date
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Title
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Tag
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Author
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Enable
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Edit article
               </th>
             </tr>
           </thead>
-          <tbody class="border-top-0">
+          <tbody class="text-gray-600 text-sm font-light">
             <tr
               v-for="article in articles.articles"
               :key="article.id"
+              class="border-b border-gray-200 hover:bg-gray-50 transition-colors"
             >
-              <td>{{ $filters.date(article.create_at) }}</td>
-              <td>{{ article.title }}</td>
-              <td>
-                <span
-                  class="badge rounded-pill bg-secondary me-1"
-                  v-for="tag in article.tag"
-                  :key="tag"
-                >
-                  {{ tag }}
+              <td class="py-3 px-6">{{ $filters.date(article.create_at) }}</td>
+              <td class="py-3 px-6 text-left whitespace-nowrap font-medium">{{ article.title }}</td>
+              <td class="py-3 px-6">
+                <div class="flex flex-wrap justify-center gap-1">
+                  <span
+                    class="bg-secondary text-white rounded-full px-3 py-1 text-xs font-bold"
+                    v-for="tag in article.tag"
+                    :key="tag"
+                  >
+                    {{ tag }}
+                  </span>
+                </div>
+              </td>
+              <td class="py-3 px-6">{{ article.author }}</td>
+              <td class="py-3 px-6" v-if="article.isPublic">
+                <span class="text-green-500 font-bold">
+                  <BIconCheckCircle class="w-5 h-5 inline" />
                 </span>
               </td>
-              <td>{{ article.author }}</td>
-              <td v-if="article.isPublic">
-                <BIconCheckCircle />
+              <td class="py-3 px-6" v-else>
+                <span class="text-gray-400">
+                  <BIconXCircle class="w-5 h-5 inline" />
+                </span>
               </td>
-              <td v-else>
-                <BIconXCircle />
-              </td>
-              <td>
-                <a
-                  href="#"
-                  class="link-success me-3"
-                  @click.prevent="modalToggle('edit', article)"
-                >
-                  <BIconPen />
-                </a>
-                <a
-                  href="#"
-                  class="link-danger"
-                  @click.prevent="modalToggle('del', article)"
-                >
-                  <BIconTrash />
-                </a>
+              <td class="py-3 px-6">
+                <div class="flex item-center justify-center gap-4">
+                  <a
+                    href="#"
+                    class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('edit', article)"
+                    title="Edit"
+                  >
+                    <BIconPen class="w-5 h-5" />
+                  </a>
+                  <a
+                    href="#"
+                    class="transform hover:text-red-500 hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('del', article)"
+                    title="Delete"
+                  >
+                    <BIconTrash class="w-5 h-5" />
+                  </a>
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <Pagination
-        :pagination="articles.pagination"
-        @send-request="getArticles"
-      />
+      <div class="mt-6 flex justify-center">
+        <Pagination
+          :pagination="articles.pagination"
+          @send-request="getArticles"
+        />
+      </div>
     </div>
   </main>
   <!-- Modal -->
@@ -156,24 +169,23 @@ export default {
         this.isNew = true;
         this.$refs.articleModal.openModal();
       } else if (modal === 'edit') {
-        this.getArticle(item.id);
-        this.isNew = false;
-        setTimeout(() => {
+        this.getArticle(item.id).then(() => {
           this.$refs.articleModal.openModal();
-        }, 1000);
+        });
+        this.isNew = false;
       } else if (modal === 'del') {
-        this.getArticle(item.id);
-        setTimeout(() => {
+        this.getArticle(item.id).then(() => {
           this.$refs.delModal.openModal();
-        }, 1000);
+        });
       }
     },
     getArticle(id) {
       this.sendLoadingState(true);
-      getArticle(id)
+      return getArticle(id)
         .then((res) => {
           this.cacheArticle = res.data.article;
           this.sendLoadingState(false);
+          return res;
         }).catch((err) => {
           this.sendLoadingState(false);
           [this.alert.msg] = err.response.data.message;

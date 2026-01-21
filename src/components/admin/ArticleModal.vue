@@ -143,3 +143,112 @@
     </div>
   </div>
 </template>
+
+<script>
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import modalMixin from '@/mixins/modalMixin.js';
+import alertMixin from '@/mixins/alertMixin.js';
+import { addNewArticle, editArticle } from '@/scripts/api.js';
+
+export default {
+  data() {
+    return {
+      cacheArticle: {},
+      release_date: '',
+      tagInput: '',
+      editor: {
+        editor: ClassicEditor,
+        editorConfig: {
+          toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+        },
+      },
+    };
+  },
+  props: {
+    article: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    state: {
+      type: Boolean,
+    },
+  },
+  methods: {
+    saveChange() {
+      // Ensure specific fields are numbers if driven by the backend, or leave as is.
+      // Typically articles don't have numeric logic beyond date.
+      if (this.state) {
+        addNewArticle(this.cacheArticle)
+          .then((res) => {
+            this.alert.msg = res.data.message;
+            this.alert.state = true;
+            this.closeModal();
+            this.sendMsg();
+            this.sendRequest();
+          }).catch((err) => {
+            if (err.response && err.response.data) {
+              [this.alert.msg] = err.response.data.message;
+            } else {
+              this.alert.msg = 'An error occurred';
+            }
+            this.alert.state = false;
+            this.sendMsg();
+          });
+      } else {
+        editArticle(this.cacheArticle.id, this.cacheArticle)
+          .then((res) => {
+            this.alert.msg = res.data.message;
+            this.alert.state = true;
+            this.closeModal();
+            this.sendMsg();
+            this.sendRequest();
+          }).catch((err) => {
+            if (err.response && err.response.data) {
+              [this.alert.msg] = err.response.data.message;
+            } else {
+              this.alert.msg = 'An error occurred';
+            }
+            this.alert.state = false;
+            this.sendMsg();
+          });
+      }
+    },
+    sendRequest() {
+      this.$emit('send-request');
+    },
+    addTag() {
+      if (this.tagInput) {
+        if (!this.cacheArticle.tag) {
+          this.cacheArticle.tag = [];
+        }
+        if (!this.cacheArticle.tag.includes(this.tagInput)) {
+          this.cacheArticle.tag.push(this.tagInput);
+          this.tagInput = '';
+        }
+      }
+    },
+    delTag(index) {
+      this.cacheArticle.tag.splice(index, 1);
+    },
+    clearTag() {
+      this.tagInput = '';
+    },
+  },
+  watch: {
+    article() {
+      this.cacheArticle = this.article;
+      if (this.cacheArticle.create_at) {
+        const date = new Date(this.cacheArticle.create_at * 1000).toISOString().split('T');
+        [this.release_date] = date;
+      }
+    },
+    release_date() {
+      this.cacheArticle.create_at = Math.floor(new Date(this.release_date) / 1000);
+    },
+  },
+  mixins: [modalMixin, alertMixin],
+  emits: ['send-request'],
+};
+</script>

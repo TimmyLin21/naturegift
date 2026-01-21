@@ -1,118 +1,108 @@
 <template>
-  <main class="bg-light w-100">
-    <div class="container py-4">
-      <div class="d-flex justify-content-between mb-4">
-        <select
-          class="form-select w-10"
-          v-model="selected"
-          @change="getProducts(1, selected)"
-        >
-          <option selected>
-            All
-          </option>
-          <option
-            :value="category"
-            v-for="category in categorys"
-            :key="category"
+  <main class="bg-white w-full min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+        <div class="w-full md:w-auto relative">
+          <select
+            class="w-full md:w-48 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent appearance-none bg-white bg-none cursor-pointer"
+            v-model="selected"
+            @change="getProducts(1, selected)"
           >
-            {{ category }}
-          </option>
-        </select>
+            <option selected>All</option>
+            <option
+              :value="category"
+              v-for="category in categorys"
+              :key="category"
+            >
+              {{ category }}
+            </option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          </div>
+        </div>
+        
         <button
           type="button"
-          class="btn btn-secondary text-white"
+          class="inline-block bg-secondary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all duration-300 font-bold shadow-sm"
           @click="modalToggle('new')"
         >
           Add new product
         </button>
       </div>
-      <div class="table-responsive">
-        <table class="table text-center">
-          <thead>
-            <tr class="table-secondary text-secondary">
-              <th scope="col">
-                Category
-              </th>
-              <th
-                scope="col"
-                colspan="2"
-              >
-                Title
-              </th>
-              <th
-                scope="col"
-                class="text-nowrap"
-              >
-                Origin Price
-              </th>
-              <th scope="col">
-                Price
-              </th>
-              <th scope="col">
-                Unit
-              </th>
-              <th scope="col">
-                Enabled
-              </th>
-              <th
-                scope="col"
-                colspan="2"
-              >
-                Edit
-              </th>
+      
+      <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <table class="w-full table-auto">
+          <thead class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+            <tr>
+              <th class="py-3 px-6 text-left">Category</th>
+              <th colspan="2" class="py-3 px-6 text-left">Title</th>
+              <th class="py-3 px-6 text-center whitespace-nowrap">Origin Price</th>
+              <th class="py-3 px-6 text-center">Price</th>
+              <th class="py-3 px-6 text-center">Unit</th>
+              <th class="py-3 px-6 text-center">Enabled</th>
+              <th colspan="2" class="py-3 px-6 text-center">Actions</th>
             </tr>
           </thead>
-          <tbody class="border-top-0">
+          <tbody class="text-gray-600 text-sm font-light">
             <tr
               v-for="product in products.products"
               :key="product.id"
+              class="border-b border-gray-200 hover:bg-gray-50 transition-colors"
             >
-              <td>{{ product.category }}</td>
-              <td>
+              <td class="py-3 px-6 text-left whitespace-nowrap">
+                <span class="bg-gray-200 text-gray-600 py-1 px-3 rounded-full text-xs font-bold">{{ product.category }}</span>
+              </td>
+              <td class="py-3 px-6 text-left w-24">
                 <img
                   :src="product.imageUrl"
                   :alt="product.title"
-                  class="w-100px h-100px object-cover object-position-center"
+                  class="w-16 h-16 rounded shadow-sm object-cover"
                 >
               </td>
-              <td class="w-25">
+              <td class="py-3 px-6 text-left font-medium">
                 {{ product.title }}
               </td>
-              <td>{{ product.origin_price }}</td>
-              <td>{{ product.price }}</td>
-              <td>{{ product.unit }}</td>
-              <td v-if="product.is_enabled">
-                <BIconCheckCircle />
+              <td class="py-3 px-6 text-center">{{ product.origin_price }}</td>
+              <td class="py-3 px-6 text-center text-secondary font-bold">{{ product.price }}</td>
+              <td class="py-3 px-6 text-center">{{ product.unit }}</td>
+              <td class="py-3 px-6 text-center">
+                <span v-if="product.is_enabled" class="text-green-500 font-bold">
+                  <BIconCheckCircle class="w-5 h-5 inline" />
+                </span>
+                <span v-else class="text-gray-400">
+                  <BIconXCircle class="w-5 h-5 inline" />
+                </span>
               </td>
-              <td v-else>
-                <BIconXCircle />
-              </td>
-              <td>
-                <a
-                  href="#"
-                  class="link-success"
-                  @click.prevent="modalToggle('edit', product)"
-                >
-                  <BIconPen />
-                </a>
-              </td>
-              <td>
-                <a
-                  href="#"
-                  class="link-danger"
-                  @click.prevent="modalToggle('del', product)"
-                >
-                  <BIconTrash />
-                </a>
+              <td class="py-3 px-6 text-center">
+                <div class="flex item-center justify-center gap-4">
+                  <button
+                    class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('edit', product)"
+                    title="Edit"
+                  >
+                    <BIconPen class="w-5 h-5" />
+                  </button>
+                  <button
+                    class="transform hover:text-red-500 hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('del', product)"
+                    title="Delete"
+                  >
+                    <BIconTrash class="w-5 h-5" />
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <Pagination
-        :pagination="products.pagination"
-        @send-request="getProducts"
-      />
+      
+      <div class="mt-6 flex justify-center">
+        <Pagination
+          :pagination="products.pagination"
+          @send-request="getProducts"
+        />
+      </div>
     </div>
   </main>
   <!-- Modal -->
@@ -129,8 +119,13 @@
   </DelModal>
 </template>
 
-<script>
-import { computed } from 'vue';
+  <style scoped>
+    select {
+      background-image: none;
+    }
+  </style>
+  <script>
+  import { computed } from 'vue';
 import { getAdminProducts, delProduct } from '@/scripts/api.js';
 import alertMixin from '@/mixins/alertMixin.js';
 import loadingMixin from '@/mixins/loadingMixin.js';

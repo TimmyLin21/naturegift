@@ -1,26 +1,25 @@
 <template>
   <template v-if="cacheProduct.imagesUrl?.length > 0 || cacheProduct.imageUrl">
-    <div class="d-flex my-3 justify-content-between">
+    <div class="flex flex-wrap gap-4 my-3 justify-between">
       <div
-        class="w-30 detailImg"
+        class="w-[30%] relative group"
         v-if="cacheProduct.imageUrl"
       >
         <img
           :src="cacheProduct.imageUrl"
           alt=""
-          class="w-100 rounded"
+          class="w-full rounded shadow-md object-cover aspectRatio-1"
         >
         <a
           href="#"
           @click.prevent="delImg('main')"
-          class="link-danger"
+          class="absolute top-2 right-2 text-white bg-red-500 rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors"
         >
           <font-awesome-icon
             icon="times"
-            class="detailImg__icon"
           />
         </a>
-        <div class="detailImg__text detailImg__text-active">
+        <div class="absolute bottom-0 left-0 right-0 bg-secondary text-white text-center py-1 bg-opacity-90 rounded-b">
           Main image
         </div>
       </div>
@@ -28,25 +27,24 @@
         v-for="(img, key) in cacheProduct.imagesUrl"
         :key="key"
       >
-        <div class="w-30 detailImg">
+        <div class="w-[30%] relative group">
           <img
             :src="img"
             alt=""
-            class="w-100 rounded"
+            class="w-full rounded shadow-md object-cover aspectRatio-1"
           >
           <a
             href="#"
             @click.prevent="delImg('other', key)"
-            class="link-danger"
+            class="absolute top-2 right-2 text-white bg-red-500 rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors"
           >
             <font-awesome-icon
               icon="times"
-              class="detailImg__icon"
             />
           </a>
           <a
             href="#"
-            class="detailImg__text"
+            class="absolute bottom-0 left-0 right-0 bg-gray-800 text-white text-center py-1 bg-opacity-70 hover:bg-opacity-90 transition-all rounded-b no-underline"
             @click.prevent="setMainImg(key)"
           >Set main image</a>
         </div>
@@ -54,59 +52,61 @@
     </div>
   </template>
   <template v-else>
-    <div class="d-flex my-3 justify-content-between">
+    <div class="flex my-3 justify-between gap-4">
       <img
         src="https://img.icons8.com/ios/200/000000/image.png"
-        class="w-30 rounded opacity-25"
+        class="w-[30%] rounded opacity-25 border border-dashed border-gray-300"
         alt="no image"
       >
       <img
         src="https://img.icons8.com/ios/200/000000/image.png"
-        class="w-30 rounded opacity-25"
+        class="w-[30%] rounded opacity-25 border border-dashed border-gray-300"
         alt="no image"
       >
       <img
         src="https://img.icons8.com/ios/200/000000/image.png"
-        class="w-30 rounded opacity-25"
+        class="w-[30%] rounded opacity-25 border border-dashed border-gray-300"
         alt="no image"
       >
     </div>
   </template>
+  
   <label
     for="image-address"
-    class="form-label"
+    class="block text-gray-700 font-bold mb-2 mt-4"
   >Image address</label>
-  <div class="input-group mb-3">
+  <div class="flex mb-4 gap-2">
     <input
       type="text"
-      class="form-control"
+      class="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
       placeholder="Image address"
       id="image-address"
       v-model="imgUrl"
     >
     <button
-      class="btn btn-outline-success"
+      class="px-4 py-2 border border-green-500 text-green-500 font-bold rounded-r-lg hover:bg-green-500 hover:text-white transition-colors"
       type="button"
       @click="addImg"
     >
       Upload link
     </button>
   </div>
+  
   <label
     for="image-file"
-    class="form-label"
+    class="block text-gray-700 font-bold mb-2"
   >Image file</label>
-  <div class="input-group mb-3">
+  <div class="flex mb-4 gap-2">
     <input
       type="file"
-      class="form-control"
+      class="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
       placeholder="Image file"
       id="image-file"
       @change="update"
       ref="fileInput"
     >
     <button
-      class="btn btn-outline-success"
+      class="px-4 py-2 border border-green-500 text-green-500 font-bold rounded-r-lg hover:bg-green-500 hover:text-white transition-colors"
       type="button"
       @click="upload"
     >

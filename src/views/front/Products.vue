@@ -32,26 +32,26 @@
           </li>
         </ul>
       </div>
-      <div>
+      <div class="w-full md:w-auto mt-4 md:mt-0">
         <label
-          name="sort"
-          class="text-left md:text-right block mb-2 font-bold"
+          id="sort-label"
+          class="text-left md:text-right block mb-2 font-bold text-gray-700"
         >SORT BY</label>
-        <div class="relative w-[200px] cursor-pointer group">
+        <div class="relative w-full md:w-[200px] cursor-pointer group">
           <div
-            class="bg-white py-2 px-8 mt-2 rounded shadow text-center relative select-none"
+            class="bg-white py-2 px-6 rounded-lg shadow border border-gray-200 text-left relative select-none flex items-center justify-between hover:border-secondary transition-colors"
             @click="sort.isShow = !sort.isShow"
             aria-haspopup="listbox"
-            aria-labelledby="sort"
+            aria-labelledby="sort-label"
           >
-            {{ sort.selected }}
+            <span class="truncate block pr-4">{{ sort.selected }}</span>
             <span 
-              class="absolute right-4 top-[0.9rem] w-2 h-2 border-r-2 border-b-2 border-secondary transform rotate-45 transition-transform duration-300"
-              :class="{ '-rotate-[135deg] top-[1.1rem]': sort.isShow }"
+              class="w-2 h-2 border-r-2 border-b-2 border-secondary transform rotate-45 transition-transform duration-300 flex-shrink-0"
+              :class="{ '-rotate-[135deg] translate-y-1': sort.isShow }"
             ></span>
           </div>
           <div
-            class="absolute rounded-lg w-[200px] z-20 bg-white mt-1 shadow-lg overflow-hidden"
+            class="absolute left-0 right-0 rounded-lg z-30 bg-white mt-1 shadow-xl border border-gray-100 overflow-hidden"
             v-show="sort.isShow"
             role="listbox"
             tabindex="-1"
@@ -60,7 +60,7 @@
               v-for="sortOption in sort.sorts"
               :key="sortOption"
               @click="chooseSort(sortOption)"
-              class="py-2 px-6 hover:bg-primary cursor-pointer transition-colors"
+              class="py-2 px-4 hover:bg-green-50 hover:text-secondary cursor-pointer transition-colors text-sm"
             >
               {{ sortOption }}
             </div>

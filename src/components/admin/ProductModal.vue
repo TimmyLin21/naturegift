@@ -29,7 +29,7 @@
               class="block text-center py-2 px-4 rounded cursor-pointer transition-colors"
               :class="{ 
                 'bg-secondary text-white font-bold shadow': currentTab === `${tab}Tab`,
-                'hover:bg-green-200 text-green-800': currentTab !== `${tab}Tab`
+                'hover:bg-green-200 text-gray-600 hover:text-black': currentTab !== `${tab}Tab`
               }"
               @click="currentTab = `${tab}Tab`"
             >

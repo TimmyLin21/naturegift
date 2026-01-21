@@ -79,7 +79,7 @@ export default {
             this.sendMsg();
             // save token in cookie
             const { token, expired } = res.data;
-            document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+            document.cookie = `hexToken=${token}; expires=${new Date(expired)}; path=/`;
             setTimeout(() => {
               this.$router.push('/admin');
             }, 1000);

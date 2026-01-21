@@ -1,89 +1,102 @@
 <template>
-  <main class="bg-light w-100">
-    <div class="container py-4">
-      <div class="d-flex justify-content-end mb-4">
+  <main class="bg-white w-full min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <div class="flex justify-end mb-6">
         <button
           type="button"
-          class="btn btn-danger text-white"
+          class="inline-block bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-all duration-300 font-bold shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
           @click.prevent="modalToggle('delAll')"
           :disabled="orders.orders?.length === 0"
         >
           Delete all orders
         </button>
       </div>
-      <div class="table-responsive">
-        <table class="table text-center">
-          <thead>
-            <tr class="table-secondary text-secondary align-middle">
-              <th scope="col">
+      <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <table class="w-full table-auto text-center">
+          <thead class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+            <tr>
+              <th scope="col" class="py-3 px-6">
                 Date
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Tracking Number
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Items
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Price
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Payment status
               </th>
-              <th scope="col">
+              <th scope="col" class="py-3 px-6">
                 Edit order
               </th>
             </tr>
           </thead>
-          <tbody class="border-top-0">
+          <tbody class="text-gray-600 text-sm font-light">
             <tr
               v-for="order in orders.orders"
               :key="order.id"
+              class="border-b border-gray-200 hover:bg-gray-50 transition-colors"
             >
-              <td>{{ $filters.date(order.create_at) }}</td>
-              <td class="text-nowrap">
+              <td class="py-3 px-6">{{ $filters.date(order.create_at) }}</td>
+              <td class="py-3 px-6 whitespace-nowrap">
                 {{ order.id }}
               </td>
-              <td>
-                <p
-                  class="text-nowrap"
-                  v-for="product in order.products"
-                  :key="product.id"
-                >
-                  {{ product.product.title }} {{ product.product.unit }} x {{ product.qty }}
-                </p>
+              <td class="py-3 px-6 text-left">
+                <ul class="list-disc list-inside">
+                  <li
+                    class="whitespace-nowrap"
+                    v-for="product in order.products"
+                    :key="product.id"
+                  >
+                    {{ product.product.title }} {{ product.product.unit }} x {{ product.qty }}
+                  </li>
+                </ul>
               </td>
-              <td>{{ order.total }}</td>
-              <td v-if="order.is_paid">
-                <BIconCheckCircle />
+              <td class="py-3 px-6 font-bold text-secondary">{{ order.total }}</td>
+              <td class="py-3 px-6" v-if="order.is_paid">
+                <span class="text-green-500 font-bold">
+                  <BIconCheckCircle class="w-5 h-5 inline" />
+                </span>
               </td>
-              <td v-else>
-                <BIconXCircle />
+              <td class="py-3 px-6" v-else>
+                <span class="text-gray-400">
+                  <BIconXCircle class="w-5 h-5 inline" />
+                </span>
               </td>
-              <td class="text-nowrap">
-                <a
-                  href="#"
-                  class="link-success me-3"
-                  @click.prevent="modalToggle('edit', order)"
-                >
-                  <BIconPen />
-                </a>
-                <a
-                  href="#"
-                  class="link-danger"
-                  @click.prevent="modalToggle('del', order)"
-                >
-                  <BIconTrash />
-                </a>
+              <td class="py-3 px-6">
+                <div class="flex item-center justify-center gap-4">
+                  <a
+                    href="#"
+                    class="transform hover:text-secondary hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('edit', order)"
+                    title="Edit"
+                  >
+                    <BIconPen class="w-5 h-5" />
+                  </a>
+                  <a
+                    href="#"
+                    class="transform hover:text-red-500 hover:scale-110 transition-transform duration-300"
+                    @click.prevent="modalToggle('del', order)"
+                    title="Delete"
+                  >
+                    <BIconTrash class="w-5 h-5" />
+                  </a>
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <Pagination
-        :pagination="orders.pagination"
-        @send-request="getOrders"
-      />
+      <div class="mt-6 flex justify-center">
+        <Pagination
+          :pagination="orders.pagination"
+          @send-request="getOrders"
+        />
+      </div>
     </div>
   </main>
   <!-- Modal -->

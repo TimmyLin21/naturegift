@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col lg:flex-row min-h-screen">
-    <nav class="bg-secondary text-white w-full lg:w-64 flex-shrink-0 p-4 lg:h-screen lg:sticky lg:top-0">
+    <nav class="bg-secondary text-white w-full lg:w-64 flex-shrink-0 p-4 lg:h-screen lg:sticky lg:top-0 lg:flex lg:flex-col">
       <div class="flex justify-between items-center lg:block">
         <router-link
           to="/"
@@ -19,15 +19,15 @@
         </button>
       </div>
       <div
-        class="lg:block mt-4 lg:mt-0"
+        class="lg:flex lg:flex-col lg:flex-grow mt-4 lg:mt-0"
         :class="{ 'hidden': !isMenuOpen }"
       >
-        <ul class="flex flex-col space-y-2 list-none p-0">
+        <ul class="flex flex-col gap-2 list-none p-0 lg:flex-grow">
           <li>
             <router-link
               to="/admin"
               class="block py-2 px-4 hover:bg-primary hover:text-secondary rounded transition-colors text-white no-underline"
-              active-class="bg-primary !text-secondary font-bold"
+              exact-active-class="bg-primary !text-secondary font-bold"
             >
               Product
             </router-link>
@@ -59,7 +59,7 @@
               Article
             </router-link>
           </li>
-          <li class="mt-8">
+          <li class="mt-8 lg:mt-auto">
             <a
               href="#"
               class="block py-2 px-4 border border-white text-center rounded hover:bg-white hover:text-secondary transition-colors text-white no-underline"
