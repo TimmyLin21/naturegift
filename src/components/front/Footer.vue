@@ -3,11 +3,11 @@
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap items-center justify-center">
         <!-- Logo -->
-        <div class="w-1/2 md:w-1/6 mb-4 md:mb-0">
+        <div class="w-1/2 md:w-1/4 mb-4 md:mb-0">
           <img
             src="@/assets/images/logo.jpeg"
             alt="logo"
-            class="max-w-full h-auto mx-auto"
+            class="max-w-full h-auto mx-auto w-2/3"
           >
         </div>
         
