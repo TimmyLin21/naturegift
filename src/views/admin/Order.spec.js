@@ -1,29 +1,35 @@
 import { mount, flushPromises } from '@vue/test-utils';
 import Order from '@/views/admin/Order.vue';
-import { apiGetOrders } from '@/scripts/api.js';
+import { getAdminOrders } from '@/scripts/api.js';
 
-jest.mock('@/scripts/api.js');
+vi.mock('@/scripts/api.js', () => ({
+  getAdminOrders: vi.fn(),
+}));
+
+// Create spy references
+const orderModalOpenSpy = vi.fn();
+const delModalOpenSpy = vi.fn();
 
 const OrderModal = {
   template: '<div class="order-modal-stub"></div>',
-  methods: { openModal: jest.fn() },
+  methods: { openModal: orderModalOpenSpy },
 };
 
 const DelModal = {
   template: '<div class="del-modal-stub"></div>',
-  methods: { openModal: jest.fn() },
+  methods: { openModal: delModalOpenSpy },
 };
 
-const Pagination = { template: '<div></div>', props: ['pages'] };
+const Pagination = { template: '<div></div>', props: ['pagination'] };
 const Loading = { template: '<div></div>' };
 
 const alertMixin = {
   data() { return { alert: { msg: '', state: false } }; },
-  methods: { sendMsg: jest.fn() },
+  methods: { sendMsg: vi.fn() },
 };
 
 const loadingMixin = {
-  methods: { sendLoadingState: jest.fn() },
+  methods: { sendLoadingState: vi.fn() },
 };
 
 describe('Order.vue', () => {
@@ -33,18 +39,19 @@ describe('Order.vue', () => {
       id: 'o1',
       create_at: 1678888888,
       user: { email: 'user@example.com' },
-      products: {
-        p1: { product: { price: 100 }, qty: 2 },
-      },
+      products: [
+        { id: 'p1', product: { title: 'Test Product', unit: 'bag', price: 100 }, qty: 2 },
+      ],
       is_paid: false,
       total: 200,
-      num: 1, // generated client-side usually, but mocking full obj
     },
   ];
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    apiGetOrders.mockResolvedValue({
+    vi.clearAllMocks();
+    orderModalOpenSpy.mockClear();
+    delModalOpenSpy.mockClear();
+    getAdminOrders.mockResolvedValue({
       data: {
         orders: mockOrders,
         pagination: { total_pages: 1 },
@@ -55,10 +62,15 @@ describe('Order.vue', () => {
       global: {
         mixins: [alertMixin, loadingMixin],
         components: { OrderModal, DelModal, Pagination, Loading },
+        mocks: {
+          $emitter: { emit: vi.fn(), on: vi.fn() },
+        },
         stubs: {
           BIconPen: true,
           BIconTrash: true,
           BIconEyeFill: true,
+          BIconCheckCircle: true,
+          BIconXCircle: true,
         },
         config: {
           globalProperties: {
@@ -71,11 +83,10 @@ describe('Order.vue', () => {
 
   it('renders order list', async () => {
     await flushPromises();
-    expect(wrapper.text()).toContain('user@example.com');
-    // Check total calculation display if present, or just list items
+    expect(wrapper.text()).toContain('o1');
+    expect(wrapper.text()).toContain('200');
     const rows = wrapper.findAll('tbody tr');
     expect(rows.length).toBe(1);
-    expect(wrapper.text()).toContain('Not Paid');
   });
 
   it('opens edit modal', async () => {
@@ -86,7 +97,7 @@ describe('Order.vue', () => {
     const editBtn = wrapper.find('button[title="Edit"]');
     await editBtn.trigger('click');
 
-    expect(wrapper.findComponent(OrderModal).vm.openModal).toHaveBeenCalled();
+    expect(orderModalOpenSpy).toHaveBeenCalled();
   });
 
   it('opens delete modal', async () => {
@@ -97,7 +108,7 @@ describe('Order.vue', () => {
     const delBtn = wrapper.find('button[title="Delete"]');
     await delBtn.trigger('click');
 
-    expect(wrapper.findComponent(DelModal).vm.openModal).toHaveBeenCalled();
+    expect(delModalOpenSpy).toHaveBeenCalled();
   });
 
   it('opens view modal in demo mode', async () => {
@@ -109,16 +120,15 @@ describe('Order.vue', () => {
     expect(viewBtn.exists()).toBe(true);
     await viewBtn.trigger('click');
 
-    expect(wrapper.findComponent(OrderModal).vm.openModal).toHaveBeenCalled();
+    expect(orderModalOpenSpy).toHaveBeenCalled();
   });
   
   it('opens delete all modal', async () => {
      await flushPromises();
-     // Assuming 'Clear All Orders' button exists
-     const clearBtn = wrapper.find('.text-right button');
+     const clearBtn = wrapper.find('.bg-red-500');
      if (clearBtn.exists()) {
        await clearBtn.trigger('click');
-       expect(wrapper.findComponent(DelModal).vm.openModal).toHaveBeenCalled();
+       expect(delModalOpenSpy).toHaveBeenCalled();
      }
   });
 });

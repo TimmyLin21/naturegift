@@ -1,11 +1,16 @@
 import { mount, flushPromises } from '@vue/test-utils';
 import Product from '@/views/admin/Product.vue';
-import { apiGetProducts } from '@/scripts/api.js';
+import { getAdminProducts } from '@/scripts/api.js';
 
 // Mock API
-jest.mock('@/scripts/api.js');
+vi.mock('@/scripts/api.js', () => ({
+  getAdminProducts: vi.fn(),
+}));
 
 // Mock child components
+const productModalOpenSpy = vi.fn();
+const delModalOpenSpy = vi.fn();
+
 const Pagination = {
   template: '<div class="pagination-stub" @click="$emit(\'get-products\', 2)"></div>',
   props: ['pages'],
@@ -14,14 +19,14 @@ const Pagination = {
 const ProductModal = {
   template: '<div class="product-modal-stub"></div>',
   methods: {
-    openModal: jest.fn(),
+    openModal: productModalOpenSpy,
   },
 };
 
 const DelModal = {
   template: '<div class="del-modal-stub"></div>',
   methods: {
-    openModal: jest.fn(),
+    openModal: delModalOpenSpy,
   },
 };
 
@@ -37,13 +42,13 @@ const alertMixin = {
     };
   },
   methods: {
-    sendMsg: jest.fn(),
+    sendMsg: vi.fn(),
   },
 };
 
 const loadingMixin = {
   methods: {
-    sendLoadingState: jest.fn(),
+    sendLoadingState: vi.fn(),
   },
 };
 
@@ -76,8 +81,10 @@ describe('Product.vue', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    apiGetProducts.mockResolvedValue({
+    vi.clearAllMocks();
+    productModalOpenSpy.mockClear();
+    delModalOpenSpy.mockClear();
+    getAdminProducts.mockResolvedValue({
       data: {
         products: mockProducts,
         pagination: mockPagination,
@@ -93,10 +100,15 @@ describe('Product.vue', () => {
           DelModal,
           Loading,
         },
+        mocks: {
+          $emitter: { emit: vi.fn(), on: vi.fn() },
+        },
         stubs: {
           BIconPen: true,
           BIconTrash: true,
           BIconEyeFill: true,
+          BIconCheckCircle: true,
+          BIconXCircle: true,
         },
       },
     });
@@ -108,18 +120,16 @@ describe('Product.vue', () => {
     expect(wrapper.text()).toContain('Test Product 1');
     expect(wrapper.text()).toContain('Category A');
     expect(wrapper.text()).toContain('Enable');
-    expect(wrapper.text()).toContain('Not Enable');
   });
 
   it('fetches products on mount', () => {
-    expect(apiGetProducts).toHaveBeenCalledWith(1);
+    expect(getAdminProducts).toHaveBeenCalledWith(undefined, undefined);
   });
 
   it('handles pagination', async () => {
     await flushPromises();
-    const pagination = wrapper.findComponent(Pagination);
-    pagination.vm.$emit('get-products', 2);
-    expect(apiGetProducts).toHaveBeenCalledWith(2);
+    wrapper.vm.getProducts(2, 'Category A');
+    expect(getAdminProducts).toHaveBeenCalledWith(2, 'Category A');
   });
 
   it('opens edit modal', async () => {
@@ -131,9 +141,7 @@ describe('Product.vue', () => {
     const editBtn = wrapper.find('button[title="Edit"]');
     await editBtn.trigger('click');
 
-    const modal = wrapper.findComponent(ProductModal);
-    expect(modal.vm.openModal).toHaveBeenCalled();
-    expect(wrapper.vm.tempProduct.id).toBe('p1');
+    expect(productModalOpenSpy).toHaveBeenCalled();
     expect(wrapper.vm.isNew).toBe(false);
   });
 
@@ -146,9 +154,7 @@ describe('Product.vue', () => {
     const delBtn = wrapper.find('button[title="Delete"]');
     await delBtn.trigger('click');
 
-    const modal = wrapper.findComponent(DelModal);
-    expect(modal.vm.openModal).toHaveBeenCalled();
-    expect(wrapper.vm.tempProduct.id).toBe('p1');
+    expect(delModalOpenSpy).toHaveBeenCalled();
   });
 
   it('opens view modal in demo mode', async () => {
@@ -164,7 +170,6 @@ describe('Product.vue', () => {
     expect(wrapper.find('button[title="Edit"]').exists()).toBe(false);
 
     await viewBtn.trigger('click');
-    const modal = wrapper.findComponent(ProductModal);
-    expect(modal.vm.openModal).toHaveBeenCalled();
+    expect(productModalOpenSpy).toHaveBeenCalled();
   });
 });

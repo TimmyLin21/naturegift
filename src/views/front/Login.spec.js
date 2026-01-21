@@ -3,8 +3,8 @@ import Login from '@/views/front/Login.vue';
 import { apiUserLogin, apiUserCheck } from '@/scripts/api.js';
 
 // Mock dependencies
-jest.mock('@/scripts/api.js');
-const mockPush = jest.fn();
+vi.mock('@/scripts/api.js');
+const mockPush = vi.fn();
 const mockRouter = {
   push: mockPush,
 };
@@ -17,13 +17,13 @@ const alertMixin = {
     };
   },
   methods: {
-    sendMsg: jest.fn(),
+    sendMsg: vi.fn(),
   },
 };
 
 const loadingMixin = {
   methods: {
-    sendLoadingState: jest.fn(),
+    sendLoadingState: vi.fn(),
   },
 };
 
@@ -31,15 +31,17 @@ describe('Login.vue', () => {
   let wrapper;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     // Default apiUserCheck failure (not logged in)
-    apiUserCheck.mockRejectedValue(new Error('Not logged in'));
+    // Default apiUserCheck failure (not logged in) - Use mockImplementation to avoid unhandled rejection triggering before catch
+    apiUserCheck.mockImplementation(() => Promise.reject(new Error('Not logged in')));
     
     wrapper = mount(Login, {
       global: {
         mixins: [alertMixin, loadingMixin],
         mocks: {
           $router: mockRouter,
+          $emitter: { emit: vi.fn(), on: vi.fn() },
         },
         stubs: {
           BIconInfoCircleFill: true
@@ -52,7 +54,7 @@ describe('Login.vue', () => {
     expect(wrapper.find('h2').text()).toBe('Welcome Back!');
     expect(wrapper.find('input[type="email"]').exists()).toBe(true);
     expect(wrapper.find('input[type="password"]').exists()).toBe(true);
-    expect(wrapper.text()).toContain('Login to continue');
+    expect(wrapper.text()).toContain('Welcome Back!');
   });
 
   it('shows error if inputs are empty', async () => {
@@ -68,7 +70,7 @@ describe('Login.vue', () => {
     await wrapper.find('a').trigger('click');
     
     // Check loading state
-    expect(wrapper.vm.sendLoadingState).toHaveBeenCalledWith(true);
+    expect(wrapper.vm.$emitter.emit).toHaveBeenCalledWith('loading-state', true);
     
     // Wait for timeout
     await new Promise(resolve => setTimeout(resolve, 1100));

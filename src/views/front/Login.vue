@@ -146,6 +146,9 @@ export default {
     apiUserCheck()
       .then(() => {
         this.$router.push('/admin');
+      })
+      .catch(() => {
+        // User not logged in, stay on login page
       });
   },
   mixins: [alertMixin, loadingMixin],

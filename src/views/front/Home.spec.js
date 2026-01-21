@@ -28,6 +28,8 @@ describe('Home.vue', () => {
           Sub: true,
           // If "Nature Gift" and "Shop Now" are in Home.vue itself, this is fine.
           // If they are in child components like a "Hero" component, we might need to mount that or check stubs.
+          BIconArrowRight: true,
+          BIconChevronDown: true,
         }
       }
     });

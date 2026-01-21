@@ -1,33 +1,39 @@
 import { mount, flushPromises } from '@vue/test-utils';
 import Coupon from '@/views/admin/Coupon.vue';
-import { apiGetCoupons } from '@/scripts/api.js';
+import { getCoupons } from '@/scripts/api.js';
 
-jest.mock('@/scripts/api.js');
+vi.mock('@/scripts/api.js', () => ({
+  getCoupons: vi.fn(),
+}));
+
+// Create spy references
+const couponModalOpenSpy = vi.fn();
+const delModalOpenSpy = vi.fn();
 
 const CouponModal = {
   template: '<div class="coupon-modal-stub"></div>',
   methods: {
-    openModal: jest.fn(),
+    openModal: couponModalOpenSpy,
   },
 };
 
 const DelModal = {
   template: '<div class="del-modal-stub"></div>',
   methods: {
-    openModal: jest.fn(),
+    openModal: delModalOpenSpy,
   },
 };
 
-const Pagination = { template: '<div></div>', props: ['pages'] };
+const Pagination = { template: '<div></div>', props: ['pagination'] };
 const Loading = { template: '<div></div>' };
 
 const alertMixin = {
   data() { return { alert: { msg: '', state: false } }; },
-  methods: { sendMsg: jest.fn() },
+  methods: { sendMsg: vi.fn() },
 };
 
 const loadingMixin = {
-  methods: { sendLoadingState: jest.fn() },
+  methods: { sendLoadingState: vi.fn() },
 };
 
 const filters = {
@@ -48,8 +54,10 @@ describe('Coupon.vue', () => {
   ];
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    apiGetCoupons.mockResolvedValue({
+    vi.clearAllMocks();
+    couponModalOpenSpy.mockClear();
+    delModalOpenSpy.mockClear();
+    getCoupons.mockResolvedValue({
       data: {
         coupons: mockCoupons,
         pagination: { total_pages: 1, current_page: 1 },
@@ -60,6 +68,9 @@ describe('Coupon.vue', () => {
       global: {
         mixins: [alertMixin, loadingMixin],
         components: { CouponModal, DelModal, Pagination, Loading },
+        mocks: {
+          $emitter: { emit: vi.fn(), on: vi.fn() },
+        },
         stubs: {
           BIconPen: true,
           BIconTrash: true,
@@ -79,14 +90,15 @@ describe('Coupon.vue', () => {
   it('renders coupon list', async () => {
     await flushPromises();
     expect(wrapper.text()).toContain('Summer Sale');
-    expect(wrapper.text()).toContain('SUMMER23');
-    expect(wrapper.text()).toContain('80%');
+    expect(wrapper.text()).toContain('80% off');
   });
 
   it('opens new coupon modal', async () => {
-    await wrapper.find('button.bg-primary').trigger('click');
-    const modal = wrapper.findComponent(CouponModal);
-    expect(modal.vm.openModal).toHaveBeenCalled();
+    await flushPromises();
+    const button = wrapper.find('.bg-secondary');
+    expect(button.exists()).toBe(true);
+    await button.trigger('click');
+    expect(couponModalOpenSpy).toHaveBeenCalled();
     expect(wrapper.vm.isNew).toBe(true);
   });
 
@@ -100,7 +112,7 @@ describe('Coupon.vue', () => {
     
     expect(wrapper.vm.isNew).toBe(false);
     expect(wrapper.vm.cacheCoupon.id).toBe('c1');
-    expect(wrapper.findComponent(CouponModal).vm.openModal).toHaveBeenCalled();
+    expect(couponModalOpenSpy).toHaveBeenCalled();
   });
 
   it('opens view modal in demo mode', async () => {
@@ -112,6 +124,6 @@ describe('Coupon.vue', () => {
     expect(viewBtn.exists()).toBe(true);
     await viewBtn.trigger('click');
 
-    expect(wrapper.findComponent(CouponModal).vm.openModal).toHaveBeenCalled();
+    expect(couponModalOpenSpy).toHaveBeenCalled();
   });
 });

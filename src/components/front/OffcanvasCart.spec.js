@@ -118,34 +118,33 @@ describe('OffcanvasCart.vue', () => {
   });
 
   it('updates quantity and shows loading state', async () => {
+    let resolveEdit;
+    // Return a promise that we control manually
+    editCart.mockReturnValue(new Promise(r => resolveEdit = r));
+
     wrapper = createWrapper();
     wrapper.vm.openCart();
     await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
     const inputs = wrapper.findAll('input[type="number"]');
-    const firstInput = inputs[0]; // qty 1
     
-    // Change value
-    await firstInput.setValue(2);
-    
-    // updateCart is triggered by @change or buttons
-    // The test setValue triggers v-model update, but @change might need manual trigger if not native implementation
-    // Let's stick to using the + button which calls updateCart directly
+    // Use the plus button directly
     const plusButtons = wrapper.findAll('button.text-secondary.flex.items-center.justify-center');
-    // First item + button (index 1, since index 0 is minus)
-    // Wait, findAll order depends on DOM. 
-    // Item 1: Minus (0), Plus (1)
-    // Item 2: Minus (2), Plus (3)
+    // The second plus button matches 'c2' (checking indices correctly -> index 0 is minus, 1 is plus for first item)
+    // First item is c1
     await plusButtons[1].trigger('click');
 
-    // Loading state should be active for item id 'c1'
+    // Loading state should be active for item id 'c1' immediately
     expect(wrapper.vm.loadingItem).toBe('c1');
     expect(wrapper.find('font-awesome-icon-stub[icon="spinner"]').exists()).toBe(true);
 
-    // After promise resolves (editCart mock)
-    await wrapper.vm.$nextTick(); // tick for promise resolution inside component
-    await wrapper.vm.$nextTick(); // tick for finally block
+    // Now resolve the promise
+    resolveEdit({ data: { message: 'Updated' }});
+    
+    // Wait for promise resolution (microtasks)
+    await new Promise(resolve => setTimeout(resolve, 0));
+    await wrapper.vm.$nextTick();
 
     expect(editCart).toHaveBeenCalledWith('c1', 2);
     expect(wrapper.vm.loadingItem).toBe('');

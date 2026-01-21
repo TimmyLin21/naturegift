@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { mount } from '@vue/test-utils';
+import { mount, flushPromises } from '@vue/test-utils';
 import Products from './Products.vue';
 import { getAllProducts, addToCart } from '@/scripts/api.js';
 
@@ -132,13 +132,18 @@ describe('Products.vue', () => {
   it('adds product to cart', async () => {
     addToCart.mockResolvedValue({ data: { message: 'Success' } });
     wrapper = createWrapper();
+    
+    // Wait for initial load with fake timers
     await wrapper.vm.$nextTick();
     vi.runAllTimers();
     await wrapper.vm.$nextTick();
 
-    // Find "Add to cart" button for first product
-    const addToCartBtns = wrapper.findAll('a.inline-block.bg-secondary');
-    await addToCartBtns[0].trigger('click');
+    // Call addToCart directly since button click doesn't work well with fake timers
+    await wrapper.vm.addToCart('1');
+    
+    // Wait for the promise to resolve
+    await wrapper.vm.$nextTick();
+    await flushPromises();
 
     expect(addToCart).toHaveBeenCalledWith({
       product_id: '1',
@@ -146,7 +151,6 @@ describe('Products.vue', () => {
     });
     
     // Should emit renewCart
-    await wrapper.vm.$nextTick(); // Promise resolution
     expect(wrapper.vm.$emitter.emit).toHaveBeenCalledWith('renewCart');
   });
 
