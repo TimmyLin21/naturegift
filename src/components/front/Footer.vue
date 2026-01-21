@@ -1,9 +1,9 @@
 <template lang="">
   <footer class="bg-primary text-center">
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4">
       <div class="flex flex-wrap items-center justify-center">
         <!-- Logo -->
-        <div class="w-1/2 md:w-1/4 mb-4 md:mb-0">
+        <div class="w-1/2 md:w-1/6 mb-4 md:mb-0">
           <img
             src="@/assets/images/logo.jpeg"
             alt="logo"
@@ -12,7 +12,7 @@
         </div>
         
         <!-- Newsletter -->
-        <div class="w-full md:w-5/12 mb-10 md:mb-0">
+        <div class="w-full md:w-1/2 mb-10 md:mb-0">
           <h3 class="text-2xl font-bold mb-2">
             Let's Stay Connected
           </h3>
@@ -54,13 +54,13 @@
         </div>
 
         <!-- Social Icons -->
-        <div class="w-full md:w-1/3 md:pl-12 mb-10 md:mb-0">
-          <h3 class="text-2xl font-bold mb-4">Follow us</h3>
+        <div class="w-full md:w-1/4 mb-0">
+          <h3 class="text-2xl font-bold mb-0">Follow us</h3>
           <ul class="flex justify-center list-none p-0 m-0">
             <li>
               <a
                 href="https://github.com/TimmyLin21/naturegift"
-                class="block text-secondary p-6 transition-all duration-500 hover:-translate-y-2 hover:text-light"
+                class="block text-secondary p-4 transition-all duration-500 hover:-translate-y-2 hover:text-light"
               >
                 <BIconGithub
                   width="24px"
@@ -71,7 +71,7 @@
             <li>
               <a
                 href="#"
-                class="block text-secondary p-6 transition-all duration-500 hover:-translate-y-2 hover:text-light"
+                class="block text-secondary p-4 transition-all duration-500 hover:-translate-y-2 hover:text-light"
               >
                 <BIconFacebook
                   width="24px"
@@ -82,7 +82,7 @@
             <li>
               <a
                 href="#"
-                class="block text-secondary p-6 transition-all duration-500 hover:-translate-y-2 hover:text-light"
+                class="block text-secondary p-4 transition-all duration-500 hover:-translate-y-2 hover:text-light"
               >
                 <BIconTwitter
                   width="24px"
@@ -93,7 +93,7 @@
             <li>
               <a
                 href="#"
-                class="block text-secondary p-6 transition-all duration-500 hover:-translate-y-2 hover:text-light"
+                class="block text-secondary p-4 transition-all duration-500 hover:-translate-y-2 hover:text-light"
               >
                 <BIconInstagram
                   width="24px"
@@ -105,7 +105,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-success bg-opacity-25 py-3">
+    <div class="bg-secondary bg-opacity-25 py-3">
       <p class="text-gray-600 mb-0">
         © 2022 Nature Gift. All rights reserved
       </p>
