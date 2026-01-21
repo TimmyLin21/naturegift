@@ -1,45 +1,48 @@
 <template>
-  <section class="container mt-100px mt-md-150px">
-    <div class="row align-items-center pt-5 pt-md-0">
-      <div class="col-12 col-md-6">
+  <section class="container mx-auto px-4 mt-[100px] md:mt-[150px]">
+    <div class="flex flex-wrap items-center pt-5 md:pt-0">
+      <div class="w-full md:w-1/2 p-4">
         <img
           src="@/assets/images/login.jpeg"
-          alt=""
-          class="img-fluid rounded rounded-lg"
+          alt="Login"
+          class="w-full h-auto rounded-lg shadow-lg object-cover"
         >
       </div>
-      <div class="col-12 col-md-6 py-6">
-        <h2 class="mb-0">
+      <div class="w-full md:w-1/2 py-6 px-4 md:px-12">
+        <h2 class="text-3xl font-bold mb-2">
           Welcome Back!
         </h2>
-        <small>Login to continue</small>
-        <div class="form-floating my-3">
+        <p class="text-gray-500 mb-6">Login to continue</p>
+        
+        <div class="mb-4">
+          <label for="loginEmail" class="block text-gray-700 font-bold mb-2">Email address</label>
           <input
             type="email"
-            class="form-control"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all"
             id="loginEmail"
             placeholder="Email"
             v-model="userData.username"
           >
-          <label for="loginEmail">Email address</label>
         </div>
-        <div class="form-floating mb-3">
+        
+        <div class="mb-8">
+           <label for="loginPassword" class="block text-gray-700 font-bold mb-2">Password</label>
           <input
             type="password"
-            class="form-control"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all"
             id="loginPassword"
             placeholder="Password"
             v-model="userData.password"
             @keyup.enter="login"
           >
-          <label for="loginPassword">Password</label>
         </div>
+        
         <a
           href="#"
-          class="c-btn"
+          class="inline-block bg-secondary text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all duration-300 font-bold w-full text-center uppercase tracking-wider shadow-md active:scale-95"
           @click.prevent="login"
         >
-          <span class="c-btn__text">Login</span>
+          Login
         </a>
       </div>
     </div>

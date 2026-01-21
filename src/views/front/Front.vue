@@ -1,8 +1,12 @@
 <template>
-  <CustomHeader />
-  <RouterView />
-  <Footer />
-  <BackToTopBtn />
+  <div class="flex flex-col min-h-screen">
+    <CustomHeader />
+    <div class="flex-grow">
+      <RouterView />
+    </div>
+    <Footer />
+    <BackToTopBtn />
+  </div>
 </template>
 
 <script>
