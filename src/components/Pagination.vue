@@ -1,15 +1,15 @@
 <template>
-  <nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
+<nav aria-label="Page navigation">
+    <ul class="flex justify-center list-none">
       <li
-        class="page-item"
-        :class="{ disabled: !pagination?.has_pre }"
+        class=""
+        :class="{ 'opacity-50 cursor-not-allowed': !pagination?.has_pre }"
       >
         <a
-          class="page-link"
+          class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
           href="#"
           aria-label="Previous"
-          @click.prevent="sendRequest(pagination.current_page - 1)"
+          @click.prevent="!pagination?.has_pre ? null : sendRequest(pagination.current_page - 1)"
         >
           <span aria-hidden="true">&laquo;</span>
         </a>
@@ -19,25 +19,26 @@
         :key="page"
       >
         <li
-          class="page-item"
-          :class="{ active: pagination.current_page === page }"
+          class=""
+          :class="{ 'z-10': pagination.current_page === page }"
         >
           <a
-            class="page-link"
+            class="block px-3 py-2 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+            :class="pagination.current_page === page ? 'text-blue-600 bg-blue-50 border-blue-300 hover:bg-blue-100 hover:text-blue-700' : 'text-gray-500 bg-white'"
             href="#"
             @click.prevent="sendRequest(page)"
           >{{ page }}</a>
         </li>
       </template>
       <li
-        class="page-item"
-        :class="{ disabled: !pagination?.has_next }"
+        class=""
+        :class="{ 'opacity-50 cursor-not-allowed': !pagination?.has_next }"
       >
         <a
-          class="page-link"
+          class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
           href="#"
           aria-label="Next"
-          @click.prevent="sendRequest(pagination.current_page + 1)"
+          @click.prevent="!pagination?.has_next ? null : sendRequest(pagination.current_page + 1)"
         >
           <span aria-hidden="true">&raquo;</span>
         </a>
