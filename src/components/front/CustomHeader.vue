@@ -127,7 +127,9 @@ export default {
       }
     },
     toggleMenu() {
-      this.isShow = !this.isShow;
+      if (window.innerWidth < 768) {
+        this.isShow = !this.isShow;
+      }
     },
     toggleCart() {
       this.$refs.offcanvasCart.openCart();
