@@ -1,14 +1,15 @@
 <template>
   <a
     href="#"
-    class="btn-backToTop"
-    :class="{ show: isShow }"
+    class="fixed bottom-8 right-8 z-50 p-3 bg-secondary text-white rounded-full shadow-lg transition-opacity duration-300 hover:bg-primary hover:text-secondary focus:outline-none"
+    :class="isShow ? 'opacity-100 visible' : 'opacity-0 invisible'"
     @click.prevent="backToTop"
   >
-    <BIconArrowUp aria-hidden="true" />
-    <span class="visually-hidden">Back to top</span>
+    <BIconArrowUp width="24" height="24" />
+    <span class="sr-only">Back to top</span>
   </a>
 </template>
+
 <script>
 export default {
   data() {
@@ -18,18 +19,24 @@ export default {
   },
   methods: {
     backToTop() {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     },
-  },
-  mounted() {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY >= 300) {
+    handleScroll() {
+      if (window.scrollY > 300) {
         this.isShow = true;
       } else {
         this.isShow = false;
       }
-    });
+    },
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
 };
 </script>
